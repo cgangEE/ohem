@@ -33,8 +33,8 @@ namespace caffe {
         Dtype roi_end_h = bottom_rois[4] * spatial_scale;
 
         // Force malformed ROIs to be 1x1
-        Dtype roi_width = max(roi_end_w - roi_start_w + 1, Dtype(1));
-        Dtype roi_height = max(roi_end_h - roi_start_h + 1, Dtype(1));
+        Dtype roi_width = max(roi_end_w - roi_start_w, Dtype(1));
+        Dtype roi_height = max(roi_end_h - roi_start_h, Dtype(1));
         Dtype bin_size_h = roi_height / pooled_height;
         Dtype bin_size_w = roi_width / pooled_width;
 
@@ -84,20 +84,15 @@ namespace caffe {
               if (w1 == w2)
                 val = q11;
               else
-                val = (q11 * (w2 - w) +
-                    q12 * (w - w1)) 
-                  / (w2 - w1);
+                val = q11 * (w2 - w) + q12 * (w - w1); 
 
             } else if (w1 == w2) {
-              val = (q11 * (h2 - h) +
-                  q21 * (h - h1)) 
-                / (h2 - h1);
+              val = q11 * (h2 - h) + q21 * (h - h1);
             } else {
-              val = (q11 * (h2 - h) * (w2 - w) + 
-                  q12 * (h2 - h) * (w - w1) + 
-                  q21 * (h - h1) * (w2 - w) + 
-                  q22 * (h - h1) * (w - w1))
-                / ((h2 - h1) * (w2 - w1));
+              val = q11 * (h2 - h) * (w2 - w) + 
+                    q12 * (h2 - h) * (w - w1) + 
+                    q21 * (h - h1) * (w2 - w) + 
+                    q22 * (h - h1) * (w - w1);
             }
 
             if (val > maxval) {
@@ -165,8 +160,9 @@ namespace caffe {
           Dtype roi_end_h = offset_bottom_rois[4] * spatial_scale;
 
           // Skip if ROI doesn't include (h, w)
-          const bool in_roi = (w + 1 > roi_start_w && w - 1 < roi_end_w &&
-              h + 1 > roi_start_h && h - 1 < roi_end_h);
+          const bool in_roi = (roi_start_w - 1 < w && w < roi_end_w + 1 &&
+              roi_start_h - 1 < h && h < roi_end_h + 1);
+
           if (!in_roi) {
             continue;
           }
@@ -182,18 +178,12 @@ namespace caffe {
 
           // Force malformed ROIs to be 1x1
 
-          Dtype roi_width = max(roi_end_w - roi_start_w + 1, Dtype(1));
-          Dtype roi_height = max(roi_end_h - roi_start_h + 1, Dtype(1));
+          Dtype roi_width = max(roi_end_w - roi_start_w, Dtype(1));
+          Dtype roi_height = max(roi_end_h - roi_start_h, Dtype(1));
 
           Dtype bin_size_h = roi_height / pooled_height;
           Dtype bin_size_w = roi_width / pooled_width;
 
-          /*
-             int phstart = floor(static_cast<Dtype>(h - roi_start_h) / bin_size_h);
-             int phend = ceil(static_cast<Dtype>(h - roi_start_h + 1) / bin_size_h);
-             int pwstart = floor(static_cast<Dtype>(w - roi_start_w) / bin_size_w);
-             int pwend = ceil(static_cast<Dtype>(w - roi_start_w + 1) / bin_size_w);
-           */
 
           int phstart = ceil( (h - roi_start_h - 1) / bin_size_h - 1 );
           int phend = ceil( (h - roi_start_h + 1) / bin_size_h );
