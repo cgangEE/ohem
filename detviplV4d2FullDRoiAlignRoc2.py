@@ -311,7 +311,7 @@ if __name__ == '__main__':
     for i in range(9, 8, -1):
         print("Iteration", i)
         cacheFilename = \
-             'output/pvanet_full1_ohem_D/detviplV4d2_test/zf_faster_rcnn_iter_' + str(i) + '0000_inference/detections.pkl'
+             'output/pvanet_full1_ohem_DRoiAlign/detviplV4d2_test/zf_faster_rcnn_iter_' + str(i) + '0000/detections.pkl'
 
         if (os.path.exists(cacheFilename)):
             eval_result = []
@@ -326,7 +326,7 @@ if __name__ == '__main__':
             det_id = ['person']
             plot_curves(i, eval_result, det_id)
 
-            det_file = os.path.join('detviplV4d2-pvanet-ohem-D-' + str(i) +'.pkl')
+            det_file = os.path.join('detviplV4d2-pvanet-ohem-DRoiAlign-' + str(i) +'.pkl')
             with open(det_file, 'wb') as f:
                 cPickle.dump(eval_result, f, cPickle.HIGHEST_PROTOCOL)
 

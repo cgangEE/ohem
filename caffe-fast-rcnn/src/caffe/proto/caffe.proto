@@ -413,6 +413,19 @@ message LayerParameter {
   optional ROIPoolingParameter roi_pooling_param = 8266711;
   optional SmoothL1LossParameter smooth_l1_loss_param = 8266712;
   optional ProposalParameter proposal_param = 8266713;
+  optional ROIAlignParameter roi_align_param = 8266714;
+}
+
+
+// Message that stores parameters used by ROIAlignLayer
+message ROIAlignParameter {
+  // Pad, kernel size, and stride are all given as a single value for equal
+  // dimensions in height and width or as Y, X pairs.
+  optional uint32 pooled_h = 1 [default = 0]; // The pooled output height
+  optional uint32 pooled_w = 2 [default = 0]; // The pooled output width
+  // Multiplicative spatial scale factor to translate ROI coords from their
+  // input scale to the scale used when pooling
+  optional float spatial_scale = 3 [default = 1];
 }
 
 // Message that stores parameters used by ROIPoolingLayer
