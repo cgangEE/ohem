@@ -6414,7 +6414,7 @@ layer {
   top: "pool5_readonly"
   propagate_down: false
   propagate_down: false
-  roi_align_param {
+  roi_pooling_param {
     pooled_w: 6
     pooled_h: 6
     spatial_scale: 0.125 # 1/8
@@ -6580,7 +6580,7 @@ layer {
   top: "pool5"
   propagate_down: true
   propagate_down: false
-  roi_align_param {
+  roi_pooling_param {
     pooled_w: 6
     pooled_h: 6
     spatial_scale: 0.125 # 1/8

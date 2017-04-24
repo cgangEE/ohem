@@ -25,7 +25,7 @@ void ROIAlignLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
   puts("FT");
 
-  ROIAlignParameter roi_pool_param = this->layer_param_.roi_align_param();
+  ROIPoolingParameter roi_pool_param = this->layer_param_.roi_pooling_param();
   CHECK_GT(roi_pool_param.pooled_h(), 0)
       << "pooled_h must be > 0";
   CHECK_GT(roi_pool_param.pooled_w(), 0)
