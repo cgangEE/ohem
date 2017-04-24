@@ -6349,34 +6349,13 @@ layer {
   }
 }
 
-layer {
-  name: "upsample/convf"
-  type: "Deconvolution"
-  bottom: "convf"
-  top: "upsample/convf"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    kernel_size: 16
-    pad: 4
-    stride: 8
-    group: 512
-    bias_term: false
-    weight_filler: {
-      type: "bilinear"
-    }
-  }    
-}
 
 #######################cg_add############################
 
 layer {
   name: "roi_pool5"
-  type: "ROIPooling"
-  bottom: "upsample/convf"
+  type: "ROIAlign"
+  bottom: "convf"
   bottom: "rois"
   top: "pool5"
   propagate_down: true

@@ -23,7 +23,6 @@ namespace caffe {
 template <typename Dtype>
 void ROIAlignLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
-  puts("FT");
 
   ROIPoolingParameter roi_pool_param = this->layer_param_.roi_pooling_param();
   CHECK_GT(roi_pool_param.pooled_h(), 0)
