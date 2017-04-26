@@ -118,15 +118,20 @@ def eval_roc_pr(config, image_set, det_file, cls):
             num_gt = gt['num_bbox']
             iou_thresh = [default_iou_thresh] * num_gt
             gt_hit_mask = [False] * num_gt
+
+
             if num_gt > 0:
-                if eval_type:
-                    mask_pos = [x in eval_type for x in gt['bboxes'][:, 4]]
-                else:
-                    mask_pos = [True] * num_gt
-                num_pos = len(np.where(mask_pos & (gt['bboxes'][:, 2] - gt['bboxes'][:, 0] >= min_width) &
-                                       (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height))[0])
+                mask_pos = (gt['bboxes'][:, 2] - gt['bboxes'][:, 0] >= min_width) & \
+                                       (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height)
+
+                num_pos = len(np.where(mask_pos)[0])
             else:
                 num_pos = 0
+
+
+
+            det = det[( (det[:,2] - det[:,0] >= min_width) 
+                        & (det[:,3] - det[:,1] >= min_height) )]
 
 
             pos_count += num_pos
@@ -308,7 +313,7 @@ if __name__ == '__main__':
     fppiList = []
     recallList = []
 
-    for i in range(9, 8, -1):
+    for i in range(10, 0, -1):
         print("Iteration", i)
         cacheFilename = \
              'output/pvanet_full1_ohem_DRoiAlign/detviplV4d2_test/zf_faster_rcnn_iter_' + str(i) + '0000/detections.pkl'

@@ -118,18 +118,16 @@ def eval_roc_pr(config, image_set, det_file, cls):
             num_gt = gt['num_bbox']
             iou_thresh = [default_iou_thresh] * num_gt
             gt_hit_mask = [False] * num_gt
-
             if num_gt > 0:
-                mask_pos = (gt['bboxes'][:, 2] - gt['bboxes'][:, 0] >= min_width) & \
-                                       (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height)
-
-                num_pos = len(np.where(mask_pos)[0])
+                if eval_type:
+                    mask_pos = [x in eval_type for x in gt['bboxes'][:, 4]]
+                else:
+                    mask_pos = [True] * num_gt
+                num_pos = len(np.where(mask_pos & (gt['bboxes'][:, 2] - gt['bboxes'][:, 0] >= min_width) &
+                                       (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height))[0])
             else:
                 num_pos = 0
 
-
-            det = det[( (det[:,2] - det[:,0] >= min_width + 5) 
-                        & (det[:,3] - det[:,1] >= min_height + 5) )]
 
             pos_count += num_pos
             bbox_count += num_gt
@@ -204,7 +202,6 @@ def eval_roc_pr(config, image_set, det_file, cls):
     precision = det_tp / (det_tp + det_fp)
     fppi = det_fp / im_count
 
-    '''
     print('fppi = 0.1')
     myIdx = np.sum(fppi<=0.1)
     print('myIdx', myIdx)
@@ -218,7 +215,6 @@ def eval_roc_pr(config, image_set, det_file, cls):
     print('fppi[myIdx]', fppi[myIdx])
     print('det_conf[myIdx]', det_conf[myIdx])
     print('')
-    '''
 
 
 
@@ -273,7 +269,7 @@ def plot_curves(i, eval_result, curve_id):
     plot_roc(eval_result, curve_id)
 #    plot_pr(eval_result, curve_id)
 #    plt.show()
-    plt.savefig('detviplV4d2' + str(i))
+    plt.savefig('detviplV4d2X' + str(i))
     pass
 
 def plotRecallByIterations(fppiList, recallList):
@@ -303,8 +299,8 @@ def plotRecallByIterations(fppiList, recallList):
 if __name__ == '__main__':
     config = EvalConfig()
     config.iou_thresh = 0.5
-    config.min_width = 50
-    config.min_height = 50
+    config.min_width = 0
+    config.min_height = 0
     config.eval_type = [0, 1, 2, 3, 4, 5]
     config.transform_gt = True
     config.transform_det = False
@@ -312,16 +308,16 @@ if __name__ == '__main__':
     fppiList = []
     recallList = []
 
-    for i in range(6, 0, -1):
+    for i in range(9, 0, -1):
         print("Iteration", i)
         cacheFilename = \
-             'output/pvanet_full1_ohem_D/detviplV4d2_test/zf_faster_rcnn_iter_' + str(i) + '0000/detections.pkl'
+             'output/pvanet_full1_ohem_D_1500x2000/detviplV4d2XX_test/zf_faster_rcnn_iter_' + str(i) + '0000_inference/detections.pkl'
 
         if (os.path.exists(cacheFilename)):
             eval_result = []
             for cls in range(1, 2):
                 result, fppi_pts, recall_pts = eval_roc_pr(config, 
-                    'detviplV4d2_2016_test', cacheFilename, cls)
+                    'detviplV4d2XX_2016_test', cacheFilename, cls)
                 eval_result.append(result)
 
                 fppiList.append(fppi_pts)
@@ -330,10 +326,9 @@ if __name__ == '__main__':
             det_id = ['person']
             plot_curves(i, eval_result, det_id)
 
-            det_file = os.path.join('detviplV4d2-pvanet-ohem-D-' + str(i) +'.pkl')
+            det_file = os.path.join('detviplV4d2XX-pvanet-ohem-D-1500x2000-' + str(i) +'.pkl')
             with open(det_file, 'wb') as f:
                 cPickle.dump(eval_result, f, cPickle.HIGHEST_PROTOCOL)
-        break            
 
 #    plotRecallByIterations(fppiList, recallList)
 
