@@ -141,6 +141,9 @@ class psdb(imdb):
                 seg_areas[ix] = (x2 - x1 + 1) * (y2 - y1 + 1)
                 ix += 1
 
+                self._count[cls] += 1
+
+
         overlaps = scipy.sparse.csr_matrix(overlaps)
 
         return {'boxes' : boxes,
@@ -160,12 +163,15 @@ class psdb(imdb):
             return roidb
         '''
         
+        self._count =  [0] * 10
 
         indexToAnnotation = {}
         self._indexToAnnotation = self.getIndexToAnnotation()
 
         gt_roidb = [self._get_annotation(index)
                     for index in self.image_index]
+
+        print(self._count)
 
         return gt_roidb
 
