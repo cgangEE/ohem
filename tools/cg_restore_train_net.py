@@ -10,7 +10,7 @@
 """Train a Fast R-CNN network on a region of interest database."""
 
 import _init_paths
-from fast_rcnn.train import get_training_roidb, train_net
+from fast_rcnn.cg_restore_train import get_training_roidb, train_net
 from fast_rcnn.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from datasets.factory import get_imdb
 import datasets.imdb
@@ -109,5 +109,6 @@ if __name__ == '__main__':
     print 'Output will be saved to `{:s}`'.format(output_dir)
 
     train_net(args.solver, roidb, output_dir,
-              pretrained_model=args.pretrained_model,
+              solverstate=args.pretrained_model,
               max_iters=args.max_iters)
+
