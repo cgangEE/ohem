@@ -119,12 +119,8 @@ def eval_roc_pr(config, image_set, det_file, cls):
             iou_thresh = [default_iou_thresh] * num_gt
             gt_hit_mask = [False] * num_gt
             if num_gt > 0:
-                if eval_type:
-                    mask_pos = [x in eval_type for x in gt['bboxes'][:, 4]]
-                else:
-                    mask_pos = [True] * num_gt
-                num_pos = len(np.where(mask_pos & (gt['bboxes'][:, 2] - gt['bboxes'][:, 0] >= min_width) &
-                                       (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height))[0])
+                mask_pos = (gt['bboxes'][:, 2] - gt['bboxes'][:, 0]>=min_width) & \
+                    (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height)
             else:
                 num_pos = 0
 
