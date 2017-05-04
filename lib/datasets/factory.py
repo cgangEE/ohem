@@ -27,7 +27,15 @@ from datasets.detviplV4d2 import detviplV4d2
 from datasets.detviplV4d2X import detviplV4d2X
 from datasets.detviplV4d2XX import detviplV4d2XX
 
+from datasets.ua import ua 
+
 import numpy as np
+
+# Set up ua_<year>_<split> using selective search "fast" mode
+for year in ['2016']:
+    for split in ['train', 'test']:
+        name = 'ua_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: ua(split, year))
 
 # Set up detviplV4d2XX_<year>_<split> using selective search "fast" mode
 for year in ['2016']:

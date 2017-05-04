@@ -9,13 +9,13 @@ import scipy.io as sio
 import cPickle
 import uuid
 
-class detviplV4d2(imdb):
+class ua(imdb):
     def __init__(self, image_set, year):
-        imdb.__init__(self, 'detviplV4d2_' + image_set)
+        imdb.__init__(self, 'ua_' + image_set)
         self._image_set = image_set
-        self._data_path = os.path.join(cfg.DATA_DIR, 'detviplV4d2')
+        self._data_path = os.path.join(cfg.DATA_DIR, 'ua')
 
-        self._classes = ('background', 'pedestrian') #, 'car', '1', '2')
+        self._classes = ('background', 'car') #, 'car', '1', '2')
 
         self._class_to_ind = dict(zip(self.classes, xrange(self.num_classes)))
 
@@ -43,9 +43,6 @@ class detviplV4d2(imdb):
 
 
     def image_path_from_index(self, index):
-        index = index.strip().split('/')
-        index = index[7] + ''.join('/' + name for name in index[8:])
-
         image_path = os.path.join(self._data_path, index)
         assert os.path.exists(image_path), \
                 'Path does not exist: {}'.format(image_path)
@@ -61,8 +58,8 @@ class detviplV4d2(imdb):
 
 
     def _get_annotation(self, index):
-        index = index.strip().split('/') 
-        index = index[8] + "".join('/' + x for x in index[9:])
+        index = index.strip().split('/')[1:]
+        index = '/'.join(index)
 
         filename = os.path.join(self._data_path, 'annotations',  \
                     index[:-4] + '.txt')
@@ -78,14 +75,13 @@ class detviplV4d2(imdb):
             bStr = line.strip()[:-2].strip().split()
             cStr = line.strip()[-2:].strip()
 
-            if int(cStr) == 1:
+            if int(cStr) == 2:
                 box = map(float, bStr)
                 for i, x in enumerate(box):
                     box[i] = max(0, x)
 
                 b.append(box)
-                c.append(int(cStr))
-
+                c.append(int(cStr) - 1)
             self._count[int(cStr)] += 1
 
         num_objs = len(b)
@@ -144,20 +140,24 @@ class detviplV4d2(imdb):
         self._w[self._w <= 0] = 1
 
         self._ratio = self._h / self._w
-        self._ratio[ self._ratio > 10 ] = 10
 
-        self._scale = np.sqrt(self._w * self._h) / 2
+        self._scale = np.sqrt(self._w * self._h)
+
+        self._ratio[ self._ratio > 2 ] = 0
+        self._scale[ self._scale > 350 ] = 0
 
         f, (ax1, ax2) = plt.subplots(2)
 
         ax1.hist(list(self._scale), 50, facecolor='green')
-        ax1.set_xlabel('scale for 640x1000', fontsize=16)
+        ax1.set_xlabel('scale', fontsize=16)
         ax1.set_ylabel('#boxes', fontsize=16)
+#        ax1.set_xlim([0, 350])
 
 
-        ax2.hist(list(self._ratio), 50, facecolor='green' )
+        ax2.hist(list(self._ratio), 50, facecolor='green')
         ax2.set_xlabel('ratio', fontsize=16)
         ax2.set_ylabel('#boxes', fontsize=16)
+#        ax2.set_xlim([0, 3])
 
         f.subplots_adjust(hspace=0.4)
 
@@ -203,7 +203,7 @@ class detviplV4d2(imdb):
             self.config['cleanup'] = True
 
 if __name__ == '__main__':
-    my = detviplV4d2('train', '2016');
+    my = ua('train', '2016');
     '''
     for i in range(10):
         print(my.image_path_at(i))
