@@ -8,13 +8,14 @@ import scipy.io as sio
 import cPickle
 import uuid
 
-class psdb(imdb):
+class psdbHead(imdb):
     def __init__(self, image_set, year):
-        imdb.__init__(self, 'psdb_' + image_set)
+        imdb.__init__(self, 'psdbHead_' + image_set)
         self._image_set = image_set
         self._data_path = os.path.join(cfg.DATA_DIR, 'psdb')
 
-        self._classes = ('background', 'pedestrian', 'head', 'head-shoulder', 'upperbody')
+        self._classes = ('background', 'pedestrian')
+
         self._class_to_ind = dict(zip(self.classes, xrange(self.num_classes)))
 
         self._image_index = self._load_image_set_index()
@@ -109,7 +110,13 @@ class psdb(imdb):
             for i in range(num):
                 personStr = f.next()
                 person = self.getPerson(personStr)
-                persons.append(person)
+
+                if len(person) >= 2 and person[0][-1] == 1 \
+                        and person[1][-1] == 2:
+                    person = person[:2]
+
+                    persons.append(person)
+
             ret[line] = persons
 
         return ret
@@ -117,11 +124,9 @@ class psdb(imdb):
     def _get_annotation(self, index):
         persons = self._indexToAnnotation[index]
 
-        num_objs = 0
-        for i, person in enumerate(persons):
-            for j, part in enumerate(person):
-                num_objs += 1
+        num_objs = len(persons)
 
+        head = np.zeros((num_objs, 4), dtype=np.uint16)
         boxes = np.zeros((num_objs, 4), dtype=np.uint16)
         gt_classes = np.zeros((num_objs), dtype=np.int32)
         overlaps = np.zeros((num_objs, self.num_classes), dtype=np.float32)
@@ -131,17 +136,23 @@ class psdb(imdb):
 
         # Load object bounding boxes into a data frame.
         for i, person in enumerate(persons):
-            for j, part in enumerate(person):
-                x1, y1, w, h, cls = part
+            numParts = len(person)
+            for j in xrange(numParts):
+                x1, y1, w, h, cls = person[j]
                 x2 = x1 + w
                 y2 = y1 + h
-                boxes[ix, :] = [x1, y1, x2, y2]
-                gt_classes[ix] = cls
-                overlaps[ix, cls] = 1.0
-                seg_areas[ix] = (x2 - x1 + 1) * (y2 - y1 + 1)
-                ix += 1
+                if j == 0:
+                    boxes[ix, :] = [x1, y1, x2, y2]
+                    gt_classes[ix] = cls
+                    overlaps[ix, cls] = 1.0
+                    seg_areas[ix] = (x2 - x1 + 1) * (y2 - y1 + 1)
+                    self._count[cls] += 1
 
-                self._count[cls] += 1
+                elif j == 1:
+                    head[ix, :] = [x1, y1, x2, y2]
+
+            ix += 1
+
 
 
         overlaps = scipy.sparse.csr_matrix(overlaps)
@@ -150,6 +161,7 @@ class psdb(imdb):
                 'gt_classes': gt_classes,
                 'gt_overlaps' : overlaps,
                 'flipped' : False,
+                'head': head,
                 'seg_areas' : seg_areas}
 
 
@@ -213,5 +225,5 @@ class psdb(imdb):
             self.config['cleanup'] = True
 
 if __name__ == '__main__':
-    my_cox_reid = psdb('train', '2015');
+    my_cox_reid = psdbHead('train', '2015');
     my_cox_reid.gt_roidb()

@@ -13,6 +13,7 @@ from datasets.pascal_voc import pascal_voc
 from datasets.coco import coco
 from datasets.cox_reid import cox_reid
 from datasets.psdb import psdb
+from datasets.psdbHead import psdbHead
 from datasets.psdb3 import psdb3
 from datasets.psdbVeh import psdbVeh
 from datasets.flickr import flickr
@@ -115,6 +116,12 @@ for year in ['2015']:
     for split in ['train', 'val', 'trainval', 'test']:
         name = 'psdbVeh_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: psdbVeh(split, year))
+
+# Set up psdbHead_<year>_<split> using selective search "fast" mode
+for year in ['2015']:
+    for split in ['train', 'val', 'trainval', 'test']:
+        name = 'psdbHead_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: psdbHead(split, year))
 
 # Set up psdb_<year>_<split> using selective search "fast" mode
 for year in ['2015']:

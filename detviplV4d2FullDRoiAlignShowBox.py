@@ -44,7 +44,7 @@ def showImage(im, boxes):
 
 
 
-def tattooShowBox(image_set):
+def showBox(image_set):
     cache_file =  \
         'output/pvanet_full1_ohem_DRoiAlign/detviplV4d2_test/zf_faster_rcnn_iter_100000/detections.pkl'
 
@@ -63,7 +63,7 @@ def tattooShowBox(image_set):
 
     for i in xrange(num_images):
 #        if random.randint(1, 100) < 2:
-        if i % 40 == 0:
+        if i % 10 == 0:
             im_name = imdb.image_path_at(i)
             im = cv2.imread(im_name)
             print(i)
@@ -75,5 +75,5 @@ def tattooShowBox(image_set):
 
 
 if __name__ == '__main__':
-    tattooShowBox('detviplV4d2_2016_test')
+    showBox('detviplV4d2_2016_test')
     

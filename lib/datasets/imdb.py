@@ -104,29 +104,42 @@ class imdb(object):
         widths = self._get_widths()
         for i in xrange(num_images):
             boxes = self.roidb[i]['boxes'].copy()
+
             oldx1 = boxes[:, 0].copy()
             oldx2 = boxes[:, 2].copy()
 
             oldx1[oldx1>=widths[i]] = widths[i] - 1
             oldx2[oldx2>=widths[i]] = widths[i] - 1
 
-            '''
-            print('oldx1', oldx1)
-            print('oldx2', oldx2)
-            print('width', widths[i])
-            print('boxes[:,2]', boxes[:, 2])
-            print('boxes[:,0]', boxes[:, 0])
-            '''
-
             boxes[:, 0] = widths[i] - oldx2 - 1
             boxes[:, 2] = widths[i] - oldx1 - 1
 
-            assert (boxes[:, 2] >= boxes[:, 0]).all()
             entry = {'boxes' : boxes,
                      'gt_overlaps' : self.roidb[i]['gt_overlaps'],
                      'gt_classes' : self.roidb[i]['gt_classes'],
                      'flipped' : True}
+
+
+            if 'head' in self.roidb[i]:
+                head = self.roidb[i]['head'].copy()
+
+                oldx1 = head[:, 0].copy()
+                oldx2 = head[:, 2].copy()
+
+                oldx1[oldx1>=widths[i]] = widths[i] - 1
+                oldx2[oldx2>=widths[i]] = widths[i] - 1
+
+                head[:, 0] = widths[i] - oldx2 - 1
+                head[:, 2] = widths[i] - oldx1 - 1
+                assert (head[:, 2] >= head[:, 0]).all()
+
+                entry['head'] = head
+                
+
+            assert (boxes[:, 2] >= boxes[:, 0]).all()
+
             self.roidb.append(entry)
+
         self._image_index = self._image_index * 2
 
     def evaluate_recall(self, candidate_boxes=None, thresholds=None,
@@ -220,6 +233,8 @@ class imdb(object):
                 'gt_overlaps': gt_overlaps}
 
     def create_roidb_from_box_list(self, box_list, gt_roidb):
+        print('imdb create_roidb_from_box_list')
+        exit(0)
         assert len(box_list) == self.num_images, \
                 'Number of boxes must match number of ground-truth images'
         roidb = []
@@ -250,6 +265,8 @@ class imdb(object):
 
     @staticmethod
     def merge_roidbs(a, b):
+        print('imdb merge_roidbs')
+        exit(0)
         assert len(a) == len(b)
         for i in xrange(len(a)):
             a[i]['boxes'] = np.vstack((a[i]['boxes'], b[i]['boxes']))
