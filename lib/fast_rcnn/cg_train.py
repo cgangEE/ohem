@@ -60,6 +60,8 @@ class SolverWrapper(object):
         """
 
         net = self.solver.net
+
+        '''
         blobnames = ['rpn_cls_score', 'rpn_cls_score_reshape', 'rpn_cls_prob', \
             'rpn_cls_prob_reshape', \
             'rpn_bbox_pred', \
@@ -69,26 +71,31 @@ class SolverWrapper(object):
 
         for name in blobnames:
             print(name, net.blobs[name].data.shape)
+        '''
 
 
-
-        cg_bbox_pred = [k for k in net.params.keys() if 'cg_bbox_pred' in k][0]
+        pred = [k for k in net.params.keys() if 'pred_' in k]
         scale_bbox_params = (cfg.TRAIN.BBOX_REG and
                              cfg.TRAIN.BBOX_NORMALIZE_TARGETS and
-                             net.params.has_key(cg_bbox_pred))
+                             len(pred) > 0)
+
+        orig_0 = {}
+        orig_1 = {}
 
         if scale_bbox_params:
             # save original values
-            orig_0 = net.params[cg_bbox_pred][0].data.copy()
-            orig_1 = net.params[cg_bbox_pred][1].data.copy()
 
-            # scale and shift with bbox reg unnormalization; then save snapshot
-            net.params[cg_bbox_pred][0].data[...] = \
-                    (net.params[cg_bbox_pred][0].data *
-                     self.bbox_stds[:, np.newaxis])
-            net.params[cg_bbox_pred][1].data[...] = \
-                    (net.params[cg_bbox_pred][1].data *
-                     self.bbox_stds + self.bbox_means)
+            for layer in pred:
+                orig_0[layer] = net.params[layer][0].data.copy()
+                orig_1[layer] = net.params[layer][1].data.copy()
+
+                # scale and shift with bbox reg unnormalization; then save snapshot
+                net.params[layer][0].data[...] = \
+                        (net.params[layer][0].data *
+                         self.bbox_stds[:, np.newaxis])
+                net.params[layer][1].data[...] = \
+                        (net.params[layer][1].data *
+                         self.bbox_stds + self.bbox_means)
 
         infix = ('_' + cfg.TRAIN.SNAPSHOT_INFIX
                  if cfg.TRAIN.SNAPSHOT_INFIX != '' else '')
@@ -101,8 +108,9 @@ class SolverWrapper(object):
 
         if scale_bbox_params:
             # restore net to original state
-            net.params[cg_bbox_pred][0].data[...] = orig_0
-            net.params[cg_bbox_pred][1].data[...] = orig_1
+            for layer in pred:
+                net.params[layer][0].data[...] = orig_0[layer]
+                net.params[layer][1].data[...] = orig_1[layer]
 
 
         self.solver.snapshot()

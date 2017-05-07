@@ -1,4 +1,4 @@
-EXP_DIR: pvanet_full1_ohem_DRoiAlignX_Head
+EXP_DIR: pvanet_full1_DRoiAlignX_Head
 TRAIN:
 
   # BG_THRESH_LO: 0.0
@@ -6,9 +6,9 @@ TRAIN:
   # see solver.prototxt (iter_size: 2)
   # IMS_PER_BATCH: 1
   # adjust batch_size for iter_size
-  BATCH_SIZE: 12000
-  BATCH_OHEM_SIZE: 128
-  USE_OHEM: True
+  BATCH_SIZE: 128
+  #BATCH_OHEM_SIZE: 128
+  USE_OHEM: False
   # Wasn't used in the paper (impact unknown).
   ASPECT_GROUPING: False
 
