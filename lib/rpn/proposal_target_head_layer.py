@@ -62,14 +62,7 @@ class ProposalTargetLayer(caffe.Layer):
 
 
         #---------------_cg_ added head------------------
-        all_rois_head = bottom[0].data    # need to transform to head position
         gt_head = bottom[2].data
-        zeros = np.zeros((gt_head.shape[0], 1), dtype=gt_head.dtype)
-        all_rois_head = np.vstack(
-            (all_rois_head, np.hstack((zeros, gt_head[:, :])))
-        )
-        assert np.all(all_rois_head[:, 0] == 0), \
-                'Only single item batches are supported'
         #---------------end _cg_ added head------------------
 
 
@@ -87,7 +80,7 @@ class ProposalTargetLayer(caffe.Layer):
         labels, rois, bbox_targets, head_targets, bbox_inside_weights = \
              _sample_rois_head(
                 all_rois, gt_boxes,
-                all_rois_head, gt_head,
+                gt_head,
                 fg_rois_per_image, rois_per_image, self._num_classes)
         #--------------end _cg_ modified head------------------
 
@@ -195,7 +188,7 @@ def _compute_targets(ex_rois, gt_rois, labels):
 
 
 
-def _sample_rois_head(all_rois, gt_boxes, all_rois_head, gt_head,
+def _sample_rois_head(all_rois, gt_boxes, gt_head,
         fg_rois_per_image, rois_per_image, num_classes):
 
     """Generate a random sample of RoIs comprising foreground and background
@@ -244,14 +237,12 @@ def _sample_rois_head(all_rois, gt_boxes, all_rois_head, gt_head,
 
     bbox_target_data = _compute_targets(
         rois[:, 1:5], gt_boxes[gt_assignment[keep_inds], :4], labels)
-
     bbox_targets, bbox_inside_weights = \
         _get_bbox_regression_labels(bbox_target_data, num_classes)
 
     #---------------_cg_ added head------------------
-    rois_head = all_rois_head[keep_inds]
     head_target_data = _compute_targets(
-        rois_head[:, 1:5], gt_head[gt_assignment[keep_inds], :4], labels)
+        rois[:, 1:5], gt_head[gt_assignment[keep_inds], :4], labels)
     head_targets, bbox_inside_weights = \
         _get_bbox_regression_labels(head_target_data, num_classes)
         

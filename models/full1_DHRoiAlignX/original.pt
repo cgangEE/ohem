@@ -6108,29 +6108,6 @@ layer {
 
 ### hyper feature ###
 
-
-layer {
-  name: "upsample/conv4_4"
-  type: "Deconvolution"
-  bottom: "conv4_4"
-  top: "upsample/conv4_4"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 256
-    kernel_size: 4
-    pad: 1
-    stride: 2
-    group: 256
-    bias_term: false
-    weight_filler: {
-      type: "bilinear"
-    }
-  }    
-}
-
 layer {
   name: "upsample/conv5_4"
   type: "Deconvolution"
@@ -6142,9 +6119,9 @@ layer {
   }
   convolution_param {
     num_output: 384
-    kernel_size: 8
-    pad: 2
-    stride: 4
+    kernel_size: 4
+    pad: 1
+    stride: 2
     group: 384
     bias_term: false
     weight_filler: {
@@ -6154,16 +6131,83 @@ layer {
 }
 
 layer {
+  name: "concat45"
+  bottom: "conv4_4"
+  bottom: "upsample/conv5_4"
+  top: "concat45"
+  type: "Concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+layer {
+  name: "conv_concat45"
+  type: "Convolution"
+  bottom: "concat45"
+  top: "conv_concat45"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 640
+    kernel_size: 1
+    pad: 0
+    stride: 1
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.1
+    }
+  }
+}
+
+
+layer {
+  name: "upsample/conv_concat45"
+  type: "Deconvolution"
+  bottom: "conv_concat45"
+  top: "upsample/conv_concat45"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 640
+    kernel_size: 4
+    pad: 1
+    stride: 2
+    group: 640
+    bias_term: false
+    weight_filler: {
+      type: "bilinear"
+    }
+  }    
+}
+
+
+
+layer {
   name: "concat"
   bottom: "conv3_4"
-  bottom: "upsample/conv4_4"
-  bottom: "upsample/conv5_4"
+  bottom: "upsample/conv_concat45"
   top: "concat"
   type: "Concat"
   concat_param {
     axis: 1
   }
 }
+
+
+### end hyper feature ###
+
 layer {
   name: "convf_rpn"
   type: "Convolution"
@@ -6682,7 +6726,7 @@ layer {
   }
 }
 layer {
-  name: "sjtuOhem_cg_bbox_pred"
+  name: "bbox_pred_1"
   type: "InnerProduct"
   bottom: "fc7"
   top: "bbox_pred"
