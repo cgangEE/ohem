@@ -28,19 +28,21 @@ def fishSubmit(image_set):
 
     for i in range(num_images):
 
-        prob = np.zeros(8) + 0.03
+        prob = np.zeros(8)# + 0.03
         
         for j in range(1, 8):
             box = boxes[j, i] 
             for b in box:
                 prob[j] = max(prob[j], b[-1])
         
+        '''
         if np.sum(prob) <= 0.24:
             prob[0] = 1.0
 
         totProb = np.sum(prob)
         prob /= totProb
 
+        '''
 
         imageName = imdb.image_path_at(i)
         imageName = imageName[imageName.find('img') : ]
