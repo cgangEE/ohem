@@ -120,6 +120,13 @@ class detviplV4d2(imdb):
                 'flipped' : False,
                 'seg_areas' : seg_areas}
 
+    def _plot(self, data, name):
+        fig, ax = plt.subplots(figsize=(12, 12))
+        ax.hist(list(data), 50, facecolor='green')
+        ax.set_xlabel(name, fontsize=20)
+        ax.set_ylabel('#boxes', fontsize=20)
+        plt.savefig(name, bbox_inches='tight', pad_inches=0)
+        
 
     def gt_roidb(self):
         '''
@@ -141,27 +148,23 @@ class detviplV4d2(imdb):
 
         self._w = np.array(self._w, dtype=np.float64) 
         self._h = np.array(self._h, dtype=np.float64)
+
         self._w[self._w <= 0] = 1
+        self._w[self._w > 450] = 450
 
         self._ratio = self._h / self._w
         self._ratio[ self._ratio > 10 ] = 10
 
-        self._scale = np.sqrt(self._w * self._h) / 2
-
-        f, (ax1, ax2) = plt.subplots(2)
-
-        ax1.hist(list(self._scale), 50, facecolor='green')
-        ax1.set_xlabel('scale for 640x1000', fontsize=16)
-        ax1.set_ylabel('#boxes', fontsize=16)
+        self._scale = np.sqrt(self._w * self._h)
 
 
-        ax2.hist(list(self._ratio), 50, facecolor='green' )
-        ax2.set_xlabel('ratio', fontsize=16)
-        ax2.set_ylabel('#boxes', fontsize=16)
+        self._plot(self._w, 'width')
+        self._plot(self._h, 'height')
+        self._plot(self._scale, 'scale')
+        self._plot(self._ratio, 'ratio')
 
-        f.subplots_adjust(hspace=0.4)
 
-        plt.savefig('scale-ratio')
+
 
         print(self._count)
         return gt_roidb

@@ -10,11 +10,11 @@ import cPickle
 import uuid
 import PIL
 
-class ua(imdb):
+class riding(imdb):
     def __init__(self, image_set, year):
-        imdb.__init__(self, 'ua_' + image_set)
+        imdb.__init__(self, 'riding_' + image_set)
         self._image_set = image_set
-        self._data_path = os.path.join(cfg.DATA_DIR, 'ua')
+        self._data_path = os.path.join(cfg.DATA_DIR, 'riding')
 
         self._classes = ('background', 'car') #, 'car', '1', '2')
 
@@ -76,13 +76,13 @@ class ua(imdb):
             bStr = line.strip()[:-2].strip().split()
             cStr = line.strip()[-2:].strip()
 
-            if int(cStr) == 2:
+            if int(cStr) == 4:
                 box = map(float, bStr)
                 for i, x in enumerate(box):
                     box[i] = max(0, x)
 
                 b.append(box)
-                c.append(int(cStr) - 1)
+                c.append(int(cStr) - 3)
             self._count[int(cStr)] += 1
 
         num_objs = len(b)
@@ -147,15 +147,15 @@ class ua(imdb):
 
         self._w = np.array(self._w, dtype=np.float64) 
         self._h = np.array(self._h, dtype=np.float64)
-        self._w[self._w >= 500] = 500
-        self._w[self._h >= 400] = 400
-
+        self._scale = np.sqrt(self._w * self._h)
         self._ratio = self._h / self._w
 
-        self._scale = np.sqrt(self._w * self._h)
+        self._w[self._w >= 800] = 0
+        self._h[self._h >= 800] = 0
 
-        self._ratio[ self._ratio > 3 ] = 3
-        self._scale[ self._scale > 400 ] = 400
+
+        self._ratio[ self._ratio > 5 ] = 5
+        self._scale[ self._scale > 800 ] = 0
 
         self._plot(self._h, 'height')
         self._plot(self._w, 'width')
@@ -206,7 +206,7 @@ class ua(imdb):
             self.config['cleanup'] = True
 
 if __name__ == '__main__':
-    my = ua('train', '2016');
+    my = riding('train', '2016');
     '''
     for i in range(10):
         print(my.image_path_at(i))

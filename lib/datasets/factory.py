@@ -29,8 +29,16 @@ from datasets.detviplV4d2X import detviplV4d2X
 from datasets.detviplV4d2XX import detviplV4d2XX
 
 from datasets.ua import ua 
+from datasets.riding import riding
 
 import numpy as np
+
+
+# Set up riding_<year>_<split> using selective search "fast" mode
+for year in ['2016']:
+    for split in ['train', 'test']:
+        name = 'riding_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: riding(split, year))
 
 # Set up ua_<year>_<split> using selective search "fast" mode
 for year in ['2016']:

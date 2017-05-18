@@ -63,5 +63,5 @@ def tattooShowBox(image_set):
 
 
 if __name__ == '__main__':
-    tattooShowBox('ua_2016_train')
+    tattooShowBox('riding_2016_train')
     
