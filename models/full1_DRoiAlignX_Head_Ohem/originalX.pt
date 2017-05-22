@@ -6832,8 +6832,8 @@ layer {
   type: "SmoothL1Loss"
   bottom: "head_pred"
   bottom: "head_targets_hard"
-  bottom: "bbox_inside_weights"
-  bottom: "bbox_outside_weights"
+  bottom: "bbox_inside_weights_hard"
+  bottom: "bbox_outside_weights_hard"
   top: "loss_head"
   loss_weight: 1.0
   propagate_down: true
