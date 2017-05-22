@@ -248,8 +248,6 @@ class OHEMDataLayer(caffe.Layer):
             head_pred = bottom[7].data
             head_target = bottom[8].data
 
-            print('bbox_target.shape', bbox_target.shape)
-            print('head_target.shape', head_target.shape)
             #----------end _cg_ added Head ------------            
 
 

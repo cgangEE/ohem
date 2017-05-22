@@ -156,7 +156,6 @@ def get_ohem_minibatch(loss, rois, labels, bbox_targets=None, head_targets=None,
         #--------------- _cg_ added Head------------------
 
         blobs['head_targets_hard'] = head_targets[hard_inds, :].copy()
-        print("blobs['head_targets_hard'].shape ", blobs['head_targets_hard'].shape)
 
         #--------------- end _cg_ added Head------------------
 
