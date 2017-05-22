@@ -171,7 +171,15 @@ class OHEMDataLayer(caffe.Layer):
 
         if cfg.TRAIN.BBOX_REG:
             self._name_to_bottom_map['bbox_targets'] = 4
-            self._name_to_bottom_map['bbox_loss_weights'] = 5
+            self._name_to_bottom_map['bbox_inside_weights'] = 5
+            self._name_to_bottom_map['bbox_outside_weights'] = 6
+
+            #---------- _cg_ added Head ------------            
+
+            self._name_to_bottom_map['head_pred_readonly'] = 7
+            self._name_to_bottom_map['head_tagets'] = 8
+
+            #----------end _cg_ added Head ------------            
 
         self._name_to_top_map = {}
 
@@ -210,6 +218,16 @@ class OHEMDataLayer(caffe.Layer):
             self._name_to_top_map['bbox_outside_weights_hard'] = idx
             idx += 1
 
+
+            #---------- _cg_ added Head ------------            
+            
+            top[idx].reshape(ohem_size, self._num_classes * 4)
+            self._name_to_top_map['head_targets_hard'] = idx
+            idx += 1
+
+            #---------- end _cg_ added Head ------------            
+
+
         print 'OHEMDataLayer: name_to_top:', self._name_to_top_map
         assert len(top) == len(self._name_to_top_map)
 
@@ -219,17 +237,21 @@ class OHEMDataLayer(caffe.Layer):
         cls_prob = bottom[0].data
         bbox_pred = bottom[1].data
         rois = bottom[2].data
-
-
         labels = bottom[3].data
+
         if cfg.TRAIN.BBOX_REG:
             bbox_target = bottom[4].data
             bbox_inside_weights = bottom[5].data
             bbox_outside_weights = bottom[6].data
-        else:
-            bbox_target = None
-            bbox_inside_weights = None
-            bbox_outside_weights = None
+            
+            #---------- _cg_ added Head ------------            
+            head_pred = bottom[7].data
+            head_target = bottom[8].data
+
+            print('bbox_target.shape', bbox_target.shape)
+            print('head_target.shape', head_target.shape)
+            #----------end _cg_ added Head ------------            
+
 
         flt_min = np.finfo(float).eps
         # classification loss
@@ -254,8 +276,22 @@ class OHEMDataLayer(caffe.Layer):
                     for x in bbox_inside_weights[i,indices] * (bbox_pred[i,indices] - bbox_target[i,indices])])
             loss += bbox_loss
 
-        blobs = get_ohem_minibatch(loss, rois, labels, bbox_target, \
+
+            #---------- _cg_ added Head ------------            
+            head_loss = np.zeros(labels.shape[0])
+            for i in np.where(labels > 0 )[0]:
+                indices = np.where(bbox_inside_weights[i,:] != 0)[0]
+                head_loss[i] = sum(bbox_outside_weights[i,indices] * [smoothL1(x) \
+                    for x in bbox_inside_weights[i,indices] * (head_pred[i,indices] - head_target[i,indices])])
+            loss += head_loss
+            #----------end _cg_ added Head ------------            
+
+
+
+        #---------- _cg_ added Head ------------            
+        blobs = get_ohem_minibatch(loss, rois, labels, bbox_target, head_target,\
             bbox_inside_weights, bbox_outside_weights)
+        #---------- end _cg_ added Head ------------            
 
         for blob_name, blob in blobs.iteritems():
 
@@ -264,7 +300,6 @@ class OHEMDataLayer(caffe.Layer):
             top[top_ind].reshape(*(blob.shape))
             # Copy data into net's input blobs
             top[top_ind].data[...] = blob.astype(np.float32, copy=False)
-
 
 
     def backward(self, top, propagate_down, bottom):

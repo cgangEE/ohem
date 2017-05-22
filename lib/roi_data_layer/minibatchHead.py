@@ -120,7 +120,7 @@ def get_allrois_minibatch(roidb, num_classes):
     return blobs
 
 
-def get_ohem_minibatch(loss, rois, labels, bbox_targets=None,
+def get_ohem_minibatch(loss, rois, labels, bbox_targets=None, head_targets=None, 
                        bbox_inside_weights=None, bbox_outside_weights=None):
     """Given rois and their loss, construct a minibatch using OHEM."""
     loss = np.array(loss)
@@ -152,6 +152,13 @@ def get_ohem_minibatch(loss, rois, labels, bbox_targets=None,
         blobs['bbox_targets_hard'] = bbox_targets[hard_inds, :].copy()
         blobs['bbox_inside_weights_hard'] = bbox_inside_weights[hard_inds, :].copy()
         blobs['bbox_outside_weights_hard'] = bbox_outside_weights[hard_inds, :].copy()
+
+        #--------------- _cg_ added Head------------------
+
+        blobs['head_targets_hard'] = head_targets[hard_inds, :].copy()
+        print("blobs['head_targets_hard'].shape ", blobs['head_targets_hard'].shape)
+
+        #--------------- end _cg_ added Head------------------
 
     return blobs
 
