@@ -188,8 +188,18 @@ def im_detect(net, im, _t, boxes=None):
 
         #---------------_cg_ added head--------------------
         head_deltas = blobs_out['head_pred']
+
+        print('box_deltas.shape', box_deltas.shape)
+        print('head_deltas.shape', head_deltas.shape)
+        print('box_deltas[0]', box_deltas[0])
+        print('head_deltas[0]', head_deltas[0])
+
         pred_head = bbox_transform_inv(boxes, head_deltas)
         pred_head = clip_boxes(pred_head, im.shape)
+
+        print('pred_head[0]', pred_head[0])
+        print('pred_boxes[0]', pred_boxes[0])
+        exit(0)
         #---------------end _cg_ added head--------------------
         
 
