@@ -74,10 +74,11 @@ class SolverWrapper(object):
         '''
 
 
-        pred = [k for k in net.params.keys() if 'pred_' in k]
+        pred = [k for k in net.params.keys() if 'pred_1' in k]
         scale_bbox_params = (cfg.TRAIN.BBOX_REG and
                              cfg.TRAIN.BBOX_NORMALIZE_TARGETS and
                              len(pred) > 0)
+
 
         orig_0 = {}
         orig_1 = {}

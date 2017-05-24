@@ -292,7 +292,7 @@ if __name__ == '__main__':
     gt_file = 'data/psdb/phsb_rect_byimage_test.txt'
 
 
-    for i in range(10, 9, -1):
+    for i in range(1, 11, 1):
         print("Iteration", i)
         cacheFilename = \
                'output/pvanet_full1_DRoiAlignX_Head_Ohem/psdbHead_test/zf_faster_rcnn_iter_' + str(i) + \
