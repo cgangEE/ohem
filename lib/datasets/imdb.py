@@ -113,12 +113,15 @@ class imdb(object):
 
             boxes[:, 0] = widths[i] - oldx2 - 1
             boxes[:, 2] = widths[i] - oldx1 - 1
+            assert (boxes[:, 2] >= boxes[:, 0]).all()
 
             entry = {'boxes' : boxes,
                      'gt_overlaps' : self.roidb[i]['gt_overlaps'],
                      'gt_classes' : self.roidb[i]['gt_classes'],
                      'flipped' : True}
 
+
+            #---------------_cg_ added Head------------------
 
             if 'head' in self.roidb[i]:
                 head = self.roidb[i]['head'].copy()
@@ -136,7 +139,29 @@ class imdb(object):
                 entry['head'] = head
                 
 
-            assert (boxes[:, 2] >= boxes[:, 0]).all()
+            #---------------_cg_ added Four parts------------------
+            partsList = ['head_shoulder', 'upper_body']
+
+            for partName in partsList:
+
+                if partName in self.roidb[i]:
+                    part = self.roidb[i][partName].copy()
+
+                    oldx1 = part[:, 0].copy()
+                    oldx2 = part[:, 2].copy()
+
+                    oldx1[oldx1>=widths[i]] = widths[i] - 1
+                    oldx2[oldx2>=widths[i]] = widths[i] - 1
+
+                    part[:, 0] = widths[i] - oldx2 - 1
+                    part[:, 2] = widths[i] - oldx1 - 1
+                    assert (part[:, 2] >= part[:, 0]).all()
+
+                    entry[partName] = part 
+                
+            #--------------- end _cg_ added Four parts------------------
+
+
 
             self.roidb.append(entry)
 

@@ -64,7 +64,7 @@ def tattooShowBox(image_set):
 
             showImage(im, bbox, cls)
 
-            plt.savefig(str(i)+'Train',bbox_inches='tight', pad_inches=0)
+            plt.savefig(str(i)+'HeadGt',bbox_inches='tight', pad_inches=0)
 
 
 

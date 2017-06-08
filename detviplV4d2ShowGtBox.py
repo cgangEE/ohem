@@ -52,6 +52,7 @@ def tattooShowBox(image_set):
             im = cv2.imread(im_name)
             
             bbox = gt_roidb[i]['boxes']
+            print(bbox.shape)
             print(i)
             cls = gt_roidb[i]['gt_classes']
             showImage(im, bbox, cls)
@@ -61,5 +62,5 @@ def tattooShowBox(image_set):
 
 
 if __name__ == '__main__':
-    tattooShowBox('detviplV4d2_2016_test')
+    tattooShowBox('detviplV4d2_2016_train')
     
