@@ -6626,30 +6626,6 @@ layer {
 }
 
 
-layer {
-  name: "head_pred_readonly"
-  type: "InnerProduct"
-  bottom: "fc7_readonly"
-  top: "head_pred_readonly"
-  propagate_down: false
-  param {
-    name: "head_pred_w"
-  }
-  param {
-    name: "head_pred_b"
-  }
-  inner_product_param {
-    num_output: 8
-    weight_filler {
-      type: "gaussian"
-      std: 0.001
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
-}
 
 layer {
   name: "cls_prob_readonly"
@@ -6669,6 +6645,7 @@ layer {
   bottom: "bbox_targets"
   bottom: "bbox_inside_weights"
   bottom: "bbox_outside_weights"
+
   bottom: "head_pred_readonly"
   bottom: "head_targets"
 
@@ -6975,6 +6952,37 @@ layer {
   bottom: "bbox_inside_weights_hard"
   bottom: "bbox_outside_weights_hard"
   top: "loss_head"
+  propagate_down: true
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  loss_weight: 1
+}
+
+
+layer {
+  name: "loss_head_shoulder"
+  type: "SmoothL1Loss"
+  bottom: "head_shoulder_pred"
+  bottom: "head_shoulder_targets_hard"
+  bottom: "bbox_inside_weights_hard"
+  bottom: "bbox_outside_weights_hard"
+  top: "loss_head_shoulder"
+  propagate_down: true
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  loss_weight: 1
+}
+
+layer {
+  name: "loss_upper_body"
+  type: "SmoothL1Loss"
+  bottom: "upper_body_pred"
+  bottom: "upper_body_targets_hard"
+  bottom: "bbox_inside_weights_hard"
+  bottom: "bbox_outside_weights_hard"
+  top: "loss_upper_body"
   propagate_down: true
   propagate_down: false
   propagate_down: false

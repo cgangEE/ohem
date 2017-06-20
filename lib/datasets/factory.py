@@ -15,6 +15,7 @@ from datasets.cox_reid import cox_reid
 from datasets.psdb import psdb
 from datasets.psdbHead import psdbHead
 from datasets.psdbFourParts import psdbFourParts
+from datasets.psdbUpperBody import psdbUpperBody
 
 from datasets.psdb3 import psdb3
 from datasets.psdbVeh import psdbVeh
@@ -29,6 +30,7 @@ from datasets.detviplV4 import detviplV4
 from datasets.detviplV4d2 import detviplV4d2
 from datasets.detviplV4d2X import detviplV4d2X
 from datasets.detviplV4d2XX import detviplV4d2XX
+from datasets.detviplV5d0 import detviplV5d0
 
 from datasets.ua import ua 
 from datasets.riding import riding
@@ -67,6 +69,13 @@ for year in ['2016']:
     for split in ['train', 'test']:
         name = 'detviplV4d2_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: detviplV4d2(split, year))
+
+
+# Set up detviplV5d0_<year>_<split> using selective search "fast" mode
+for year in ['2016']:
+    for split in ['train', 'test']:
+        name = 'detviplV5d0_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: detviplV5d0(split, year))
 
 
 # Set up detviplV4_<year>_<split> using selective search "fast" mode
@@ -138,6 +147,12 @@ for year in ['2015']:
     for split in ['train', 'val', 'trainval', 'test']:
         name = 'psdbFourParts_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: psdbFourParts(split, year))
+
+# Set up psdbUpperBody_<year>_<split> using selective search "fast" mode
+for year in ['2015']:
+    for split in ['train', 'val', 'trainval', 'test']:
+        name = 'psdbUpperBody_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: psdbUpperBody(split, year))
 
 # Set up psdb_<year>_<split> using selective search "fast" mode
 for year in ['2015']:

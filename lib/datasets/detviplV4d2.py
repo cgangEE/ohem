@@ -158,10 +158,12 @@ class detviplV4d2(imdb):
         self._scale = np.sqrt(self._w * self._h)
 
 
+        '''
         self._plot(self._w, 'width')
         self._plot(self._h, 'height')
         self._plot(self._scale, 'scale')
         self._plot(self._ratio, 'ratio')
+        '''
 
 
 

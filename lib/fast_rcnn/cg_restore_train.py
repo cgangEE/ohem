@@ -68,17 +68,6 @@ class SolverWrapper(object):
         """
 
         net = self.solver.net
-        blobnames = ['rpn_cls_score', 'rpn_cls_score_reshape', 'rpn_cls_prob', \
-            'rpn_cls_prob_reshape', \
-            'rpn_bbox_pred', \
-            'im_info', \
-            'rpn_rois', \
-            'rpn_scores']
-
-        for name in blobnames:
-            print(name, net.blobs[name].data.shape)
-
-
 
         cg_bbox_pred = [k for k in net.params.keys() if 'cg_bbox_pred' in k][0]
         scale_bbox_params = (cfg.TRAIN.BBOX_REG and

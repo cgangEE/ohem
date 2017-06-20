@@ -6,8 +6,10 @@ layer {
   top: "im_info"
   top: "gt_boxes"
   top: "gt_head"
+  top: "gt_head_shoulder"
+  top: "gt_upper_body"
   python_param {
-    module: "roi_data_layer.layerHead"
+    module: "roi_data_layer.layerFourParts"
     layer: "RoIDataLayer"
     param_str: "\'num_classes\': 2"
   }
@@ -6436,14 +6438,18 @@ layer {
   bottom: "rpn_rois"
   bottom: "gt_boxes"
   bottom: "gt_head"
+  bottom: "gt_head_shoulder"
+  bottom: "gt_upper_body"
   top: "rois"
   top: "labels"
   top: "bbox_targets"
   top: "bbox_inside_weights"
   top: "bbox_outside_weights"
   top: "head_targets"
+  top: "head_shoulder_targets"
+  top: "upper_body_targets"
   python_param {
-    module: "rpn.proposal_target_head_layer"
+    module: "rpn.proposal_target_four_parts_layer"
     layer: "ProposalTargetLayer"
     param_str: "\'num_classes\': 2"
   }
@@ -6601,6 +6607,54 @@ layer {
   }
 }
 layer {
+  name: "head_shoulder_pred_readonly"
+  type: "InnerProduct"
+  bottom: "fc7_readonly"
+  top: "head_shoulder_pred_readonly"
+  param {
+    name: "head_shoulder_pred_w"
+  }
+  param {
+    name: "head_shoulder_pred_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 8
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "upper_body_pred_readonly"
+  type: "InnerProduct"
+  bottom: "fc7_readonly"
+  top: "upper_body_pred_readonly"
+  param {
+    name: "upper_body_pred_w"
+  }
+  param {
+    name: "upper_body_pred_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 8
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
   name: "cls_prob_readonly"
   type: "Softmax"
   bottom: "cls_score_readonly"
@@ -6619,12 +6673,22 @@ layer {
   bottom: "bbox_outside_weights"
   bottom: "head_pred_readonly"
   bottom: "head_targets"
+  bottom: "head_shoulder_pred_readonly"
+  bottom: "head_shoulder_targets"
+  bottom: "upper_body_pred_readonly"
+  bottom: "upper_body_targets"
   top: "rois_hard"
   top: "labels_hard"
   top: "bbox_targets_hard"
   top: "bbox_inside_weights_hard"
   top: "bbox_outside_weights_hard"
   top: "head_targets_hard"
+  top: "head_shoulder_targets_hard"
+  top: "upper_body_targets_hard"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
   propagate_down: false
   propagate_down: false
   propagate_down: false
@@ -6635,7 +6699,7 @@ layer {
   propagate_down: false
   propagate_down: false
   python_param {
-    module: "roi_data_layer.layerHead"
+    module: "roi_data_layer.layerFourParts"
     layer: "OHEMDataLayer"
     param_str: "\'num_classes\': 2"
   }
@@ -6804,6 +6868,60 @@ layer {
   }
 }
 layer {
+  name: "head_shoulder_pred_1"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "head_shoulder_pred"
+  param {
+    name: "head_shoulder_pred_w"
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    name: "head_shoulder_pred_b"
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 8
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "upper_body_pred_1"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "upper_body_pred"
+  param {
+    name: "upper_body_pred_w"
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    name: "upper_body_pred_b"
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 8
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
   name: "loss_cls"
   type: "SoftmaxWithLoss"
   bottom: "cls_score"
@@ -6835,6 +6953,34 @@ layer {
   bottom: "bbox_inside_weights_hard"
   bottom: "bbox_outside_weights_hard"
   top: "loss_head"
+  loss_weight: 1.0
+  propagate_down: true
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+}
+layer {
+  name: "loss_head_shoulder"
+  type: "SmoothL1Loss"
+  bottom: "head_shoulder_pred"
+  bottom: "head_shoulder_targets_hard"
+  bottom: "bbox_inside_weights_hard"
+  bottom: "bbox_outside_weights_hard"
+  top: "loss_head_shoulder"
+  loss_weight: 1.0
+  propagate_down: true
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+}
+layer {
+  name: "loss_upper_body"
+  type: "SmoothL1Loss"
+  bottom: "upper_body_pred"
+  bottom: "upper_body_targets_hard"
+  bottom: "bbox_inside_weights_hard"
+  bottom: "bbox_outside_weights_hard"
+  top: "loss_upper_body"
   loss_weight: 1.0
   propagate_down: true
   propagate_down: false
