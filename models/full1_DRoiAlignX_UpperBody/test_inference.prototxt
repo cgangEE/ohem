@@ -3833,52 +3833,111 @@ layer {
   }
 }
 layer {
-  name: "head_pred_1"
-  type: "InnerProduct"
-  bottom: "fc7"
-  top: "head_pred"
-  param {
-    name: "head_pred_w"
-    lr_mult: 1.0
-    decay_mult: 1.0
-  }
-  param {
-    name: "head_pred_b"
-    lr_mult: 2.0
-    decay_mult: 0.0
-  }
-  inner_product_param {
-    num_output: 8
-    weight_filler {
-      type: "gaussian"
-      std: 0.0010000000475
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.0
-    }
+  name: "cls_prob"
+  type: "Softmax"
+  bottom: "cls_score"
+  top: "cls_prob"
+}
+layer {
+  name: "roi_pool5_half"
+  type: "ROIAlignHalf"
+  bottom: "convf"
+  bottom: "rois"
+  top: "pool5_half"
+  propagate_down: true
+  propagate_down: false
+  roi_pooling_param {
+    pooled_h: 6
+    pooled_w: 6
+    spatial_scale: 0.125
   }
 }
 layer {
-  name: "head_shoulder_pred_1"
+  name: "fc6_half"
   type: "InnerProduct"
-  bottom: "fc7"
-  top: "head_shoulder_pred"
+  bottom: "pool5_half"
+  top: "fc6_half"
   param {
-    name: "head_shoulder_pred_w"
+    name: "fc6_w"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
-    name: "head_shoulder_pred_b"
+    name: "fc6_b"
     lr_mult: 2.0
     decay_mult: 0.0
   }
   inner_product_param {
-    num_output: 8
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6_half"
+  type: "ReLU"
+  bottom: "fc6_half"
+  top: "fc6_half"
+}
+layer {
+  name: "drop6_half"
+  type: "Dropout"
+  bottom: "fc6_half"
+  top: "fc6_half"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7_half"
+  type: "InnerProduct"
+  bottom: "fc6_half"
+  top: "fc7_half"
+  param {
+    name: "fc7_w"
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    name: "fc7_b"
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7_half"
+  type: "ReLU"
+  bottom: "fc7_half"
+  top: "fc7_half"
+}
+layer {
+  name: "drop7_half"
+  type: "Dropout"
+  bottom: "fc7_half"
+  top: "fc7_half"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "full1_cls_score_upper_body"
+  type: "InnerProduct"
+  bottom: "fc7_half"
+  top: "cls_score_upper_body"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 2
     weight_filler {
       type: "gaussian"
-      std: 0.0010000000475
+      std: 0.00999999977648
     }
     bias_filler {
       type: "constant"
@@ -3889,15 +3948,13 @@ layer {
 layer {
   name: "upper_body_pred_1"
   type: "InnerProduct"
-  bottom: "fc7"
+  bottom: "fc7_half"
   top: "upper_body_pred"
   param {
-    name: "upper_body_pred_w"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
-    name: "upper_body_pred_b"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -3914,8 +3971,8 @@ layer {
   }
 }
 layer {
-  name: "cls_prob"
+  name: "cls_prob_upper_body"
   type: "Softmax"
-  bottom: "cls_score"
-  top: "cls_prob"
+  bottom: "cls_score_upper_body"
+  top: "cls_prob_upper_body"
 }
