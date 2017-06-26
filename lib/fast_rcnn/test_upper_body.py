@@ -187,13 +187,13 @@ def im_detect(net, im, _t, boxes=None):
         pred_boxes = clip_boxes(pred_boxes, im.shape)
 
         #---------------_cg_ added upper body --------------------
+        scores_upper_body = blobs_out['cls_prob_upper_body']
+
         rois_upper_body = rois.copy()
         rois_upper_body[:, 4] = \
                 (rois_upper_body[:, 2] + rois_upper_body[:, 4]) / 2
 
         boxes_upper_body = rois_upper_body[:, 1:5] / im_scales[0]
-
-
 
         upper_body_deltas = blobs_out['upper_body_pred']
 
@@ -206,7 +206,7 @@ def im_detect(net, im, _t, boxes=None):
 
     _t['im_postproc'].toc()
 
-    return scores, pred_boxes, pred_head
+    return scores, pred_boxes, scores_upper_body, pred_upper_body
 
 def vis_detections(im, class_name, dets, thresh=0.3):
     """Visual debugging of detections."""
@@ -279,7 +279,8 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
             box_proposals = roidb[i]['boxes'][roidb[i]['gt_classes'] == 0]
 
         im = cv2.imread(imdb.image_path_at(i))
-        scores, boxes, head = im_detect(net, im, _t, box_proposals)
+        scores, boxes, scores_upper_body, boxes_upper_body = \
+                im_detect(net, im, _t, box_proposals)
 
         _t['misc'].tic()
         # skip j = 0, because it's the background class
@@ -301,29 +302,27 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
             '''
             cls_dets = dets_NMSed
 
+            #--------------- _cg_ added upper body --------------------
 
-            #---------------_cg_ added head--------------------
+            inds = np.where(scores_upper_body[:, j] > thresh)[0]
+            cls_scores_upper_body = scores_upper_body[inds, j]
+            cls_boxes_upper_body = boxes_upper_body[inds, j*4:(j+1)*4]
+            cls_dets_upper_body = np.hstack((cls_boxes_upper_body, 
+                    cls_scores_upper_body[:, np.newaxis])) \
+                    .astype(np.float32, copy=False)
+            keep = nms(cls_dets_upper_body, cfg.TEST.NMS)
 
+            dets_NMSed = cls_dets_upper_body[keep, :]
 
-            cls_head = head[inds, j*4:(j+1)*4]
-            cls_head_dets = np.hstack((cls_head, cls_scores[:, np.newaxis])) \
-                .astype(np.float32, copy=False)
-            keep = nms(cls_head_dets, cfg.TEST.NMS)
-
-            head_NMSed = cls_head_dets[keep, :]
-
-            cls_head_dets = head_NMSed
-
-            #---------------end _cg_ added head--------------------
+            cls_dets_upper_body = dets_NMSed
+            #--------------- end _cg_ added upper body --------------------
 
 
             if vis:
                 vis_detections(im, imdb.classes[j], cls_dets)
 
             all_boxes[j][i] = cls_dets
-            all_boxes[j + 1][i] = cls_head_dets
-
-
+            all_boxes[j + 1][i] = cls_dets_upper_body
 
         '''
         # Limit to max_per_image detections *over all classes*
