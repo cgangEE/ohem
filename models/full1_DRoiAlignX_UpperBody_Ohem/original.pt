@@ -6541,7 +6541,7 @@ layer {
 }
 layer {
   name: "cls_prob_readonly"
-  type: "Sofmax"
+  type: "Softmax"
   bottom: "cls_score_readonly"
   top: "cls_prob_readonly"
   propagate_down: false
@@ -6893,7 +6893,7 @@ layer {
 }
 layer {
   name: "cls_prob_half_readonly"
-  type: "Sofmax"
+  type: "Softmax"
   bottom: "cls_score_half_readonly"
   top: "cls_prob_half_readonly"
   propagate_down: false

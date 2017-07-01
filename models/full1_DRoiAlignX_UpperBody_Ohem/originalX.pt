@@ -6449,10 +6449,173 @@ layer {
   }
 }
 layer {
-  name: "roi_pool5"
+  name: "roi_pool5_readonly"
   type: "ROIAlign"
   bottom: "convf"
   bottom: "rois"
+  top: "pool5_readonly"
+  propagate_down: false
+  propagate_down: false
+  roi_pooling_param {
+    pooled_h: 6
+    pooled_w: 6
+    spatial_scale: 0.125
+  }
+}
+layer {
+  name: "fc6_readonly"
+  type: "InnerProduct"
+  bottom: "pool5_readonly"
+  top: "fc6_readonly"
+  param {
+    name: "fc6_w"
+  }
+  param {
+    name: "fc6_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6_readonly"
+  type: "ReLU"
+  bottom: "fc6_readonly"
+  top: "fc6_readonly"
+  propagate_down: false
+}
+layer {
+  name: "drop6_readonly"
+  type: "Dropout"
+  bottom: "fc6_readonly"
+  top: "fc6_readonly"
+  propagate_down: false
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7_readonly"
+  type: "InnerProduct"
+  bottom: "fc6_readonly"
+  top: "fc7_readonly"
+  param {
+    name: "fc7_w"
+  }
+  param {
+    name: "fc7_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7_readonly"
+  type: "ReLU"
+  bottom: "fc7_readonly"
+  top: "fc7_readonly"
+  propagate_down: false
+}
+layer {
+  name: "drop7_readonly"
+  type: "Dropout"
+  bottom: "fc7_readonly"
+  top: "fc7_readonly"
+  propagate_down: false
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "cls_score_readonly"
+  type: "InnerProduct"
+  bottom: "fc7_readonly"
+  top: "cls_score_readonly"
+  param {
+    name: "cls_score_w"
+  }
+  param {
+    name: "cls_score_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "bbox_pred_readonly"
+  type: "InnerProduct"
+  bottom: "fc7_readonly"
+  top: "bbox_pred_readonly"
+  param {
+    name: "bbox_pred_w"
+  }
+  param {
+    name: "bbox_pred_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 8
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "cls_prob_readonly"
+  type: "Softmax"
+  bottom: "cls_score_readonly"
+  top: "cls_prob_readonly"
+  propagate_down: false
+}
+layer {
+  name: "hard_roi_mining"
+  type: "Python"
+  bottom: "cls_prob_readonly"
+  bottom: "bbox_pred_readonly"
+  bottom: "rois"
+  bottom: "labels"
+  bottom: "bbox_targets"
+  bottom: "bbox_inside_weights"
+  bottom: "bbox_outside_weights"
+  top: "rois_hard"
+  top: "labels_hard"
+  top: "bbox_targets_hard"
+  top: "bbox_inside_weights_hard"
+  top: "bbox_outside_weights_hard"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.layer"
+    layer: "OHEMDataLayer"
+    param_str: "\'num_classes\': 2"
+  }
+}
+layer {
+  name: "roi_pool5"
+  type: "ROIAlign"
+  bottom: "convf"
+  bottom: "rois_hard"
   top: "pool5"
   propagate_down: true
   propagate_down: false
@@ -6563,10 +6726,12 @@ layer {
   bottom: "fc7"
   top: "bbox_pred"
   param {
+    name: "bbox_pred_w"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
+    name: "bbox_pred_b"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -6586,7 +6751,7 @@ layer {
   name: "loss_cls"
   type: "SoftmaxWithLoss"
   bottom: "cls_score"
-  bottom: "labels"
+  bottom: "labels_hard"
   top: "loss_cls"
   loss_weight: 1.0
   propagate_down: true
@@ -6596,9 +6761,9 @@ layer {
   name: "loss_bbox"
   type: "SmoothL1Loss"
   bottom: "bbox_pred"
-  bottom: "bbox_targets"
-  bottom: "bbox_inside_weights"
-  bottom: "bbox_outside_weights"
+  bottom: "bbox_targets_hard"
+  bottom: "bbox_inside_weights_hard"
+  bottom: "bbox_outside_weights_hard"
   top: "loss_bbox"
   loss_weight: 1.0
   propagate_down: true
@@ -6607,10 +6772,173 @@ layer {
   propagate_down: false
 }
 layer {
-  name: "roi_pool5_half"
+  name: "roi_pool5_half_readonly"
   type: "ROIAlignHalf"
   bottom: "convf"
   bottom: "rois"
+  top: "pool5_half_readonly"
+  propagate_down: false
+  propagate_down: false
+  roi_pooling_param {
+    pooled_h: 6
+    pooled_w: 6
+    spatial_scale: 0.125
+  }
+}
+layer {
+  name: "fc6_half_readonly"
+  type: "InnerProduct"
+  bottom: "pool5_half_readonly"
+  top: "fc6_half_readonly"
+  param {
+    name: "fc6_w"
+  }
+  param {
+    name: "fc6_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6_half_readonly"
+  type: "ReLU"
+  bottom: "fc6_half_readonly"
+  top: "fc6_half_readonly"
+  propagate_down: false
+}
+layer {
+  name: "drop6_half_readonly"
+  type: "Dropout"
+  bottom: "fc6_half_readonly"
+  top: "fc6_half_readonly"
+  propagate_down: false
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7_half_readonly"
+  type: "InnerProduct"
+  bottom: "fc6_half_readonly"
+  top: "fc7_half_readonly"
+  param {
+    name: "fc7_w"
+  }
+  param {
+    name: "fc7_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7_half_readonly"
+  type: "ReLU"
+  bottom: "fc7_half_readonly"
+  top: "fc7_half_readonly"
+  propagate_down: false
+}
+layer {
+  name: "drop7_half_readonly"
+  type: "Dropout"
+  bottom: "fc7_half_readonly"
+  top: "fc7_half_readonly"
+  propagate_down: false
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "cls_score_half_readonly"
+  type: "InnerProduct"
+  bottom: "fc7_half_readonly"
+  top: "cls_score_half_readonly"
+  param {
+    name: "cls_score_half_w"
+  }
+  param {
+    name: "cls_score_half_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "bbox_pred_half_readonly"
+  type: "InnerProduct"
+  bottom: "fc7_half_readonly"
+  top: "bbox_pred_half_readonly"
+  param {
+    name: "bbox_pred_half_w"
+  }
+  param {
+    name: "bbox_pred_half_b"
+  }
+  propagate_down: false
+  inner_product_param {
+    num_output: 8
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "cls_prob_half_readonly"
+  type: "Softmax"
+  bottom: "cls_score_half_readonly"
+  top: "cls_prob_half_readonly"
+  propagate_down: false
+}
+layer {
+  name: "hard_roi_half_mining"
+  type: "Python"
+  bottom: "cls_prob_half_readonly"
+  bottom: "bbox_pred_half_readonly"
+  bottom: "rois"
+  bottom: "labels"
+  bottom: "upper_body_targets"
+  bottom: "bbox_inside_weights"
+  bottom: "bbox_outside_weights"
+  top: "rois_half_hard"
+  top: "labels_half_hard"
+  top: "upper_body_targets_half_hard"
+  top: "bbox_inside_weights_half_hard"
+  top: "bbox_outside_weights_half_hard"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.layer"
+    layer: "OHEMDataLayer"
+    param_str: "\'num_classes\': 2"
+  }
+}
+layer {
+  name: "roi_pool5_half"
+  type: "ROIAlignHalf"
+  bottom: "convf"
+  bottom: "rois_half_hard"
   top: "pool5_half"
   propagate_down: true
   propagate_down: false
@@ -6694,10 +7022,12 @@ layer {
   bottom: "fc7_half"
   top: "cls_score_upper_body"
   param {
+    name: "cls_score_half_w"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
+    name: "cls_score_half_b"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -6719,10 +7049,12 @@ layer {
   bottom: "fc7_half"
   top: "upper_body_pred"
   param {
+    name: "bbox_pred_half_w"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
+    name: "bbox_pred_half_b"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -6742,7 +7074,7 @@ layer {
   name: "loss_cls_upper_body"
   type: "SoftmaxWithLoss"
   bottom: "cls_score_upper_body"
-  bottom: "labels"
+  bottom: "labels_half_hard"
   top: "loss_cls_upper_body"
   loss_weight: 1.0
   propagate_down: true
@@ -6752,9 +7084,9 @@ layer {
   name: "loss_upper_body"
   type: "SmoothL1Loss"
   bottom: "upper_body_pred"
-  bottom: "upper_body_targets"
-  bottom: "bbox_inside_weights"
-  bottom: "bbox_outside_weights"
+  bottom: "upper_body_targets_half_hard"
+  bottom: "bbox_inside_weights_half_hard"
+  bottom: "bbox_outside_weights_half_hard"
   top: "loss_upper_body"
   loss_weight: 1.0
   propagate_down: true

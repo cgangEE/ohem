@@ -20,50 +20,20 @@ class EvalConfig(object):
     transform_det = False
 
 
-def read_bboxes(fin, cls, transform=False):
-    im_name = fin.readline().rstrip()
-    bbs = []
-    if im_name:
-        num_bbox = int(fin.readline().rstrip())
-        if num_bbox > 0:
-            for _ in xrange(num_bbox):
-                line = fin.readline().rstrip().split()
-                line = map(float, line)
-                bbs.append(line)
-    else:
-        num_bbox = -1
+def read_bboxes(roidb, classId):
+    box = roidb['boxes']
+    cls = roidb['gt_classes']
 
-
-    key = 0
     bboxes = []
-
-    for i, b in enumerate(bbs):
-        part = []
-        clsId = 0
-        for j, num in enumerate(b):
-            if j % 5 != 0:
-                part.append(num)
-                if len(part) == 4:
-                    clsId += 1
-                    if key == 5:
-                        clsId = 5
-                    part.append(clsId)
-                    if key>=0 and min(part)>=0 and clsId==cls:
-                        bboxes.append(part)
-                    part = []
-            else:
-                key = num
+    for i, c in enumerate(cls):
+        if c == classId:
+            b = np.append(box[i], c)
+            bboxes.append(b)
 
     num_bbox = len(bboxes)
     bboxes = np.array(bboxes)
 
-
-    if num_bbox > 0:
-        if transform:
-            bboxes[:, 2:4] += (bboxes[:, :2] - 1)
-
-    return {'im_name': im_name,
-            'num_bbox': num_bbox,
+    return {'num_bbox': num_bbox,
             'bboxes': bboxes}
 
 
@@ -113,7 +83,7 @@ def get_points(x, y, target_x):
     return x2, y0
 
 
-def eval_roc_pr(config, gt_file, det_file, cls):
+def eval_roc_pr(config, image_set, det_file, cls):
 
     cache_file = os.path.join(det_file)
 
@@ -127,7 +97,6 @@ def eval_roc_pr(config, gt_file, det_file, cls):
     min_height = config.min_height
     eval_type = config.eval_type
 
-    assert os.path.exists(gt_file)
 
     det_conf = []
     det_tp = []
@@ -137,25 +106,33 @@ def eval_roc_pr(config, gt_file, det_file, cls):
     im_count = 0
 
     detId = 0
-    with open(gt_file, 'r') as fgt:
 
-        for detId in xrange(detAll.shape[1]):
+    imdb = get_imdb(image_set)
+    roidb = imdb.gt_roidb()
+
+    for detId in xrange(detAll.shape[1]):
             det = detAll[cls,detId]
+            gt = read_bboxes(roidb[detId], cls)
 
-            gt = read_bboxes(fgt, cls == 2 and 4 or cls, transform=config.transform_gt)
 
             num_gt = gt['num_bbox']
             iou_thresh = [default_iou_thresh] * num_gt
             gt_hit_mask = [False] * num_gt
+
+
             if num_gt > 0:
-                if eval_type:
-                    mask_pos = [x in eval_type for x in gt['bboxes'][:, 4]]
-                else:
-                    mask_pos = [True] * num_gt
-                num_pos = len(np.where(mask_pos & (gt['bboxes'][:, 2] - gt['bboxes'][:, 0] >= min_width) &
-                                       (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height))[0])
+                mask_pos = (gt['bboxes'][:, 2] - gt['bboxes'][:, 0] >= min_width) & \
+                                       (gt['bboxes'][:, 3] - gt['bboxes'][:, 1] >= min_height)
+                num_pos = len(np.where(mask_pos)[0])
             else:
                 num_pos = 0
+
+
+
+            det = det[( (det[:,2] - det[:,0] >= min_width) 
+                        & (det[:,3] - det[:,1] >= min_height) )]
+
+
             pos_count += num_pos
             bbox_count += num_gt
 
@@ -215,6 +192,8 @@ def eval_roc_pr(config, gt_file, det_file, cls):
     det_fp = np.hstack(det_fp)
 
     sort_idx = np.argsort(det_conf)[::-1]
+
+    det_conf = det_conf[sort_idx]
     det_tp = np.cumsum(det_tp[sort_idx])
     det_fp = np.cumsum(det_fp[sort_idx])
 
@@ -227,24 +206,48 @@ def eval_roc_pr(config, gt_file, det_file, cls):
     precision = det_tp / (det_tp + det_fp)
     fppi = det_fp / im_count
 
+    print('fppi = 0.1')
+    myIdx = np.sum(fppi<=0.1)
+    print('myIdx', myIdx)
+    print('fppi[myIdx]', fppi[myIdx])
+    print('det_conf[myIdx]', det_conf[myIdx])
+    print('')
+
+    '''
+    print('fppi = 1')
+    myIdx = np.sum(fppi<=1)
+    print('myIdx', myIdx)
+    print('fppi[myIdx]', fppi[myIdx])
+    print('det_conf[myIdx]', det_conf[myIdx])
+    print('')
+    '''
+
+
+
     ap = compute_ap(recall, precision)
-    fppi_pts, recall_pts = get_points(fppi, recall, [0.1])
+    fppi_pts, recall_pts = get_points(fppi, recall, [0.1, 1])
 
     stat_str = 'AP = {:f}\n'.format(ap)
     for i, p in enumerate(fppi_pts):
-        stat_str += 'Recall = {:f}, Miss Rate = {:f} @ FPPI = {:s}'.format(recall_pts[i], 1 - recall_pts[i], str(p))
+        stat_str += 'Recall = {:f}, Miss Rate = {:f} @ FPPI = {:s}\n'.format(recall_pts[i], 1 - recall_pts[i], str(p))
     print stat_str
 
     return {'fppi': fppi, 'recall': recall, 'precision': precision, 'ap': ap,
-            'recall_pts': recall_pts, 'fppi_pts': fppi_pts}
+            'recall_pts': recall_pts, 'fppi_pts': fppi_pts}, fppi_pts, recall_pts
 
 
 
 
 def plot_roc(data, id):
+    colors = ('b', 'g', 'r', 'c', 'm', 'y', 'k')  
+
     plt.figure()
     for i, r in enumerate(data):
         plt.plot(r['fppi'], r['recall'], label=id[i], linewidth=2.0)
+        fppiIdx = sum(r['fppi'] < 0.1)
+        plt.annotate('{:.3f}'.format(r['recall'][fppiIdx]), \
+                    xy = (r['fppi'][fppiIdx] + 0.01, r['recall'][fppiIdx]), \
+                    textcoords = 'data', color = colors[i])
     plt.draw()
     ax = plt.gca()
     ax.set_ylim([0, 1])
@@ -258,9 +261,12 @@ def plot_roc(data, id):
 
 
 def plot_pr(data, id):
+
     plt.figure()
     for i, r in enumerate(data):
-        plt.plot(r['recall'], r['precision'], label=id[i], linewidth=2.0)
+        plt.plot(r['recall'], r['precision'], color = colors[i],
+                label=id[i], linewidth=2.0)
+
     plt.draw()
     ax = plt.gca()
     ax.set_xlim([0, 1])
@@ -274,10 +280,35 @@ def plot_pr(data, id):
     plt.minorticks_on()
 
 
-def plot_curves(eval_result, curve_id):
+def plot_curves(i, eval_result, curve_id):
     plot_roc(eval_result, curve_id)
 #    plot_pr(eval_result, curve_id)
-    plt.savefig('psdbUpperBody.png')
+#    plt.show()
+    plt.savefig('detviplV7d0' + str(i))
+    pass
+
+def plotRecallByIterations(fppiList, recallList):
+    print('fppiList', fppiList)
+    print('recallList', recallList)
+
+    plt.figure()
+    for i in range(len(fppiList[0])):
+        recall = [r[i]  for r in recallList]
+        plt.plot(range(1, 11), recall, label='@fppi = ' + str(fppiList[0][i]), linewidth=2.0)
+        
+    plt.draw()
+    ax = plt.gca()
+    ax.set_ylim([0, 1])
+#    ax.set_xscale('log')
+    plt.xlabel('10K Iterations', fontsize=16)
+    plt.ylabel('Recall', fontsize=16)
+    plt.legend(loc='upper left', fontsize=10)
+    plt.grid(b=True, which='major', color='b', linestyle='-')
+    plt.grid(b=True, which='minor', color='b', linestyle=':')
+    plt.savefig('sjtuRoc2')
+
+    plt.show()
+
 
 
 if __name__ == '__main__':
@@ -289,26 +320,32 @@ if __name__ == '__main__':
     config.transform_gt = True
     config.transform_det = False
 
-    gt_file = 'data/psdb/phsb_rect_byimage_test.txt'
+    fppiList = []
+    recallList = []
 
-
-    for i in range(10, 0, -1):
+    for i in range(10, 9, -1):
         print("Iteration", i)
         cacheFilename = \
-               'output/pvanet_full1_DRoiAlignX_UpperBody/psdbUpperBody_test/zf_faster_rcnn_iter_' + str(i) + \
-                '0000_inference/detections.pkl'
+             'output/pvanet_full1_ohem_DRoiAlignX/detviplV7d0_test/zf_faster_rcnn_iter_' + str(i) + '0000_inference/detections.pkl'
+
         if (os.path.exists(cacheFilename)):
             eval_result = []
-            for cls in range(1, 3):
-                result = eval_roc_pr(config, gt_file, cacheFilename, cls)
+            for cls in range(1, 5):
+                result, fppi_pts, recall_pts = eval_roc_pr(config, 
+                    'detviplV7d0_2016_test', cacheFilename, cls)
                 eval_result.append(result)
 
-            det_id = ('pedestrain', 'upper_body')#, 'head-shoulder', 'upperbody')
-            plot_curves(eval_result, det_id)
+                fppiList.append(fppi_pts)
+                recallList.append(recall_pts)
 
+            det_id = ['pedestrian', 'vehicle', 'riding_tool', 'riding_whole']
+            plot_curves(i, eval_result, det_id)
 
-            det_file = os.path.join('psdbUpperBody-pvanet-DRoiAlignX-' + str(i) +'.pkl')
+            det_file = os.path.join('detviplV7d0-pvanet-ohem-DRoiAlignX-' + str(i) +'.pkl')
             with open(det_file, 'wb') as f:
                 cPickle.dump(eval_result, f, cPickle.HIGHEST_PROTOCOL)
+
+        break
+#    plotRecallByIterations(fppiList, recallList)
 
 

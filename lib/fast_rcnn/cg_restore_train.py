@@ -14,6 +14,7 @@ import roi_data_layer.roidb as rdl_roidb
 from utils.timer import Timer
 import numpy as np
 import os
+import shutil
 
 from caffe.proto import caffe_pb2
 import google.protobuf as pb2
@@ -110,7 +111,10 @@ class SolverWrapper(object):
 
         solverstate = (self.solver_param.snapshot_prefix + infix +
                     '_iter_{:d}'.format(self.solver.iter) + '.solverstate')
-        os.rename(solverstate, os.path.join(self.output_dir, solverstate))
+        solverstateFull = os.path.join(self.output_dir, solverstate)
+
+        shutil.copyfile(solverstate, solverstateFull)
+        os.remove(solverstate)
 
         return filename
 

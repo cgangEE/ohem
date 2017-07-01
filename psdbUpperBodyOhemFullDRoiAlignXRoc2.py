@@ -277,7 +277,7 @@ def plot_pr(data, id):
 def plot_curves(eval_result, curve_id):
     plot_roc(eval_result, curve_id)
 #    plot_pr(eval_result, curve_id)
-    plt.savefig('psdbUpperBody.png')
+    plt.savefig('psdbUpperBodyOhem.png')
 
 
 if __name__ == '__main__':
@@ -295,7 +295,7 @@ if __name__ == '__main__':
     for i in range(10, 0, -1):
         print("Iteration", i)
         cacheFilename = \
-               'output/pvanet_full1_DRoiAlignX_UpperBody/psdbUpperBody_test/zf_faster_rcnn_iter_' + str(i) + \
+               'output/pvanet_full1_DRoiAlignX_UpperBody_Ohem/psdbUpperBody_test/zf_faster_rcnn_iter_' + str(i) + \
                 '0000_inference/detections.pkl'
         if (os.path.exists(cacheFilename)):
             eval_result = []
@@ -307,7 +307,7 @@ if __name__ == '__main__':
             plot_curves(eval_result, det_id)
 
 
-            det_file = os.path.join('psdbUpperBody-pvanet-DRoiAlignX-' + str(i) +'.pkl')
+            det_file = os.path.join('psdbUpperBody-Ohem-pvanet-DRoiAlignX-' + str(i) +'.pkl')
             with open(det_file, 'wb') as f:
                 cPickle.dump(eval_result, f, cPickle.HIGHEST_PROTOCOL)
 
