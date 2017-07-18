@@ -25,6 +25,9 @@ def showImage(im, boxes, cls):
     fig.axes.get_yaxis().set_visible(False)
 
     for i in xrange(boxes.shape[0]):
+            if cls[i] != 2:
+                continue
+
             bbox = boxes[i]
             ax.add_patch(
                     plt.Rectangle((bbox[0], bbox[1]),
@@ -47,7 +50,8 @@ def tattooShowBox(image_set):
     gt_roidb = imdb.gt_roidb()
 
     for i in xrange(num_images):
-        if i % 40 == 0:
+#        if i % 40 == 0:
+        if i <  10:        
             im_name = imdb.image_path_at(i)
             im = cv2.imread(im_name)
             
@@ -69,5 +73,5 @@ def tattooShowBox(image_set):
 
 
 if __name__ == '__main__':
-    tattooShowBox('psdbHead_2015_train')
+    tattooShowBox('psdbHead_2015_test')
     

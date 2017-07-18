@@ -198,5 +198,5 @@ class psdbFourParts(imdb):
             self.config['cleanup'] = True
 
 if __name__ == '__main__':
-    my_cox_reid = psdbFourParts('train', '2015');
+    my_cox_reid = psdbFourParts('test', '2015');
     my_cox_reid.gt_roidb()

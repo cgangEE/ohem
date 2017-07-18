@@ -115,6 +115,7 @@ class SolverWrapper(object):
         shutil.copyfile(solverstate, solverstateFull)
         os.remove(solverstate)
 
+
         return filename
 
     def train_model(self, max_iters):
@@ -132,7 +133,7 @@ class SolverWrapper(object):
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)
 
-            if self.solver.iter % cfg.TRAIN.SNAPSHOT_ITERS == 0:
+            if self.solver.iter % cfg.TRAIN.SNAPSHOT_ITERS == 0 :
                 last_snapshot_iter = self.solver.iter
                 model_paths.append(self.snapshot())
 

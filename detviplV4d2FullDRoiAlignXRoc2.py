@@ -277,28 +277,6 @@ def plot_curves(i, eval_result, curve_id):
     plt.savefig('detviplV4d2' + str(i))
     pass
 
-def plotRecallByIterations(fppiList, recallList):
-    print('fppiList', fppiList)
-    print('recallList', recallList)
-
-    plt.figure()
-    for i in range(len(fppiList[0])):
-        recall = [r[i]  for r in recallList]
-        plt.plot(range(1, 11), recall, label='@fppi = ' + str(fppiList[0][i]), linewidth=2.0)
-        
-    plt.draw()
-    ax = plt.gca()
-    ax.set_ylim([0, 1])
-#    ax.set_xscale('log')
-    plt.xlabel('10K Iterations', fontsize=16)
-    plt.ylabel('Recall', fontsize=16)
-    plt.legend(loc='upper left', fontsize=10)
-    plt.grid(b=True, which='major', color='b', linestyle='-')
-    plt.grid(b=True, which='minor', color='b', linestyle=':')
-    plt.savefig('sjtuRoc2')
-
-    plt.show()
-
 
 
 if __name__ == '__main__':
@@ -336,6 +314,5 @@ if __name__ == '__main__':
                 cPickle.dump(eval_result, f, cPickle.HIGHEST_PROTOCOL)
 
         break
-#    plotRecallByIterations(fppiList, recallList)
 
 

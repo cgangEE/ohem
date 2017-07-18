@@ -176,20 +176,14 @@ class OHEMDataLayer(caffe.Layer):
             self._name_to_bottom_map['bbox_inside_weights'] = 5
             self._name_to_bottom_map['bbox_outside_weights'] = 6
 
-            #---------- _cg_ added Head ------------            
 
-            self._name_to_bottom_map['head_pred_readonly'] = 7
-            self._name_to_bottom_map['head_tagets'] = 8
+            #---------- _cg_ added Upper body ------------            
 
-            #---------- _cg_ added Four parts ------------            
+            self._name_to_bottom_map['cls_prob_half_readonly'] = 7
+            self._name_to_bottom_map['bbox_pred_half_readonly'] = 8
+            self._name_to_bottom_map['upper_body_tagets'] = 9
 
-            self._name_to_bottom_map['head_shoulder_pred_readonly'] = 9
-            self._name_to_bottom_map['head_shoulder_tagets'] = 10
-
-            self._name_to_bottom_map['upper_body_pred_readonly'] = 11
-            self._name_to_bottom_map['upper_body_tagets'] = 12
-
-            #---------- end _cg_ added Four parts ------------            
+            #---------- end _cg_ added Upper body ------------            
 
         self._name_to_top_map = {}
 
@@ -229,21 +223,11 @@ class OHEMDataLayer(caffe.Layer):
             idx += 1
 
 
-            #---------- _cg_ added Head ------------            
-            
-            top[idx].reshape(ohem_size, self._num_classes * 4)
-            self._name_to_top_map['head_targets_hard'] = idx
-            idx += 1
-
-            #---------- _cg_ added Four parts ------------            
-            top[idx].reshape(ohem_size, self._num_classes * 4)
-            self._name_to_top_map['head_shoulder_targets_hard'] = idx
-            idx += 1
-
+            #---------- _cg_ added Upper body ------------            
             top[idx].reshape(ohem_size, self._num_classes * 4)
             self._name_to_top_map['upper_body_targets_hard'] = idx
             idx += 1
-            #---------- end _cg_ added Four parts ------------            
+            #---------- end _cg_ added Upper body ------------            
 
 
 
@@ -263,23 +247,27 @@ class OHEMDataLayer(caffe.Layer):
             bbox_inside_weights = bottom[5].data
             bbox_outside_weights = bottom[6].data
             
-            #---------- _cg_ added Head ------------            
-            head_pred = bottom[7].data
-            head_target = bottom[8].data
 
-            #---------- _cg_ added Four parts ------------            
-            head_shoulder_pred = bottom[9].data
-            head_shoulder_target = bottom[10].data
-
-            upper_body_pred = bottom[11].data
-            upper_body_target = bottom[12].data
-            #---------- end _cg_ added Four parts ------------            
+            #---------- _cg_ added Upper body ------------            
+            cls_prob_half = bottom[7].data
+            bbox_pred_half = bottom[8].data
+            upper_body_target = bottom[9].data
+            #---------- end _cg_ added Upper body ------------            
 
 
         flt_min = np.finfo(float).eps
         # classification loss
         loss = [ -1 * np.log(max(x, flt_min)) \
             for x in [cls_prob[i,label] for i, label in enumerate(labels)]]
+
+
+
+        #---------- _cg_ added Upper body ------------            
+        half_cls_loss = [ -1 * np.log(max(x, flt_min)) \
+            for x in [cls_prob_half[i,label] for i, label in enumerate(labels)]]
+        loss += np.array(half_cls_loss, dtype=np.float32)
+        #---------- end _cg_ added Upper body ------------            
+
 
         if cfg.TRAIN.BBOX_REG:
             # bounding-box regression loss
@@ -293,48 +281,32 @@ class OHEMDataLayer(caffe.Layer):
                     return abs(x) - 0.5
 
             bbox_loss = np.zeros(labels.shape[0])
+
+
             for i in np.where(labels > 0 )[0]:
                 indices = np.where(bbox_inside_weights[i,:] != 0)[0]
                 bbox_loss[i] = sum(bbox_outside_weights[i,indices] * [smoothL1(x) \
                     for x in bbox_inside_weights[i,indices] * (bbox_pred[i,indices] - bbox_target[i,indices])])
+
             loss += bbox_loss
 
-
-            #---------- _cg_ added Head ------------            
-            head_loss = np.zeros(labels.shape[0])
-            for i in np.where(labels > 0 )[0]:
-                indices = np.where(bbox_inside_weights[i,:] != 0)[0]
-                head_loss[i] = sum(bbox_outside_weights[i,indices] * [smoothL1(x) \
-                    for x in bbox_inside_weights[i,indices] * (head_pred[i,indices] - head_target[i,indices])])
-            loss += head_loss
-            #---------- _cg_ added Four parts ------------            
-
-            head_shoulder_loss = np.zeros(labels.shape[0])
-            for i in np.where(labels > 0 )[0]:
-                indices = np.where(bbox_inside_weights[i,:] != 0)[0]
-                head_shoulder_loss[i] = \
-                    sum(bbox_outside_weights[i,indices] * [smoothL1(x) \
-                    for x in bbox_inside_weights[i,indices] * (head_shoulder_pred[i,indices] - head_shoulder_target[i,indices])])
-            loss += head_shoulder_loss
-
-
+            #---------- _cg_ added Upper body ------------            
             upper_body_loss = np.zeros(labels.shape[0])
             for i in np.where(labels > 0 )[0]:
                 indices = np.where(bbox_inside_weights[i,:] != 0)[0]
                 upper_body_loss[i] = \
                     sum(bbox_outside_weights[i,indices] * [smoothL1(x) \
-                    for x in bbox_inside_weights[i,indices] * (upper_body_pred[i,indices] - upper_body_target[i,indices])])
+                    for x in bbox_inside_weights[i,indices] * (bbox_pred_half[i,indices] - upper_body_target[i,indices])])
             loss += upper_body_loss
-
-            #---------- end _cg_ added Four parts ------------            
-
+            #---------- end _cg_ added Upper body ------------            
 
 
-        #---------- _cg_ added Head and Four parts ------------            
+
+        #---------- _cg_ added Upper body ------------            
         blobs = get_ohem_minibatch(loss, rois, labels, \
-            bbox_target, head_target, head_shoulder_target, upper_body_target, \
+            bbox_target, upper_body_target, \
             bbox_inside_weights, bbox_outside_weights)
-        #---------- end _cg_ added Head and Four parts------------            
+        #---------- end _cg_ added Upper body ------------            
 
         for blob_name, blob in blobs.iteritems():
 

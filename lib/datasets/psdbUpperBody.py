@@ -139,14 +139,6 @@ class psdbUpperBody(imdb):
 
 
     def gt_roidb(self):
-        '''
-        cache_file = os.path.join(self.cache_path, self.name + '_gt_roidb.pkl')
-        if os.path.exists(cache_file):
-            with open(cache_file, 'rb') as fid:
-                roidb = cPickle.load(fid)
-            print '{} gt roidb loaded from {}'.format(self.name, cache_file)
-            return roidb
-        '''
         
         self._count =  [0] * 10
 
@@ -159,12 +151,6 @@ class psdbUpperBody(imdb):
         print(self._count)
 
         return gt_roidb
-
-        '''
-        with open(cache_file, 'wb') as fid:
-            cPickle.dump(gt_roidb, fid, cPickle.HIGHEST_PROTOCOL)
-        print 'wrote gt roidb to {}'.format(cache_file)
-        '''
 
 
 

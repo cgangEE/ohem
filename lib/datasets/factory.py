@@ -16,6 +16,7 @@ from datasets.psdb import psdb
 from datasets.psdbHead import psdbHead
 from datasets.psdbFourParts import psdbFourParts
 from datasets.psdbUpperBody import psdbUpperBody
+from datasets.psdbCrop import psdbCrop
 
 from datasets.psdb3 import psdb3
 from datasets.psdbVeh import psdbVeh
@@ -32,6 +33,8 @@ from datasets.detviplV4d2X import detviplV4d2X
 from datasets.detviplV4d2XX import detviplV4d2XX
 from datasets.detviplV5d0 import detviplV5d0
 from datasets.detviplV7d0 import detviplV7d0
+from datasets.detviplV7d1 import detviplV7d1
+from datasets.detviplV7d2 import detviplV7d2
 
 from datasets.ua import ua 
 from datasets.riding import riding
@@ -84,6 +87,20 @@ for year in ['2016']:
     for split in ['train', 'test']:
         name = 'detviplV7d0_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: detviplV7d0(split, year))
+
+
+# Set up detviplV7d1_<year>_<split> using selective search "fast" mode
+for year in ['2016']:
+    for split in ['train', 'test']:
+        name = 'detviplV7d1_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: detviplV7d1(split, year))
+
+
+# Set up detviplV7d2_<year>_<split> using selective search "fast" mode
+for year in ['2016']:
+    for split in ['train', 'test']:
+        name = 'detviplV7d2_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: detviplV7d2(split, year))
 
 # Set up detviplV4_<year>_<split> using selective search "fast" mode
 for year in ['2016']:
@@ -160,6 +177,12 @@ for year in ['2015']:
     for split in ['train', 'val', 'trainval', 'test']:
         name = 'psdbUpperBody_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: psdbUpperBody(split, year))
+
+# Set up psdbCrop_<year>_<split> using selective search "fast" mode
+for year in ['2015']:
+    for split in ['train', 'val', 'trainval', 'test', 'val1', 'val2']:
+        name = 'psdbCrop_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: psdbCrop(split, year))
 
 # Set up psdb_<year>_<split> using selective search "fast" mode
 for year in ['2015']:

@@ -47,8 +47,12 @@ def tattooShowBox(image_set):
     gt_roidb = imdb.gt_roidb()
 
     for i in xrange(num_images):
-        if i % 40 == 0:
+        if i % 40 == 0 or True:
+
             im_name = imdb.image_path_at(i)
+
+            print(im_name.strip().split('/')[-1])
+
             im = cv2.imread(im_name)
             
             bbox = gt_roidb[i]['boxes']
@@ -68,10 +72,11 @@ def tattooShowBox(image_set):
             print(i)
 
             showImage(im, bbox, cls)
-            plt.savefig(str(i)+'Train',bbox_inches='tight', pad_inches=0)
+            plt.savefig( im_name.split('/')[-1] + 'Train.png',
+                    bbox_inches='tight', pad_inches=0)
 
 
 
 if __name__ == '__main__':
-    tattooShowBox('psdbFourParts_2015_train')
+    tattooShowBox('psdbFourParts_2015_test')
     

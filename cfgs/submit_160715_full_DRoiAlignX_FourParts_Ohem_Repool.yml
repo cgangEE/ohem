@@ -1,0 +1,10 @@
+EXP_DIR: pvanet_full1_DRoiAlignX_FourParts_Ohem_Repool
+TEST:
+  HAS_RPN: True
+  SCALE_MULTIPLE_OF: 32
+  SCALES:
+    - 640
+  BBOX_VOTE: True
+  NMS: 0.4
+  RPN_PRE_NMS_TOP_N: 12000
+  RPN_POST_NMS_TOP_N: 200

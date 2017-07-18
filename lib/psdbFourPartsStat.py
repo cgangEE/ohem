@@ -2,6 +2,7 @@
 
 from datasets.psdbFourParts import *
 from matplotlib import pyplot as plt
+import PIL
 
 def plot(name, data):
     fig, ax = plt.subplots(figsize=(12, 12))
@@ -12,14 +13,22 @@ def plot(name, data):
     
 
 def stat():
-    psdb = psdbFourParts('train', '2015')
+    psdb = psdbFourParts('test', '2015')
     roidb = psdb.gt_roidb()
 
     partName = ['boxes', 'head', 'head_shoulder', 'upper_body']
     ratio_w = {}
     ratio_h = {}
     
-    for roi in roidb:
+    imageSize = {}
+
+    for idx, roi in enumerate(roidb):
+        size = PIL.Image.open(psdb.image_path_at(idx)).size
+        if size in imageSize:
+            imageSize[size] += 1
+        else:
+            imageSize[size] = 1
+        
         for i, b in enumerate(roi['boxes']):             
             [x1, y1, x2, y2] = b
             pW = x2 - x1 + 1
@@ -34,6 +43,11 @@ def stat():
 
                 ratio_w[j].append(float(w) / pW)
                 ratio_h[j].append(float(h) / pH)
+
+    print(imageSize)
+
+    # print(set(imageSize))
+    # print(sorted(list(set(imageSize))))
 
     for i, part in enumerate(partName):            
         if (i):
