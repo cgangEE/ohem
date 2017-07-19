@@ -8,12 +8,13 @@
 """Train a Fast R-CNN network."""
 
 import google.protobuf.text_format
+import matplotlib.pyplot as plt
 import caffe
 from fast_rcnn.config import cfg
 import roi_data_layer.roidb as rdl_roidb
 from utils.timer import Timer
 import numpy as np
-import os
+import os, cv2
 import shutil
 
 from caffe.proto import caffe_pb2
@@ -116,18 +117,71 @@ class SolverWrapper(object):
 
         return filename
 
+    def vis_detections(self, im, dets):
+        """Visual debugging of detections."""
+        import matplotlib.pyplot as plt
+        im = im[:, :, (2, 1, 0)]
+
+        fig, ax = plt.subplots(figsize=(12, 12))
+        fig = ax.imshow(im, aspect='equal')
+        plt.axis('off')
+        fig.axes.get_xaxis().set_visible(False)
+        fig.axes.get_yaxis().set_visible(False)
+        print('dets.shape', dets.shape)
+
+        for i in xrange(3):
+                bbox = dets[i]
+                ax.add_patch(
+                        plt.Rectangle((bbox[0], bbox[1]),
+                              bbox[2] - bbox[0],
+                              bbox[3] - bbox[1], fill=False,
+                              edgecolor='red', linewidth=1.5)
+                        )
+                ax.text(bbox[0], bbox[1] - 2,
+                    '{:d}, {:d}'.format(int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1])),
+                        bbox=dict(facecolor='blue', alpha=0.2),
+                        fontsize=8, color='white')
+
+        plt.show('x')
+
+
+    def gao(self):
+        from fast_rcnn.bbox_transform import clip_boxes, bbox_transform_inv
+
+        net = self.solver.net
+
+        im = net.blobs['data'].data.copy()
+        im = im[0, :, :, :]
+        im = im.transpose(1, 2, 0)
+        im += cfg.PIXEL_MEANS
+        im = im.astype(np.uint8, copy=False)
+
+        rois = net.blobs['rois_hard'].data.copy()
+        boxes = rois[:, 1:5]
+        box_deltas = net.blobs['bbox_targets_hard'].data.copy()
+        pred_boxes = bbox_transform_inv(boxes, box_deltas)
+        pred_boxes = clip_boxes(pred_boxes, im.shape)
+        j = 1
+        cls_boxes = pred_boxes[:, j*4:(j+1)*4]
+        self.vis_detections(im, cls_boxes)
+
+        exit(0)
+
     def train_model(self, max_iters):
         """Network training loop."""
         last_snapshot_iter = -1
         timer = Timer()
         model_paths = []
-
+    
 
         while self.solver.iter < max_iters:
             # Make one SGD update
             timer.tic()
             self.solver.step(1)
             timer.toc()
+
+            self.gao()         
+
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)
 

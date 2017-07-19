@@ -140,6 +140,7 @@ class RoIDataLayer(caffe.Layer):
             top[top_ind].data[...] = blob.astype(np.float32, copy=False)
 
 
+
     def backward(self, top, propagate_down, bottom):
         """This layer does not propagate gradients."""
         pass

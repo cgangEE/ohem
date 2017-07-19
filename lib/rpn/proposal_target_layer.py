@@ -210,15 +210,6 @@ def _sample_rois(all_rois, gt_boxes, fg_rois_per_image, rois_per_image, num_clas
     bbox_targets, bbox_inside_weights = \
         _get_bbox_regression_labels(bbox_target_data, num_classes)
 
-    print('bbox_target_data.shape', bbox_target_data.shape)
-    print('rois.shape', rois.shape)
-    print('gt_boxes[gt_assignment[keep_inds], :4].shape', 
-            gt_boxes[gt_assignment[keep_inds], :4].shape)
-    print('labels.shape', labels.shape)
-    print('bbox_targets.shape', bbox_targets.shape)
-    print('bbox_inside_weights.shape', bbox_inside_weights.shape)
-    print('num_classes', num_classes)
-    exit(0)
 
 
     return labels, rois, bbox_targets, bbox_inside_weights

@@ -6915,15 +6915,17 @@ layer {
   type: 'Python'
   bottom: "rois_hard"
   bottom: "bbox_targets_hard"
-##  bottom: 'rois_repool'
-##  top: "bbox_targets_hard_repool"
-
-  top: "gt_boxes_hard"
+  bottom: 'rois_repool'
+  bottom: 'labels_hard'	
+  top: "bbox_targets_hard_repool"
+  propagate_down: false
+  propagate_down: false
   propagate_down: false
   propagate_down: false
   python_param {
     module: "roi_data_layer.repoolTarget"
     layer: 'RepoolTargetLayer'
+    param_str: "'num_classes': 2"
   }
 }
 
@@ -6932,7 +6934,7 @@ layer {
   name: "loss_bbox_repool"
   type: "SmoothL1Loss"
   bottom: "bbox_pred_repool"
-  bottom: "bbox_targets_hard"
+  bottom: "bbox_targets_hard_repool"
   bottom: "bbox_inside_weights_hard"
   bottom: "bbox_outside_weights_hard"
   top: "loss_bbox_repool"
