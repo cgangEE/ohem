@@ -1,15 +1,20 @@
 name: "PVANET"
-layer {
-  name: 'input-data'
-  type: 'Python'
-  top: 'data'
-  top: 'im_info'
-  top: 'gt_boxes'
-  python_param {
-    module: 'roi_data_layer.layer'
-    layer: 'RoIDataLayer'
-    param_str: "'num_classes': 2"
-  }
+
+################################################################################
+## Input
+################################################################################
+
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 640
+  dim: 1056
+}
+input: "im_info"
+input_shape {
+  dim: 1
+  dim: 6
 }
 
 ################################################################################
@@ -6241,6 +6246,10 @@ layer {
   }
 }
 
+
+
+
+
 ################################################################################
 ## RPN
 ################################################################################
@@ -6300,52 +6309,10 @@ layer {
    type: "Reshape"
    reshape_param { shape { dim: 0 dim: 2 dim: -1 dim: 0 } }
 }
-
-layer {
-  name: 'rpn-data'
-  type: 'Python'
-  bottom: 'rpn_cls_score'
-  bottom: 'gt_boxes'
-  bottom: 'im_info'
-  bottom: 'data'
-  top: 'rpn_labels'
-  top: 'rpn_bbox_targets'
-  top: 'rpn_bbox_inside_weights'
-  top: 'rpn_bbox_outside_weights'
-  python_param {
-    module: 'rpn.anchor_target_layer'
-    layer: 'AnchorTargetLayer'
-    param_str: "{'base_size': 8, 'feat_stride': 8, 'scales': [3, 6, 9, 16, 32], 'ratios': [1.0, 2.0, 3.0, 4.0, 5.0]}"
-  }
-}
-layer {
-  name: "rpn_loss_cls"
-  type: "SoftmaxWithLoss"
-  bottom: "rpn_cls_score_reshape"
-  bottom: "rpn_labels"
-  propagate_down: 1
-  propagate_down: 0
-  top: "rpn_cls_loss"
-  loss_weight: 1
-  loss_param {
-    ignore_label: -1
-    normalize: true
-  }
-}
-layer {
-  name: "rpn_loss_bbox"
-  type: "SmoothL1Loss"
-  bottom: "rpn_bbox_pred"
-  bottom: "rpn_bbox_targets"
-  bottom: 'rpn_bbox_inside_weights'
-  bottom: 'rpn_bbox_outside_weights'
-  top: "rpn_loss_bbox"
-  loss_weight: 1
-  smooth_l1_loss_param { sigma: 3.0 }
-}
-
-#========= RoI Proposal ============
-
+  
+################################################################################
+## Proposal
+################################################################################
 layer {
   name: "rpn_cls_prob"
   type: "Softmax"
@@ -6359,224 +6326,36 @@ layer {
   top: 'rpn_cls_prob_reshape'
   reshape_param { shape { dim: 0 dim: 50 dim: -1 dim: 0 } }
 }
-# C++ implementation of the proposal layer
+
+
+
 layer {
   name: 'proposal'
   type: 'Proposal'
   bottom: 'rpn_cls_prob_reshape'
   bottom: 'rpn_bbox_pred'
   bottom: 'im_info'
-  top: 'rpn_rois'
-  top: 'rpn_scores'
+  top: 'rois'
+  top: 'scores'
   proposal_param {
-    ratio: 1.0 ratio: 2.0 ratio: 3.0 ratio: 4.0 ratio: 5.0
+    ratio: 0.5 ratio: 0.667 ratio: 1.0 ratio: 1.5 ratio: 2.0
     scale: 3 scale: 6 scale: 9 scale: 16 scale: 32
     base_size: 8
     feat_stride: 8
     pre_nms_topn: 12000
-    post_nms_topn: 2000
+    post_nms_topn: 200
     nms_thresh: 0.7
     min_size: 1
   }
 }
-layer {
-  name: 'mute_rpn_scores'
-  bottom: 'rpn_scores'
-  type: 'Silence'
-}
 
-layer {
-  name: 'roi-data'
-  type: 'Python'
-  bottom: 'rpn_rois'
-  bottom: 'gt_boxes'
-  top: 'rois'
-  top: 'labels'
-  top: 'bbox_targets'
-  top: 'bbox_inside_weights'
-  top: 'bbox_outside_weights'
-  python_param {
-    module: 'rpn.proposal_target_layer'
-    layer: 'ProposalTargetLayer'
-    param_str: "'num_classes': 2"
-  }
-}
+#######################cg_add############################
 
-
-##########################
-## Readonly RoI Network ##
-######### Start ##########
-layer {
-  name: "roi_pool5_readonly"
-  type: "ROIAlign"
-  bottom: "convf"
-  bottom: "rois"
-  top: "pool5_readonly"
-  propagate_down: false
-  propagate_down: false
-  roi_pooling_param {
-    pooled_w: 6
-    pooled_h: 6
-    spatial_scale: 0.125 # 1/8
-  }
-}
-layer {
-  name: "fc6_readonly"
-  type: "InnerProduct"
-  bottom: "pool5_readonly"
-  top: "fc6_readonly"
-  propagate_down: false
-  param {
-    name: "fc6_w"
-  }
-  param {
-    name: "fc6_b"
-  }
-  inner_product_param {
-    num_output: 4096
-  }
-}
-layer {
-  name: "relu6_readonly"
-  type: "ReLU"
-  bottom: "fc6_readonly"
-  top: "fc6_readonly"
-  propagate_down: false
-}
-layer {
-  name: "drop6_readonly"
-  type: "Dropout"
-  bottom: "fc6_readonly"
-  top: "fc6_readonly"
-  propagate_down: false
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-}
-layer {
-  name: "fc7_readonly"
-  type: "InnerProduct"
-  bottom: "fc6_readonly"
-  top: "fc7_readonly"
-  propagate_down: false
-  param {
-    name: "fc7_w"
-  }
-  param {
-    name: "fc7_b"
-  }
-  inner_product_param {
-    num_output: 4096
-  }
-}
-layer {
-  name: "relu7_readonly"
-  type: "ReLU"
-  bottom: "fc7_readonly"
-  top: "fc7_readonly"
-  propagate_down: false
-}
-layer {
-  name: "drop7_readonly"
-  type: "Dropout"
-  bottom: "fc7_readonly"
-  top: "fc7_readonly"
-  propagate_down: false
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-}
-layer {
-  name: "cls_score_readonly"
-  type: "InnerProduct"
-  bottom: "fc7_readonly"
-  top: "cls_score_readonly"
-  propagate_down: false
-  param {
-    name: "cls_score_w"
-  }
-  param {
-    name: "cls_score_b"
-  }
-  inner_product_param {
-    num_output: 2
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
-}
-layer {
-  name: "bbox_pred_readonly"
-  type: "InnerProduct"
-  bottom: "fc7_readonly"
-  top: "bbox_pred_readonly"
-  propagate_down: false
-  param {
-    name: "bbox_pred_w"
-  }
-  param {
-    name: "bbox_pred_b"
-  }
-  inner_product_param {
-    num_output: 8
-    weight_filler {
-      type: "gaussian"
-      std: 0.001
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
-}
-layer {
-  name: "cls_prob_readonly"
-  type: "Softmax"
-  bottom: "cls_score_readonly"
-  top: "cls_prob_readonly"
-  propagate_down: false
-}
-layer {
-  name: "hard_roi_mining"
-  type: "Python"
-  bottom: "cls_prob_readonly"
-  bottom: "bbox_pred_readonly"
-  bottom: "rois"
-  bottom: "labels"
-  bottom: "bbox_targets"
-  bottom: "bbox_inside_weights"
-  bottom: "bbox_outside_weights"
-  top: "rois_hard"
-  top: "labels_hard"
-  top: "bbox_targets_hard"
-  top: "bbox_inside_weights_hard"
-  top: "bbox_outside_weights_hard"
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  python_param {
-    module: "roi_data_layer.layer"
-    layer: "OHEMDataLayer"
-    param_str: "'num_classes': 2"
-  }
-}
-########## End ###########
-## Readonly RoI Network ##
-##########################
 layer {
   name: "roi_pool5"
   type: "ROIAlign"
   bottom: "convf"
-  bottom: "rois_hard"
+  bottom: "rois"
   top: "pool5"
   propagate_down: true
   propagate_down: false
@@ -6655,7 +6434,7 @@ layer {
   }
 }
 layer {
-  name: "full1_cls_score"
+  name: "full1_cls_score_4"
   type: "InnerProduct"
   bottom: "fc7"
   top: "cls_score"
@@ -6670,7 +6449,7 @@ layer {
     decay_mult: 0
   }
   inner_product_param {
-    num_output: 2
+    num_output: 5
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -6682,7 +6461,7 @@ layer {
   }
 }
 layer {
-  name: "sjtuOhem_cg_bbox_pred"
+  name: "sjtuOhem_cg_bbox_pred_4"
   type: "InnerProduct"
   bottom: "fc7"
   top: "bbox_pred"
@@ -6697,7 +6476,7 @@ layer {
     decay_mult: 0
   }
   inner_product_param {
-    num_output: 8
+    num_output: 20
     weight_filler {
       type: "gaussian"
       std: 0.001
@@ -6708,238 +6487,10 @@ layer {
     }
   }
 }
+
 layer {
-  name: "loss_cls"
-  type: "SoftmaxWithLoss"
+  name: "cls_prob"
+  type: "Softmax"
   bottom: "cls_score"
-  bottom: "labels_hard"
-  top: "loss_cls"
-  propagate_down: true
-  propagate_down: false
-  loss_weight: 1
+  top: "cls_prob"
 }
-layer {
-  name: "loss_bbox"
-  type: "SmoothL1Loss"
-  bottom: "bbox_pred"
-  bottom: "bbox_targets_hard"
-  bottom: "bbox_inside_weights_hard"
-  bottom: "bbox_outside_weights_hard"
-  top: "loss_bbox"
-  propagate_down: true
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  loss_weight: 1
-}
-
-###########################################################################
-## Repooling
-###########################################################################
-
-
-layer {
-  name: 'rois_repool'
-  type: 'Python'
-  bottom: 'rois_hard'
-  bottom: "bbox_pred"
-  bottom: 'im_info'
-  top: 'rois_repool'
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  python_param {
-    module: "roi_data_layer.repooling"
-    layer: 'RepoolingLayer'
-  }
-}
-
-
-
-layer {
-  name: "roi_pool5_repool"
-  type: "ROIAlign"
-  bottom: "convf"
-  bottom: "rois_repool"
-  top: "pool5_repool"
-  propagate_down: true
-  propagate_down: false
-  roi_pooling_param {
-    pooled_w: 6
-    pooled_h: 6
-    spatial_scale: 0.125 # 1/8
-  }
-}
-
-
-layer {
-  name: "fc6_repool"
-  type: "InnerProduct"
-  bottom: "pool5_repool"
-  top: "fc6_repool"
-  param {
-    name: "fc6_w"
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    name: "fc6_b"
-    lr_mult: 2
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 4096
-  }
-}
-layer {
-  name: "relu6_repool"
-  type: "ReLU"
-  bottom: "fc6_repool"
-  top: "fc6_repool"
-}
-layer {
-  name: "drop6_repool"
-  type: "Dropout"
-  bottom: "fc6_repool"
-  top: "fc6_repool"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-}
-layer {
-  name: "fc7_repool"
-  type: "InnerProduct"
-  bottom: "fc6_repool"
-  top: "fc7_repool"
-  param {
-    name: "fc7_w"
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    name: "fc7_b"
-    lr_mult: 2
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 4096
-  }
-}
-layer {
-  name: "relu7_repool"
-  type: "ReLU"
-  bottom: "fc7_repool"
-  top: "fc7_repool"
-}
-layer {
-  name: "drop7_repool"
-  type: "Dropout"
-  bottom: "fc7_repool"
-  top: "fc7_repool"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-}
-
-
-
-layer {
-  name: "full1_cls_score_repool"
-  type: "InnerProduct"
-  bottom: "fc7_repool"
-  top: "cls_score_repool"
-  param {
-    name: "cls_score_w"
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    name: "cls_score_b"
-    lr_mult: 2
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 2
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
-}
-layer {
-  name: "bbox_pred_repool"
-  type: "InnerProduct"
-  bottom: "fc7_repool"
-  top: "bbox_pred_repool"
-  param {
-    name: "bbox_pred_w"
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    name: "bbox_pred_b"
-    lr_mult: 2
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 8
-    weight_filler {
-      type: "gaussian"
-      std: 0.001
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
-}
-
-layer {
-  name: "loss_cls_repool"
-  type: "SoftmaxWithLoss"
-  bottom: "cls_score_repool"
-  bottom: "labels_hard"
-  top: "loss_cls_repool"
-  propagate_down: true
-  propagate_down: false
-  loss_weight: 1
-}
-
-
-layer {
-  name: 'repool-data'
-  type: 'Python'
-  bottom: "rois_hard"
-  bottom: "bbox_targets_hard"
-##  bottom: 'rois_repool'
-##  top: "bbox_targets_hard_repool"
-
-  top: "gt_boxes_hard"
-  propagate_down: false
-  propagate_down: false
-  python_param {
-    module: "roi_data_layer.repoolTarget"
-    layer: 'RepoolTargetLayer'
-  }
-}
-
-
-layer {
-  name: "loss_bbox_repool"
-  type: "SmoothL1Loss"
-  bottom: "bbox_pred_repool"
-  bottom: "bbox_targets_hard"
-  bottom: "bbox_inside_weights_hard"
-  bottom: "bbox_outside_weights_hard"
-  top: "loss_bbox_repool"
-  propagate_down: true
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  loss_weight: 1
-}
-

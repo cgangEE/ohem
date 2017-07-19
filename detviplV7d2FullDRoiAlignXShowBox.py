@@ -68,15 +68,16 @@ def tattooShowBox(image_set):
 
     boxes = np.array(boxes)
 
-    for i in xrange(3588, num_images):
+    for i in xrange(1, num_images):
         im_name = imdb.image_path_at(i)
         im = cv2.imread(im_name)
         im_name = '/'.join(im_name.strip().split('/')[6:])
 
 
         showImage(im, boxes[:, i])
-        checkDir(im_name)
-        plt.savefig(im_name,bbox_inches='tight', pad_inches=0)
+        #checkDir(im_name)
+        print(i)
+        plt.savefig(str(i),bbox_inches='tight', pad_inches=0)
 
         time.sleep(0.1)
 

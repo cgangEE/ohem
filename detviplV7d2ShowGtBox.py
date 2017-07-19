@@ -14,7 +14,6 @@ import random
 matplotlib.rcParams.update({'figure.max_open_warning':0})
 
 def showImage(im, boxes, cls):
-
     classToColor = ['', 'red', 'magenta', 'blue', 'yellow']
 
     im = im[:, :, (2, 1, 0)]
@@ -46,20 +45,15 @@ def tattooShowBox(image_set):
     num_images = len(imdb.image_index)
     gt_roidb = imdb.gt_roidb()
 
-    for i in xrange(0, num_images):
-   #     if i % 30 == 0:
+    for i in xrange(430, num_images):
             im_name = imdb.image_path_at(i)
             im = cv2.imread(im_name)
             
-            bbox = gt_roidb[i]['boxes']
-            print(im_name)
-            print(bbox.shape)
             print(i)
+            bbox = gt_roidb[i]['boxes']
             cls = gt_roidb[i]['gt_classes']
-            if 3 in cls or True:
-                showImage(im, bbox, cls)
-
-                plt.savefig(str(i)+'GT',bbox_inches='tight', pad_inches=0)
+            showImage(im, bbox, cls)
+            plt.savefig(str(i)+'GT',bbox_inches='tight', pad_inches=0)
 
 
 if __name__ == '__main__':
