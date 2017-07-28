@@ -129,7 +129,7 @@ class SolverWrapper(object):
         fig.axes.get_yaxis().set_visible(False)
         print('dets.shape', dets.shape)
 
-        for i in xrange(3):
+        for i in xrange(min(20, len(dets))):
                 bbox = dets[i]
                 ax.add_patch(
                         plt.Rectangle((bbox[0], bbox[1]),
@@ -158,12 +158,28 @@ class SolverWrapper(object):
 
         rois = net.blobs['rois_hard'].data.copy()
         boxes = rois[:, 1:5]
-        box_deltas = net.blobs['bbox_targets_hard'].data.copy()
-        pred_boxes = bbox_transform_inv(boxes, box_deltas)
+
+        box_deltas = net.blobs['bbox_pred'].data.copy()
+        box_targets = net.blobs['bbox_targets_hard'].data.copy()
+        repool = net.blobs['rois_repool'].data.copy()
+
+        j = 1
+        box_targets[:, j*4:(j+1)*4] *= np.array(
+                cfg.TRAIN.BBOX_NORMALIZE_STDS)
+        box_targets[:, j*4:(j+1)*4] += np.array(
+                cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+
+        print('box_deltas.shape', box_deltas.shape)
+        print('box_targets.shape', box_targets.shape)
+        print('box_deltas[0]', box_deltas[0])
+        print('box_targets[0]', box_targets[0])
+
+
+        pred_boxes = bbox_transform_inv(boxes, box_targets)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
         j = 1
         cls_boxes = pred_boxes[:, j*4:(j+1)*4]
-        self.vis_detections(im, cls_boxes)
+        self.vis_detections(im, repool[:, 1:])
 
         exit(0)
 
@@ -180,7 +196,7 @@ class SolverWrapper(object):
             self.solver.step(1)
             timer.toc()
 
-            self.gao()         
+#            self.gao()         
 
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)

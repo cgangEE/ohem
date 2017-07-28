@@ -137,13 +137,6 @@ def _get_bbox_regression_labels(bbox_target_data, num_classes):
         cls = clss[ind]
         start = 4 * cls
         end = start + 4
-        '''
-        print('bbox_targets.shape', bbox_targets.shape)
-        print('ind', ind)
-        print('start', start)
-        print('end', end)
-        print('bbox_target_data.shape', bbox_target_data.shape)
-        '''
         bbox_targets[ind, start:end] = bbox_target_data[ind, 1:]
         bbox_inside_weights[ind, start:end] = cfg.TRAIN.BBOX_INSIDE_WEIGHTS
     return bbox_targets, bbox_inside_weights
@@ -157,10 +150,12 @@ def _compute_targets(ex_rois, gt_rois, labels):
     assert gt_rois.shape[1] == 4
 
     targets = bbox_transform(ex_rois, gt_rois)
+
     if cfg.TRAIN.BBOX_NORMALIZE_TARGETS_PRECOMPUTED:
         # Optionally normalize targets by a precomputed mean and stdev
         targets = ((targets - np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS))
                 / np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS))
+
     return np.hstack(
             (labels[:, np.newaxis], targets)).astype(np.float32, copy=False)
 
@@ -209,7 +204,6 @@ def _sample_rois(all_rois, gt_boxes, fg_rois_per_image, rois_per_image, num_clas
 
     bbox_targets, bbox_inside_weights = \
         _get_bbox_regression_labels(bbox_target_data, num_classes)
-
 
 
     return labels, rois, bbox_targets, bbox_inside_weights

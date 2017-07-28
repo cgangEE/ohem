@@ -230,8 +230,8 @@ def eval_roc_pr(config, image_set, det_file, cls):
     print('fppi[myIdx]', fppi[myIdx])
     print('det_conf[myIdx]', det_conf[myIdx])
     print('')
-    '''
 
+    '''
 
 
     ap = compute_ap(recall, precision)
@@ -285,7 +285,7 @@ def plot_curves(i, eval_result, curve_id):
     plot_roc(eval_result, curve_id)
 #    plot_pr(eval_result, curve_id)
 #    plt.show()
-    plt.savefig('detviplV7d2_ge' + str(i))
+    plt.savefig('detviplV7d5_ge' + str(i))
     pass
 
 
@@ -301,22 +301,22 @@ if __name__ == '__main__':
     config.transform_det = False
 
 
-    for i in range(9, 0, -1):
+    for i in range(10, 0, -1):
         print("Iteration", i)
         cacheFilename = \
-             'output/pvanet_full1_ohem_DRoiAlignX/detviplV7d2_test/zf_faster_rcnn_iter_' + str(i) + '0000_inference/detections.pkl'
+             'output/pvanet_full1_ohem_DRoiAlignX/detviplV7d5_test/zf_faster_rcnn_iter_' + str(i) + '0000_inference/detections.pkl'
 
         if (os.path.exists(cacheFilename)):
             eval_result = []
             for cls in range(1, 5):
                 result, fppi_pts, recall_pts = eval_roc_pr(config, 
-                    'detviplV7d2_2016_test', cacheFilename, cls)
+                    'detviplV7d5_2016_test', cacheFilename, cls)
                 eval_result.append(result)
 
             det_id = ['pedestrian', 'vehicle', 'riding_tool', 'riding_whole']
             plot_curves(i, eval_result, det_id)
 
-            det_file = os.path.join('detviplV7d2-pvanet-ohem-DRoiAlignX-Ge50-' + str(i) +'.pkl')
+            det_file = os.path.join('detviplV7d5-pvanet-ohem-DRoiAlignX-Ge50-' + str(i) +'.pkl')
             with open(det_file, 'wb') as f:
                 cPickle.dump(eval_result, f, cPickle.HIGHEST_PROTOCOL)
 

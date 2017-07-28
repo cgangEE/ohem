@@ -37,6 +37,12 @@ class RepoolingLayer(caffe.Layer):
         im_info = bottom[2].data
         im_shape = (im_info[0, 0], im_info[0, 1])
 
+        j = 1
+        box_deltas[:, j*4:(j+1)*4] *= np.array(
+                cfg.TRAIN.BBOX_NORMALIZE_STDS)
+        box_deltas[:, j*4:(j+1)*4] += np.array(
+                cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+
         pred_boxes = bbox_transform_inv(boxes, box_deltas)
         pred_boxes = clip_boxes(pred_boxes, im_shape)
 

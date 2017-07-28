@@ -40,11 +40,17 @@ class RepoolTargetLayer(caffe.Layer):
         rois_repool = bottom[2].data
         labels = bottom[3].data
 
+        j = 1
+        gt_targets[:, j*4:(j+1)*4] *= np.array(
+                cfg.TRAIN.BBOX_NORMALIZE_STDS)
+        gt_targets[:, j*4:(j+1)*4] += np.array(
+                cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+
+
         gt_boxes = bbox_transform_inv(rois, gt_targets)
 
         bbox_target_data = _compute_targets(
             rois_repool[:, 1:5], gt_boxes[:, :4], labels)
-
         bbox_targets, bbox_inside_weights = \
             _get_bbox_regression_labels(bbox_target_data, self._num_classes)
 
