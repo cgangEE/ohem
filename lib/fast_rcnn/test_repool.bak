@@ -131,13 +131,6 @@ def im_detect(net, im, _t, boxes=None):
     # (some distinct image ROIs get mapped to the same feature ROI).
     # Here, we identify duplicate feature ROIs, so we only compute features
     # on the unique subset.
-    if cfg.DEDUP_BOXES > 0 and not cfg.TEST.HAS_RPN:
-        v = np.array([1, 1e3, 1e6, 1e9, 1e12])
-        hashes = np.round(blobs['rois'] * cfg.DEDUP_BOXES).dot(v)
-        _, index, inv_index = np.unique(hashes, return_index=True,
-                                        return_inverse=True)
-        blobs['rois'] = blobs['rois'][index, :]
-        boxes = boxes[index, :]
 
     if cfg.TEST.HAS_RPN:
         im_blob = blobs['data']
@@ -170,8 +163,6 @@ def im_detect(net, im, _t, boxes=None):
 
 
 
-
-
     _t['im_postproc'].tic()
     if cfg.TEST.HAS_RPN:
         assert len(im_scales) == 1, "Only single-image batch implemented"
@@ -179,22 +170,16 @@ def im_detect(net, im, _t, boxes=None):
         # unscale back to raw image space
         boxes = rois[:, 1:5] / im_scales[0]
 
-    if cfg.TEST.SVM:
-        # use the raw scores before softmax under the assumption they
-        # were trained as linear SVMs
-        scores = net.blobs['cls_score'].data
-    else:
-        # use softmax estimated probabilities
-        scores = blobs_out['cls_prob_repool']
+    # use softmax estimated probabilities
+    scores = blobs_out['cls_prob_repool']
 
     if cfg.TEST.BBOX_REG:
         # Apply bounding-box regression deltas
-        box_deltas = blobs_out['bbox_pred_repool']
+        #box_deltas = blobs_out['bbox_pred_repool']
+        box_deltas = net.blobs['bbox_pred_repool'].data.copy()
         pred_boxes = bbox_transform_inv(boxes, box_deltas)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
-    else:
-        # Simply repeat the boxes, once for each class
-        pred_boxes = np.tile(boxes, (1, scores.shape[1]))
+
 
     if cfg.DEDUP_BOXES > 0 and not cfg.TEST.HAS_RPN:
         # Map scores and predictions back to the original set of boxes
@@ -204,24 +189,37 @@ def im_detect(net, im, _t, boxes=None):
 
     return scores, pred_boxes
 
-def vis_detections(im, class_name, dets, thresh=0.3):
+def vis_detections(im, class_name, dets, idx, thresh=0.3):
     """Visual debugging of detections."""
     import matplotlib.pyplot as plt
     im = im[:, :, (2, 1, 0)]
-    for i in xrange(np.minimum(10, dets.shape[0])):
+
+    fig, ax = plt.subplots(figsize=(12, 12))
+    fig = ax.imshow(im, aspect='equal')
+    plt.axis('off')
+    fig.axes.get_xaxis().set_visible(False)
+    fig.axes.get_yaxis().set_visible(False)
+
+    for i in xrange(dets.shape[0]):
         bbox = dets[i, :4]
         score = dets[i, -1]
-        if score > thresh:
-            plt.cla()
-            plt.imshow(im)
-            plt.gca().add_patch(
-                plt.Rectangle((bbox[0], bbox[1]),
-                              bbox[2] - bbox[0],
-                              bbox[3] - bbox[1], fill=False,
-                              edgecolor='g', linewidth=3)
-                )
-            plt.title('{}  {:.3f}'.format(class_name, score))
-            plt.show()
+        if score > 0.5:
+            print(bbox)
+
+            ax.add_patch(
+                    plt.Rectangle((bbox[0], bbox[1]),
+                          bbox[2] - bbox[0],
+                          bbox[3] - bbox[1], fill=False,
+                          edgecolor='red', linewidth=1.5)
+                    )
+            ax.text(bbox[0], bbox[1] - 2,
+                '{:d}, {:d}, {:.3f}'.format(int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1]), score),
+                    bbox=dict(facecolor='blue', alpha=0.2),
+                    fontsize=8, color='white')
+
+#    plt.savefig(str(idx) + 'X', bbox_inches='tight', pad_inches=0)
+    plt.show()
+
 
 def apply_nms(all_boxes, thresh):
     """Apply non-maximum suppression to all predicted boxes output by the
@@ -245,7 +243,7 @@ def apply_nms(all_boxes, thresh):
             nms_boxes[cls_ind][im_ind] = dets[keep, :].copy()
     return nms_boxes
 
-def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
+def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=True):
     """Test a Fast R-CNN network on an image database."""
     num_images = len(imdb.image_index)
     # all detections are collected into:
@@ -293,8 +291,8 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
             else:
                 cls_dets = dets_NMSed
 
-            if vis:
-                vis_detections(im, imdb.classes[j], cls_dets)
+            if vis or True:
+                vis_detections(im, imdb.classes[j], cls_dets, i)
             all_boxes[j][i] = cls_dets
 
         # Limit to max_per_image detections *over all classes*

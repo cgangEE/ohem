@@ -1,4 +1,4 @@
-train_net: "models/full1_DRoiAlignX_Repool/original.pt"
+train_net: "models/full1_DRoiAlignX_Repool/originalX.pt"
 
 base_lr: 0.001
 lr_policy: "step"

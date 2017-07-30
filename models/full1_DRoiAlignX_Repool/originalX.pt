@@ -6768,3 +6768,196 @@ layer {
   propagate_down: false
   propagate_down: false
 }
+layer {
+  name: "rois_repool"
+  type: "Python"
+  bottom: "rois_hard"
+  bottom: "bbox_pred"
+  bottom: "im_info"
+  top: "rois_repool"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repooling"
+    layer: "RepoolingLayer"
+  }
+}
+layer {
+  name: "roi_pool5_repool"
+  type: "ROIAlign"
+  bottom: "convf"
+  bottom: "rois_repool"
+  top: "pool5_repool"
+  propagate_down: true
+  propagate_down: false
+  roi_pooling_param {
+    pooled_h: 6
+    pooled_w: 6
+    spatial_scale: 0.125
+  }
+}
+layer {
+  name: "fc6_repool"
+  type: "InnerProduct"
+  bottom: "pool5_repool"
+  top: "fc6_repool"
+  param {
+    name: "fc6_w"
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    name: "fc6_b"
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6_repool"
+  type: "ReLU"
+  bottom: "fc6_repool"
+  top: "fc6_repool"
+}
+layer {
+  name: "drop6_repool"
+  type: "Dropout"
+  bottom: "fc6_repool"
+  top: "fc6_repool"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7_repool"
+  type: "InnerProduct"
+  bottom: "fc6_repool"
+  top: "fc7_repool"
+  param {
+    name: "fc7_w"
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    name: "fc7_b"
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7_repool"
+  type: "ReLU"
+  bottom: "fc7_repool"
+  top: "fc7_repool"
+}
+layer {
+  name: "drop7_repool"
+  type: "Dropout"
+  bottom: "fc7_repool"
+  top: "fc7_repool"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "full1_cls_score_repool"
+  type: "InnerProduct"
+  bottom: "fc7_repool"
+  top: "cls_score_repool"
+  param {
+    name: "cls_score_w"
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    name: "cls_score_b"
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "bbox_pred_repool"
+  type: "InnerProduct"
+  bottom: "fc7_repool"
+  top: "bbox_pred_repool"
+  param {
+    name: "bbox_pred_w"
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    name: "bbox_pred_b"
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  inner_product_param {
+    num_output: 8
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "loss_cls_repool"
+  type: "SoftmaxWithLoss"
+  bottom: "cls_score_repool"
+  bottom: "labels_hard"
+  top: "loss_cls_repool"
+  loss_weight: 1.0
+  propagate_down: true
+  propagate_down: false
+}
+layer {
+  name: "repool-data"
+  type: "Python"
+  bottom: "rois_hard"
+  bottom: "bbox_targets_hard"
+  bottom: "rois_repool"
+  bottom: "labels_hard"
+  top: "bbox_targets_hard_repool"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repoolTarget"
+    layer: "RepoolTargetLayer"
+    param_str: "\'num_classes\': 2"
+  }
+}
+layer {
+  name: "loss_bbox_repool"
+  type: "SmoothL1Loss"
+  bottom: "bbox_pred_repool"
+  bottom: "bbox_targets_hard_repool"
+  bottom: "bbox_inside_weights_hard"
+  bottom: "bbox_outside_weights_hard"
+  top: "loss_bbox_repool"
+  loss_weight: 1.0
+  propagate_down: true
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+}
