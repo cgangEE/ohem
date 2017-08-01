@@ -1,4 +1,4 @@
-for i in {8..1}
+for i in {10..1}
 do
 	echo 'Testing'  $i &>> log_detviplV4d2_DRoiAlignX_Repool_test_${i}
 	tools/test_net_repool.py \

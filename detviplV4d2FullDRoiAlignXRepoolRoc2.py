@@ -313,7 +313,7 @@ if __name__ == '__main__':
     fppiList = []
     recallList = []
 
-    for i in range(8, 0, -1):
+    for i in range(10, 0, -1):
         print("Iteration", i)
         cacheFilename = \
              'output/pvanet_full1_ohem_DRoiAlignX_Repool/detviplV4d2_test/zf_faster_rcnn_iter_' + str(i) + '0000_inference/detections.pkl'

@@ -39,6 +39,8 @@ from datasets.detviplV7d2d1 import detviplV7d2d1
 from datasets.detviplV7d4 import detviplV7d4
 from datasets.detviplV7d5 import detviplV7d5
 
+from datasets.part import part
+
 from datasets.ua import ua 
 from datasets.riding import riding
 
@@ -124,6 +126,14 @@ for year in ['2016']:
     for split in ['train', 'test']:
         name = 'detviplV7d5_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: detviplV7d5(split, year))
+
+
+# Set up part_<year>_<split> using selective search "fast" mode
+for year in ['2016']:
+    for split in ['train', 'test']:
+        name = 'part_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: part(split, year))
+
 
 
 # Set up detviplV4_<year>_<split> using selective search "fast" mode
