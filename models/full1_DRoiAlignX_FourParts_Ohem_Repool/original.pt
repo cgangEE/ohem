@@ -7004,6 +7004,10 @@ layer {
   bottom: "head_shoulder_pred"
   bottom: "upper_body_pred"
   bottom: 'im_info'
+  top: 'bbox_repool'
+  top: 'head_repool'
+  top: 'head_shoulder_repool'
+  top: 'upper_body_repool'
   top: 'rois_repool'
   propagate_down: false
   propagate_down: false
@@ -7116,7 +7120,7 @@ layer {
   top: 'fc7_repool_upper_body'
   propagate_down: true
   python_param {
-    module: "roi_data_layer.repooling"
+    module: "roi_data_layer.repoolingFourParts"
     layer: 'SplitLayer'
   }
 }
@@ -7195,12 +7199,31 @@ layer {
 }
 
 
+layer {
+  name: 'repool-data-bbox'
+  type: 'Python'
+  bottom: "rois_hard"
+  bottom: "bbox_targets_hard"
+  bottom: 'bbox_repool'
+  bottom: 'labels_hard'	
+  top: "bbox_targets_hard_repool"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repoolTarget"
+    layer: 'RepoolTargetLayer'
+    param_str: "'num_classes': 2"
+  }
+}
+
 
 layer {
   name: "loss_bbox_repool"
   type: "SmoothL1Loss"
   bottom: "bbox_pred_repool"
-  bottom: "bbox_targets_hard"
+  bottom: "bbox_targets_hard_repool"
   bottom: "bbox_inside_weights_hard"
   bottom: "bbox_outside_weights_hard"
   top: "loss_bbox_repool"
@@ -7286,12 +7309,32 @@ layer {
 }
 
 
+layer {
+  name: 'repool-data-head'
+  type: 'Python'
+  bottom: "rois_hard"
+  bottom: "head_targets_hard"
+  bottom: 'head_repool'
+  bottom: 'labels_hard'	
+  top: "head_targets_hard_repool"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repoolTarget"
+    layer: 'RepoolTargetLayer'
+    param_str: "'num_classes': 2"
+  }
+}
+
+
 
 layer {
   name: "loss_head_repool"
   type: "SmoothL1Loss"
   bottom: "head_pred_repool"
-  bottom: "head_targets_hard"
+  bottom: "head_targets_hard_repool"
   bottom: "bbox_inside_weights_hard"
   bottom: "bbox_outside_weights_hard"
   top: "loss_head_repool"
@@ -7347,6 +7390,7 @@ layer {
   loss_weight: 1
 }
 
+
 layer {
   name: "head_shoulder_pred_repool"
   type: "InnerProduct"
@@ -7376,12 +7420,32 @@ layer {
 }
 
 
+layer {
+  name: 'repool-data-head-shoulder'
+  type: 'Python'
+  bottom: "rois_hard"
+  bottom: "head_shoulder_targets_hard"
+  bottom: 'head_shoulder_repool'
+  bottom: 'labels_hard'	
+  top: "head_shoulder_targets_hard_repool"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repoolTarget"
+    layer: 'RepoolTargetLayer'
+    param_str: "'num_classes': 2"
+  }
+}
+
+
 
 layer {
   name: "loss_head_shoulder_repool"
   type: "SmoothL1Loss"
   bottom: "head_shoulder_pred_repool"
-  bottom: "head_shoulder_targets_hard"
+  bottom: "head_shoulder_targets_hard_repool"
   bottom: "bbox_inside_weights_hard"
   bottom: "bbox_outside_weights_hard"
   top: "loss_head_shoulder_repool"
@@ -7464,13 +7528,32 @@ layer {
   }
 }
 
+layer {
+  name: 'repool-data-upper-body'
+  type: 'Python'
+  bottom: "rois_hard"
+  bottom: "upper_body_targets_hard"
+  bottom: 'upper_body_repool'
+  bottom: 'labels_hard'	
+  top: "upper_body_targets_hard_repool"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repoolTarget"
+    layer: 'RepoolTargetLayer'
+    param_str: "'num_classes': 2"
+  }
+}
+
 
 
 layer {
   name: "loss_upper_body_repool"
   type: "SmoothL1Loss"
   bottom: "upper_body_pred_repool"
-  bottom: "upper_body_targets_hard"
+  bottom: "upper_body_targets_hard_repool"
   bottom: "bbox_inside_weights_hard"
   bottom: "bbox_outside_weights_hard"
   top: "loss_upper_body_repool"
