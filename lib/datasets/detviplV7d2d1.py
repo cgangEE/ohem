@@ -204,7 +204,7 @@ class detviplV7d2d1(imdb):
             self.config['cleanup'] = True
 
 if __name__ == '__main__':
-    my = detviplV7d2d1('train', '2016');
+    my = detviplV7d2d1('test', '2016');
     '''
     for i in range(10):
         print(my.image_path_at(i))

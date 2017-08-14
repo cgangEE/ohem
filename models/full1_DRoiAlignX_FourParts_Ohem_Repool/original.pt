@@ -6925,7 +6925,7 @@ layer {
   top: "loss_cls"
   propagate_down: true
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 layer {
@@ -6940,7 +6940,7 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 
@@ -6956,7 +6956,7 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 
@@ -6972,7 +6972,7 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 layer {
@@ -6987,7 +6987,7 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 ###########################################################################
@@ -7167,7 +7167,7 @@ layer {
   top: "loss_cls_repool_bbox"
   propagate_down: true
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 layer {
@@ -7231,7 +7231,7 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 
@@ -7277,7 +7277,7 @@ layer {
   top: "loss_cls_repool_head"
   propagate_down: true
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 layer {
@@ -7342,7 +7342,7 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 ###########################################################################
@@ -7387,7 +7387,7 @@ layer {
   top: "loss_cls_repool_head_shoulder"
   propagate_down: true
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 
@@ -7453,7 +7453,7 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 ###########################################################################
@@ -7497,7 +7497,7 @@ layer {
   top: "loss_cls_repool_upper_body"
   propagate_down: true
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }
 
 layer {
@@ -7561,5 +7561,5 @@ layer {
   propagate_down: false
   propagate_down: false
   propagate_down: false
-  loss_weight: 1
+  loss_weight: 0.25
 }

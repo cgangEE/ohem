@@ -35,25 +35,22 @@ class RepoolTargetLayer(caffe.Layer):
     def forward(self, bottom, top):
         """Compute loss, select RoIs using OHEM. Use RoIs to get blobs and copy them into this layer's top blob vector."""
 
-        rois = bottom[0].data[:, 1:5]
-        gt_targets = bottom[1].data
-        rois_repool = bottom[2].data
-        labels = bottom[3].data
+        rois = bottom[0].data.copy()[:, 1:5]
+        gt_targets = bottom[1].data.copy()
+        rois_repool = bottom[2].data.copy()
+        labels = bottom[3].data.copy()
 
         j = 1
         gt_targets[:, j*4:(j+1)*4] *= np.array(
                 cfg.TRAIN.BBOX_NORMALIZE_STDS)
         gt_targets[:, j*4:(j+1)*4] += np.array(
                 cfg.TRAIN.BBOX_NORMALIZE_MEANS)
-
-
         gt_boxes = bbox_transform_inv(rois, gt_targets)
 
         bbox_target_data = _compute_targets(
-            rois_repool[:, 1:5], gt_boxes[:, :4], labels)
+            rois_repool[:, 1:5], gt_boxes[:, 4:], labels)
         bbox_targets, bbox_inside_weights = \
             _get_bbox_regression_labels(bbox_target_data, self._num_classes)
-
 
         top[0].reshape(*(bbox_targets.shape))
         top[0].data[...] = bbox_targets.astype(np.float32, copy=False)

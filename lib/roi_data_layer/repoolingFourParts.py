@@ -37,19 +37,13 @@ class RepoolingLayer(caffe.Layer):
     def forward(self, bottom, top):
         """Compute loss, select RoIs using OHEM. Use RoIs to get blobs and copy them into this layer's top blob vector."""
 
-        boxes = bottom[0].data[:, 1:5]
+        boxes = bottom[0].data.copy()[:, 1:5]
         deltas = []
 
         for i in range(1, 5):
-            deltas.append(bottom[i].data)
-        '''
-        box_deltas = bottom[1].data
-        head_deltas = bottom[2].data
-        head_shoulder_deltas = bottom[3].data
-        upper_body_deltas = bottom[4].data
-        '''
+            deltas.append(bottom[i].data.copy())
 
-        im_info = bottom[5].data
+        im_info = bottom[5].data.copy()
         im_shape = (im_info[0, 0], im_info[0, 1])
 
         j = 1
@@ -108,7 +102,7 @@ class SplitLayer(caffe.Layer):
     def forward(self, bottom, top):
         """Compute loss, select RoIs using OHEM. Use RoIs to get blobs and copy them into this layer's top blob vector."""
 
-        fc7 = bottom[0].data
+        fc7 = bottom[0].data.copy()
         size = fc7.shape[0] / 4
 
         for i in range(4):
@@ -118,8 +112,8 @@ class SplitLayer(caffe.Layer):
 
 
     def backward(self, top, propagate_down, bottom):
-        diff = np.vstack((top[0].diff, top[1].diff, 
-                top[2].diff, top[3].diff))
+        diff = np.vstack((top[0].diff.copy(), top[1].diff.copy(), 
+                top[2].diff.copy(), top[3].diff.copy()))
 
         bottom[0].diff[...] = diff.astype(np.float32, copy=False)
 

@@ -30,7 +30,7 @@ def showImage(im, boxes, cls):
                     plt.Rectangle((bbox[0], bbox[1]),
                           bbox[2] - bbox[0],
                           bbox[3] - bbox[1], fill=False,
-                          edgecolor= classToColor[cls[i]], linewidth=2.0)
+                          edgecolor= classToColor[cls[i]], linewidth=3.5)
                 )
 
 
@@ -47,7 +47,7 @@ def tattooShowBox(image_set):
     gt_roidb = imdb.gt_roidb()
 
     for i in xrange(num_images):
-        if i % 40 == 0 :
+        if i % 80 == 0 :
 
             im_name = imdb.image_path_at(i)
             im = cv2.imread(im_name)

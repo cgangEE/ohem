@@ -3928,6 +3928,10 @@ layer {
   bottom: "head_shoulder_pred"
   bottom: "upper_body_pred"
   bottom: "im_info"
+  top: "bbox_repool"
+  top: "head_repool"
+  top: "head_shoulder_repool"
+  top: "upper_body_repool"
   top: "rois_repool"
   propagate_down: false
   propagate_down: false
@@ -3936,7 +3940,7 @@ layer {
   propagate_down: false
   propagate_down: false
   python_param {
-    module: "roi_data_layer.repooling"
+    module: "roi_data_layer.repoolingFourParts"
     layer: "RepoolingLayer"
   }
 }
@@ -4032,7 +4036,7 @@ layer {
   top: "fc7_repool_upper_body"
   propagate_down: true
   python_param {
-    module: "roi_data_layer.repooling"
+    module: "roi_data_layer.repoolingFourParts"
     layer: "SplitLayer"
   }
 }

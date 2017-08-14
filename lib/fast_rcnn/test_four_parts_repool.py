@@ -167,14 +167,14 @@ def im_detect(net, im, _t, boxes=None):
     _t['im_postproc'].tic()
     if cfg.TEST.HAS_RPN:
         assert len(im_scales) == 1, "Only single-image batch implemented"
-        rois = net.blobs['rois_repool'].data.copy()
-        # unscale back to raw image space
-        boxes = rois[:, 1:5] / im_scales[0]
-        size = boxes.shape[0] / 4
 
-        rois_repool = []
-        for i in range(4):
-            rois_repool.append(boxes[i * size : (i + 1) * size, :])
+        boxes = net.blobs['bbox_repool'].data.copy()[:, 1:5] / im_scales[0]
+        boxes_head = net.blobs['head_repool'].data.copy()[:, 1:5] / im_scales[0]
+        boxes_head_shoulder = \
+                net.blobs['head_shoulder_repool'].data.copy()[:, 1:5] / im_scales[0]
+        boxes_upper_body = \
+                net.blobs['upper_body_repool'].data.copy()[:, 1:5] / im_scales[0]
+
 
     # use softmax estimated probabilities
     scores = blobs_out['cls_prob_repool_bbox']
@@ -186,22 +186,22 @@ def im_detect(net, im, _t, boxes=None):
     if cfg.TEST.BBOX_REG:
         # Apply bounding-box regression deltas
         box_deltas = blobs_out['bbox_pred_repool']
-        pred_boxes = bbox_transform_inv(rois_repool[0], box_deltas)
+        pred_boxes = bbox_transform_inv(boxes, box_deltas)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
 
         #---------------_cg_ added head--------------------
         head_deltas = blobs_out['head_pred_repool']
-        pred_head = bbox_transform_inv(rois_repool[1], head_deltas)
+        pred_head = bbox_transform_inv(boxes_head, head_deltas)
         pred_head = clip_boxes(pred_head, im.shape)
 
         #---------- _cg_ added Four parts ------------            
 
         head_shoulder_deltas = blobs_out['head_shoulder_pred_repool']
-        pred_head_shoulder = bbox_transform_inv(rois_repool[2], head_shoulder_deltas)
+        pred_head_shoulder = bbox_transform_inv(boxes_head_shoulder, head_shoulder_deltas)
         pred_head_shoulder = clip_boxes(pred_head_shoulder, im.shape)
 
         upper_body_deltas = blobs_out['upper_body_pred_repool']
-        pred_upper_body = bbox_transform_inv(rois_repool[3], upper_body_deltas)
+        pred_upper_body = bbox_transform_inv(boxes_upper_body, upper_body_deltas)
         pred_upper_body = clip_boxes(pred_upper_body, im.shape)
         #---------- end _cg_ added Four parts ------------            
 
@@ -303,7 +303,6 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
         _t['misc'].tic()
         # skip j = 0, because it's the background class
         for j in xrange(1, imdb.num_classes):
-            print(scores.shape)
             inds = np.where(scores[:, j] > thresh)[0]
             cls_scores = scores[inds, j]
             cls_boxes = boxes[inds, j*4:(j+1)*4]

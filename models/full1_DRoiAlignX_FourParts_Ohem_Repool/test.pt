@@ -6596,6 +6596,10 @@ layer {
   bottom: "head_shoulder_pred"
   bottom: "upper_body_pred"
   bottom: 'im_info'
+  top: 'bbox_repool'
+  top: 'head_repool'
+  top: 'head_shoulder_repool'
+  top: 'upper_body_repool'
   top: 'rois_repool'
   propagate_down: false
   propagate_down: false
@@ -6754,7 +6758,6 @@ layer {
   top: "cls_prob_repool_bbox"
 }
 
-
 layer {
   name: "bbox_pred_repool"
   type: "InnerProduct"
@@ -6782,8 +6785,6 @@ layer {
     }
   }
 }
-
-
 
 
 
@@ -6820,13 +6821,13 @@ layer {
   }
 }
 
-
 layer {
   name: "cls_prob_repool_head"
   type: "Softmax"
   bottom: "cls_score_repool_head"
   top: "cls_prob_repool_head"
 }
+
 
 layer {
   name: "head_pred_repool"
@@ -6855,7 +6856,6 @@ layer {
     }
   }
 }
-
 
 
 
@@ -6892,12 +6892,15 @@ layer {
   }
 }
 
+
+
 layer {
   name: "cls_prob_repool_head_shoulder"
   type: "Softmax"
   bottom: "cls_score_repool_head_shoulder"
   top: "cls_prob_repool_head_shoulder"
 }
+
 
 
 layer {
@@ -6927,6 +6930,7 @@ layer {
     }
   }
 }
+
 
 
 ###########################################################################
@@ -6996,5 +7000,4 @@ layer {
     }
   }
 }
-
 

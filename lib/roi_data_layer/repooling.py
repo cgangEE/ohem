@@ -32,9 +32,9 @@ class RepoolingLayer(caffe.Layer):
     def forward(self, bottom, top):
         """Compute loss, select RoIs using OHEM. Use RoIs to get blobs and copy them into this layer's top blob vector."""
 
-        boxes = bottom[0].data[:, 1:5]
-        box_deltas = bottom[1].data
-        im_info = bottom[2].data
+        boxes = bottom[0].data.copy()[:, 1:5]
+        box_deltas = bottom[1].data.copy()
+        im_info = bottom[2].data.copy()
         im_shape = (im_info[0, 0], im_info[0, 1])
 
         j = 1
@@ -42,6 +42,7 @@ class RepoolingLayer(caffe.Layer):
                 cfg.TRAIN.BBOX_NORMALIZE_STDS)
         box_deltas[:, j*4:(j+1)*4] += np.array(
                 cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+
 
         pred_boxes = bbox_transform_inv(boxes, box_deltas)
         pred_boxes = clip_boxes(pred_boxes, im_shape)
@@ -51,7 +52,6 @@ class RepoolingLayer(caffe.Layer):
         rois_repool = np.hstack((zeros, rois_repool))
 
 
-        
         top[0].reshape(*(rois_repool.shape))
         top[0].data[...] = rois_repool.astype(np.float32, copy=False)
 
