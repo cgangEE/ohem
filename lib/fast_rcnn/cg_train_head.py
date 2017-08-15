@@ -180,9 +180,10 @@ class SolverWrapper(object):
         bbox_targets_hard = net.blobs['head_pred_repool'].data.copy()
         labels_hard = net.blobs['labels_hard'].data.copy()
 
-
+        '''
         bbox_targets_hard[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
         bbox_targets_hard[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+        '''
 
         pred_boxes = bbox_transform_inv(boxes, bbox_targets_hard)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
