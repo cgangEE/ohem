@@ -168,40 +168,34 @@ def im_detect(net, im, _t, boxes=None):
     if cfg.TEST.HAS_RPN:
         assert len(im_scales) == 1, "Only single-image batch implemented"
 
-        boxes = net.blobs['bbox_repool'].data.copy()[:, 1:5] / im_scales[0]
+        boxes = net.blobs['rois'].data.copy()[:, 1:5] / im_scales[0]
         boxes_head = net.blobs['head_repool'].data.copy()[:, 1:5] / im_scales[0]
-        boxes_head_shoulder = \
-                net.blobs['head_shoulder_repool'].data.copy()[:, 1:5] / im_scales[0]
-        boxes_upper_body = \
-                net.blobs['upper_body_repool'].data.copy()[:, 1:5] / im_scales[0]
 
 
     # use softmax estimated probabilities
-    scores = blobs_out['cls_prob_repool_bbox']
+    scores = blobs_out['cls_prob']
     scores_head = blobs_out['cls_prob_repool_head']
-    scores_head_shoulder = blobs_out['cls_prob_repool_head_shoulder']
-    scores_upper_body = blobs_out['cls_prob_repool_upper_body']
 
 
     if cfg.TEST.BBOX_REG:
         # Apply bounding-box regression deltas
-        box_deltas = blobs_out['bbox_pred_repool']
+        box_deltas = blobs_out['bbox_pred']
         pred_boxes = bbox_transform_inv(boxes, box_deltas)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
 
         #---------------_cg_ added head--------------------
-        head_deltas = blobs_out['head_pred_repool']
+        head_deltas = net.blobs['head_pred_repool'].data.copy()
         pred_head = bbox_transform_inv(boxes_head, head_deltas)
         pred_head = clip_boxes(pred_head, im.shape)
 
         #---------- _cg_ added Four parts ------------            
 
-        head_shoulder_deltas = blobs_out['head_shoulder_pred_repool']
-        pred_head_shoulder = bbox_transform_inv(boxes_head_shoulder, head_shoulder_deltas)
+        head_shoulder_deltas = blobs_out['head_shoulder_pred']
+        pred_head_shoulder = bbox_transform_inv(boxes, head_shoulder_deltas)
         pred_head_shoulder = clip_boxes(pred_head_shoulder, im.shape)
 
-        upper_body_deltas = blobs_out['upper_body_pred_repool']
-        pred_upper_body = bbox_transform_inv(boxes_upper_body, upper_body_deltas)
+        upper_body_deltas = blobs_out['upper_body_pred']
+        pred_upper_body = bbox_transform_inv(boxes, upper_body_deltas)
         pred_upper_body = clip_boxes(pred_upper_body, im.shape)
         #---------- end _cg_ added Four parts ------------            
 
@@ -209,7 +203,7 @@ def im_detect(net, im, _t, boxes=None):
 
     _t['im_postproc'].toc()
 
-    return scores, scores_head, scores_head_shoulder, scores_upper_body, pred_boxes, pred_head, pred_head_shoulder, pred_upper_body
+    return scores, scores_head, pred_boxes, pred_head, pred_head_shoulder, pred_upper_body
 
 
 def vis_detections(im, class_name, dets, idx, thresh=0.3):
@@ -223,7 +217,7 @@ def vis_detections(im, class_name, dets, idx, thresh=0.3):
     fig.axes.get_xaxis().set_visible(False)
     fig.axes.get_yaxis().set_visible(False)
 
-    for i in xrange(np.minimum(10, dets.shape[0])):
+    for i in xrange(dets.shape[0]):
         bbox = dets[i, :4]
         score = dets[i, -1]
         if score > 0.6:
@@ -296,7 +290,7 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
 
         im = cv2.imread(imdb.image_path_at(i))
 
-        scores, scores_head, scores_head_shoulder, scores_upper_body, \
+        scores, scores_head, \
                 boxes, head, head_shoulder, upper_body = \
                 im_detect(net, im, _t, box_proposals)
 
@@ -335,8 +329,8 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
 
             #---------- _cg_ added Four parts ------------            
 
-            inds = np.where(scores_head_shoulder[:, j] > thresh)[0]
-            cls_scores_head_shoulder = scores_head_shoulder[inds, j]
+            inds = np.where(scores[:, j] > thresh)[0]
+            cls_scores_head_shoulder = scores[inds, j]
 
             cls_head_shoulder = head_shoulder[inds, j*4:(j+1)*4]
             cls_head_shoulder_dets = \
@@ -348,8 +342,8 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
             cls_head_shoulder_dets = head_shoulder_NMSed
 
 
-            inds = np.where(scores_upper_body[:, j] > thresh)[0]
-            cls_scores_upper_body = scores_upper_body[inds, j]
+            inds = np.where(scores[:, j] > thresh)[0]
+            cls_scores_upper_body = scores[inds, j]
 
             cls_upper_body = upper_body[inds, j*4:(j+1)*4]
             cls_upper_body_dets = \
@@ -362,7 +356,7 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
 
             #---------- end _cg_ added Four parts ------------            
 
-            if vis or True:
+            if vis:
                 vis_detections(im, imdb.classes[j], cls_head_dets, i)
 
             all_boxes[j][i] = cls_dets

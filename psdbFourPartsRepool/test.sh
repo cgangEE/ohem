@@ -1,4 +1,4 @@
-for i in {10..1}
+for i in {10..10}
 do
 
 	echo 'Testing'  $i &>> log_psdbFourParts_Ohem_DRoiAlignX_Repool_test_${i}

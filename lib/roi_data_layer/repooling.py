@@ -65,6 +65,49 @@ class RepoolingLayer(caffe.Layer):
         pass
 
 
+class RepoolingTestLayer(caffe.Layer):
+    def setup(self, bottom, top):
+
+        idx = 0
+        # rois blob: holds R regions of interest, each is a 5-tuple
+        # (n, x1, y1, x2, y2) specifying an image batch index n and a
+        # rectangle (x1, y1, x2, y2)
+
+        ohem_size = cfg.TRAIN.BATCH_OHEM_SIZE
+        top[idx].reshape(ohem_size , 5)
+        idx += 1
+        assert len(top) == 1
+
+    def forward(self, bottom, top):
+        """Compute loss, select RoIs using OHEM. Use RoIs to get blobs and copy them into this layer's top blob vector."""
+
+        boxes = bottom[0].data.copy()[:, 1:5]
+        box_deltas = bottom[1].data.copy()
+        im_info = bottom[2].data.copy()
+        im_shape = (im_info[0, 0], im_info[0, 1])
+
+
+        pred_boxes = bbox_transform_inv(boxes, box_deltas)
+        pred_boxes = clip_boxes(pred_boxes, im_shape)
+
+        rois_repool = pred_boxes[:,4:]
+        zeros = np.zeros((rois_repool.shape[0], 1), dtype = np.float32)
+        rois_repool = np.hstack((zeros, rois_repool))
+
+
+        top[0].reshape(*(rois_repool.shape))
+        top[0].data[...] = rois_repool.astype(np.float32, copy=False)
+
+
+    def backward(self, top, propagate_down, bottom):
+        """This layer does not propagate gradients."""
+        pass
+
+    def reshape(self, bottom, top):
+        """Reshaping happens during the call to forward."""
+        pass
+
+
 class SplitLayer(caffe.Layer):
     def setup(self, bottom, top):
         idx = 0
