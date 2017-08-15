@@ -171,9 +171,10 @@ class SolverWrapper(object):
         im += cfg.PIXEL_MEANS
         im = im.astype(np.uint8, copy=False)
 
-        rois = net.blobs['rois_repool'].data.copy()
+        rois = net.blobs['head_repool'].data.copy()
         boxes = rois[:, 1:5]
 
+        '''
         # bbox_targets_hard's shape : (128, 8)
         # labels_hard's shape : (128,)
         bbox_targets_hard = net.blobs['upper_body_pred_repool'].data.copy()
@@ -186,6 +187,7 @@ class SolverWrapper(object):
         pred_boxes = bbox_transform_inv(boxes, bbox_targets_hard)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
         cls_boxes = pred_boxes[:, 4:]
+        '''
 
         self.vis_detections(im, boxes)
 
