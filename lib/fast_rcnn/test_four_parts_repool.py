@@ -19,6 +19,7 @@ import cPickle
 from utils.blob import im_list_to_blob
 import os
 from utils.cython_bbox import bbox_vote
+import matplotlib.pyplot as plt
 
 
 def _get_image_blob(im):
@@ -177,10 +178,10 @@ def im_detect(net, im, _t, boxes=None):
 
 
     # use softmax estimated probabilities
-    scores = blobs_out['cls_prob_repool_bbox']
-    scores_head = blobs_out['cls_prob_repool_head']
-    scores_head_shoulder = blobs_out['cls_prob_repool_head_shoulder']
-    scores_upper_body = blobs_out['cls_prob_repool_upper_body']
+    scores = blobs_out['cls_prob']
+    scores_head = blobs_out['cls_prob']
+    scores_head_shoulder = blobs_out['cls_prob']
+    scores_upper_body = blobs_out['cls_prob']
 
 
     if cfg.TEST.BBOX_REG:
@@ -212,36 +213,6 @@ def im_detect(net, im, _t, boxes=None):
     return scores, scores_head, scores_head_shoulder, scores_upper_body, pred_boxes, pred_head, pred_head_shoulder, pred_upper_body
 
 
-def vis_detections(im, class_name, dets, idx, thresh=0.3):
-    """Visual debugging of detections."""
-    import matplotlib.pyplot as plt
-    im = im[:, :, (2, 1, 0)]
-
-    fig, ax = plt.subplots(figsize=(12, 12))
-    fig = ax.imshow(im, aspect='equal')
-    plt.axis('off')
-    fig.axes.get_xaxis().set_visible(False)
-    fig.axes.get_yaxis().set_visible(False)
-
-    for i in xrange(np.minimum(10, dets.shape[0])):
-        bbox = dets[i, :4]
-        score = dets[i, -1]
-        if score > 0.6:
-            print(bbox)
-
-            ax.add_patch(
-                    plt.Rectangle((bbox[0], bbox[1]),
-                          bbox[2] - bbox[0],
-                          bbox[3] - bbox[1], fill=False,
-                          edgecolor='red', linewidth=1.5)
-                    )
-            ax.text(bbox[0], bbox[1] - 2,
-                '{:d}, {:d}, {:.3f}'.format(int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1]), score),
-                    bbox=dict(facecolor='blue', alpha=0.2),
-                    fontsize=8, color='white')
-
-    plt.show()
-    #plt.savefig(str(idx) + 'X', bbox_inches='tight', pad_inches=0)
 
 def apply_nms(all_boxes, thresh):
     """Apply non-maximum suppression to all predicted boxes output by the
@@ -264,6 +235,96 @@ def apply_nms(all_boxes, thresh):
                 continue
             nms_boxes[cls_ind][im_ind] = dets[keep, :].copy()
     return nms_boxes
+
+def vis_detections(im, dets, labels = None):
+
+    """Visual debugging of detections."""
+    im = im[:, :, (2, 1, 0)]
+
+    fig, ax = plt.subplots(figsize=(12, 12))
+    fig = ax.imshow(im, aspect='equal')
+    plt.axis('off')
+    fig.axes.get_xaxis().set_visible(False)
+    fig.axes.get_yaxis().set_visible(False)
+    print('dets.shape', dets.shape)
+
+    for i in xrange(len(dets)):
+        if labels is None or labels[i] == 1.:
+            bbox = dets[i]
+            if bbox[-1] < 0.6: 
+                continue
+            ax.add_patch(
+                    plt.Rectangle((bbox[0], bbox[1]),
+                          bbox[2] - bbox[0],
+                          bbox[3] - bbox[1], fill=False,
+                          edgecolor='red', linewidth=1.5)
+                    )
+            print(bbox)
+            ax.text(bbox[0], bbox[1] - 2,
+                '{:d}, {:d}, {:.3f}'.format(int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1]), bbox[-1]),
+                    bbox=dict(facecolor='blue', alpha=0.2),
+                    fontsize=10, color='white')
+
+    plt.show('x')
+
+
+def gao(net):
+    from fast_rcnn.bbox_transform import clip_boxes, bbox_transform_inv
+
+    im = net.blobs['data'].data.copy()
+    im = im[0, :, :, :]
+    im = im.transpose(1, 2, 0)
+    im += cfg.PIXEL_MEANS
+    im = im.astype(np.uint8, copy=False)
+
+
+    cls_prob = net.blobs['cls_prob'].data.copy()
+    cls_prob_repool_head = net.blobs['cls_prob_repool_head'].data.copy()
+
+    rois = net.blobs['head_repool'].data.copy()
+    boxes = rois[:, 1:5]
+
+    # bbox_targets_hard's shape : (128, 8)
+    # labels_hard's shape : (128,)
+    bbox_targets_hard = net.blobs['head_pred_repool'].data.copy()
+
+    pred_boxes = bbox_transform_inv(boxes, bbox_targets_hard)
+    pred_boxes = clip_boxes(pred_boxes, im.shape)
+#    cls_boxes = pred_boxes[:, 4:]
+
+    inds = np.where(cls_prob_repool_head[:, 1] > 0.05)[0]
+    cls_scores_head = cls_prob_repool_head[inds, 1]
+    cls_head = pred_boxes[inds, 4:8]
+    cls_head_dets = np.hstack((cls_head, cls_scores_head[:, np.newaxis])) \
+                .astype(np.float32, copy=False)
+    
+    cls_boxes = cls_head_dets
+    print(cls_head_dets.shape)
+    print(cls_head_dets[0])
+
+    '''
+    keep = nms(cls_head_dets, cfg.TEST.NMS)
+    head_NMSed = cls_head_dets[keep, :]
+    cls_boxes = head_NMSed
+    '''
+
+    print(cls_head_dets.shape)
+    print(cls_head_dets[0:10])
+    print(cls_prob[0:10])
+    print(cls_prob_repool_head[0:10])
+
+    '''
+    plt.figure()
+    plt.plot(cls_prob[:, 1])
+    plt.figure()
+    plt.plot(cls_prob_repool_head[:, 1])
+    plt.show()
+    '''
+
+    vis_detections(im, cls_boxes)
+
+#    exit(0)
+
 
 def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
     """Test a Fast R-CNN network on an image database."""
@@ -362,8 +423,8 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
 
             #---------- end _cg_ added Four parts ------------            
 
-            if vis or True:
-                vis_detections(im, imdb.classes[j], cls_head_dets, i)
+            gao(net)
+
 
             all_boxes[j][i] = cls_dets
             all_boxes[j + 1][i] = cls_head_dets

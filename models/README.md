@@ -1,4 +1,4 @@
-### full1\_D
+## full1\_D
 
 1/8 image size feature map
 
@@ -23,8 +23,17 @@ all loss weights are 1
 ### full1\_DRoiAlignX\_FourParts\_Ohem\_Repool
 all loss weights are 0.25, except rpn's loss weights are 1
 
+
 ### full1\_DRoiAlignX\_FourParts\_Ohem\_RepoolH
 all loss weights are 1, just repool head
 
+
+### full1\_DRoiAlignX\_FourParts\_Ohem\_RepoolFix
+fix repool cls change which caused label error
+可能repool后的分类器，由于正负样本不均衡，导致分类效果不好．
+
+
+### full1\_DRoiAlignX\_FourParts\_Ohem\_RepoolRemove
+除了rpn, loss都是0.25, 去除repool的cls预测
 
 

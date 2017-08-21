@@ -69,7 +69,7 @@ def tattooShowBox(image_set):
     boxes = np.array(boxes)
 
     for i in xrange(1, num_images):
-        if i % 80 == 0:
+        if i > 40 and i <=400 and i % 3 == 0:
             im_name = imdb.image_path_at(i)
             im = cv2.imread(im_name)
             im_name = '/'.join(im_name.strip().split('/')[6:])

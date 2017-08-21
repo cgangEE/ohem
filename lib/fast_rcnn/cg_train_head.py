@@ -171,19 +171,17 @@ class SolverWrapper(object):
         im += cfg.PIXEL_MEANS
         im = im.astype(np.uint8, copy=False)
 
-        rois = net.blobs['head_repool'].data.copy()
+        rois = net.blobs['head_shoulder_repool'].data.copy()
         print(rois[0])
         boxes = rois[:, 1:5]
 
         # bbox_targets_hard's shape : (128, 8)
         # labels_hard's shape : (128,)
-        bbox_targets_hard = net.blobs['head_pred_repool'].data.copy()
+        bbox_targets_hard = net.blobs['head_shoulder_pred_repool'].data.copy()
         labels_hard = net.blobs['labels_hard'].data.copy()
 
-        '''
         bbox_targets_hard[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
         bbox_targets_hard[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
-        '''
 
         pred_boxes = bbox_transform_inv(boxes, bbox_targets_hard)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
@@ -205,7 +203,7 @@ class SolverWrapper(object):
             self.solver.step(1)
             timer.toc()
 
-            self.gao()
+#            self.gao()
 
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)

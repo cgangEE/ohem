@@ -119,22 +119,20 @@ class SolverWrapper(object):
         rois = net.blobs['head_repool'].data.copy()
         boxes = rois[:, 1:5]
 
-        # bbox_targets_hard's shape : (128, 8)
-        # labels_hard's shape : (128,)
-        bbox_targets_hard = net.blobs['head_pred_repool'].data.copy()
-        labels_hard = net.blobs['labels_hard'].data.copy()
+        bbox_targets = net.blobs['head_targets_hard_repool'].data.copy()
+#        bbox_pred = net.blobs['head_pred_repool'].data.copy()
+        labels_hard = net.blobs['head_labels_hard_repool'].data.copy()
 
 
-        bbox_targets_hard[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
-        bbox_targets_hard[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+        bbox_targets[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
+        bbox_targets[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
 
-        pred_boxes = bbox_transform_inv(boxes, bbox_targets_hard)
+        pred_boxes = bbox_transform_inv(boxes, bbox_targets)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
         cls_boxes = pred_boxes[:, 4:]
 
         self.vis_detections(im, cls_boxes, labels_hard)
 
-        exit(0)
 
     def snapshot(self):
         """Take a snapshot of the network after unnormalizing the learned

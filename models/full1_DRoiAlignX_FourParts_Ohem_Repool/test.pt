@@ -6609,7 +6609,7 @@ layer {
   propagate_down: false
   python_param {
     module: "roi_data_layer.repoolingFourParts"
-    layer: 'RepoolingLayer'
+    layer: 'RepoolingTestLayer'
   }
 }
 
