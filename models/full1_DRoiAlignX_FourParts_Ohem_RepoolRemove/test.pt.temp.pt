@@ -7045,39 +7045,6 @@ layer {
   }
 }
 layer {
-  name: "full1_cls_score_repool_bbox"
-  type: "InnerProduct"
-  bottom: "fc7_repool_bbox"
-  top: "cls_score_repool_bbox"
-  param {
-    name: "cls_score_w"
-    lr_mult: 1.0
-    decay_mult: 1.0
-  }
-  param {
-    name: "cls_score_b"
-    lr_mult: 2.0
-    decay_mult: 0.0
-  }
-  inner_product_param {
-    num_output: 2
-    weight_filler {
-      type: "gaussian"
-      std: 0.00999999977648
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.0
-    }
-  }
-}
-layer {
-  name: "cls_prob_repool_bbox"
-  type: "Softmax"
-  bottom: "cls_score_repool_bbox"
-  top: "cls_prob_repool_bbox"
-}
-layer {
   name: "bbox_pred_repool"
   type: "InnerProduct"
   bottom: "fc7_repool_bbox"
@@ -7103,39 +7070,6 @@ layer {
       value: 0.0
     }
   }
-}
-layer {
-  name: "full1_cls_score_repool_head"
-  type: "InnerProduct"
-  bottom: "fc7_repool_head"
-  top: "cls_score_repool_head"
-  param {
-    name: "cls_score_w"
-    lr_mult: 1.0
-    decay_mult: 1.0
-  }
-  param {
-    name: "cls_score_b"
-    lr_mult: 2.0
-    decay_mult: 0.0
-  }
-  inner_product_param {
-    num_output: 2
-    weight_filler {
-      type: "gaussian"
-      std: 0.00999999977648
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.0
-    }
-  }
-}
-layer {
-  name: "cls_prob_repool_head"
-  type: "Softmax"
-  bottom: "cls_score_repool_head"
-  top: "cls_prob_repool_head"
 }
 layer {
   name: "head_pred_repool"
@@ -7165,39 +7099,6 @@ layer {
   }
 }
 layer {
-  name: "full1_cls_score_repool_head_shoulder"
-  type: "InnerProduct"
-  bottom: "fc7_repool_head_shoulder"
-  top: "cls_score_repool_head_shoulder"
-  param {
-    name: "cls_score_w"
-    lr_mult: 1.0
-    decay_mult: 1.0
-  }
-  param {
-    name: "cls_score_b"
-    lr_mult: 2.0
-    decay_mult: 0.0
-  }
-  inner_product_param {
-    num_output: 2
-    weight_filler {
-      type: "gaussian"
-      std: 0.00999999977648
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.0
-    }
-  }
-}
-layer {
-  name: "cls_prob_repool_head_shoulder"
-  type: "Softmax"
-  bottom: "cls_score_repool_head_shoulder"
-  top: "cls_prob_repool_head_shoulder"
-}
-layer {
   name: "head_shoulder_pred_repool"
   type: "InnerProduct"
   bottom: "fc7_repool_head_shoulder"
@@ -7223,39 +7124,6 @@ layer {
       value: 0.0
     }
   }
-}
-layer {
-  name: "full1_cls_score_repool_upper_body"
-  type: "InnerProduct"
-  bottom: "fc7_repool_upper_body"
-  top: "cls_score_repool_upper_body"
-  param {
-    name: "cls_score_w"
-    lr_mult: 1.0
-    decay_mult: 1.0
-  }
-  param {
-    name: "cls_score_b"
-    lr_mult: 2.0
-    decay_mult: 0.0
-  }
-  inner_product_param {
-    num_output: 2
-    weight_filler {
-      type: "gaussian"
-      std: 0.00999999977648
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.0
-    }
-  }
-}
-layer {
-  name: "cls_prob_repool_upper_body"
-  type: "Softmax"
-  bottom: "cls_score_repool_upper_body"
-  top: "cls_prob_repool_upper_body"
 }
 layer {
   name: "upper_body_pred_repool"

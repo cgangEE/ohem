@@ -44,6 +44,9 @@ from datasets.part import part
 from datasets.ua import ua 
 from datasets.riding import riding
 
+from datasets.wider import wider
+
+
 import numpy as np
 
 
@@ -223,6 +226,14 @@ for year in ['2015']:
     for split in ['train', 'val', 'trainval', 'test']:
         name = 'psdb_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: psdb(split, year))
+
+
+# Set up wider_<year>_<split> using selective search "fast" mode
+for year in ['2015']:
+    for split in ['train', 'val', 'trainval', 'test']:
+        name = 'wider_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: wider(split, year))
+
 
 
 # Set up psdb1_<year>_<split> using selective search "fast" mode

@@ -33,12 +33,12 @@ def showImage(im, boxes, cls):
                           edgecolor= classToColor[cls[i]], linewidth=2.0)
                 )
 
-
-
+            '''
             ax.text(bbox[0], bbox[1] - 2,
                     '{:d}, {:d}'.format(int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1])),
                     bbox=dict(facecolor='blue', alpha=0.2),
                     fontsize=8, color='white')
+            '''
 
 def tattooShowBox(image_set):
     imdb = get_imdb(image_set)
@@ -47,7 +47,7 @@ def tattooShowBox(image_set):
     gt_roidb = imdb.gt_roidb()
 
     for i in xrange(num_images):
-        if i % 40 == 0 or True:
+        if i % 40 == 0 :
 
             im_name = imdb.image_path_at(i)
 

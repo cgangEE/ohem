@@ -119,10 +119,9 @@ class SolverWrapper(object):
         rois = net.blobs['head_repool'].data.copy()
         boxes = rois[:, 1:5]
 
-        bbox_targets = net.blobs['head_targets_hard_repool'].data.copy()
-#        bbox_pred = net.blobs['head_pred_repool'].data.copy()
-        labels_hard = net.blobs['head_labels_hard_repool'].data.copy()
-
+#        bbox_targets = net.blobs['head_targets_hard_repool'].data.copy()
+        labels_hard = net.blobs['labels_hard'].data.copy()
+        bbox_targets = net.blobs['head_pred_repool'].data.copy()
 
         bbox_targets[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
         bbox_targets[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
