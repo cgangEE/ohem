@@ -1,0 +1,8 @@
+tools/cg_train_net.py  \
+    --gpu 0 \
+    --solver models/full1_DRoiAlignX_Face_Rpn/solver.prototxt \
+	--weights models/pvanet/original.model \
+    --iters 100000 \
+    --cfg cfgs/trainFullOhem_DRoiAlignX_Face_Rpn.yml \
+    --imdb wider_2015_train &> log_wider_DRoiAlignX_Face_Rpn
+

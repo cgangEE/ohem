@@ -26,11 +26,13 @@ def showImage(im, boxes, cls):
 
     for i in xrange(boxes.shape[0]):
             bbox = boxes[i]
+            if cls[i] != 1:
+                continue
             ax.add_patch(
                     plt.Rectangle((bbox[0], bbox[1]),
                           bbox[2] - bbox[0],
                           bbox[3] - bbox[1], fill=False,
-                          edgecolor= classToColor[cls[i]], linewidth=2.0)
+                          edgecolor= classToColor[cls[i]], linewidth=3.0)
                 )
 
             '''

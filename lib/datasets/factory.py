@@ -45,6 +45,7 @@ from datasets.ua import ua
 from datasets.riding import riding
 
 from datasets.wider import wider
+from datasets.fddb import fddb
 
 
 import numpy as np
@@ -234,6 +235,13 @@ for year in ['2015']:
         name = 'wider_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: wider(split, year))
 
+
+
+# Set up fddb_<year>_<split> using selective search "fast" mode
+for year in ['2015']:
+    for split in ['test']:
+        name = 'fddb_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: fddb(split, year))
 
 
 # Set up psdb1_<year>_<split> using selective search "fast" mode
