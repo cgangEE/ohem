@@ -47,6 +47,7 @@ from datasets.riding import riding
 from datasets.wider import wider
 from datasets.fddb import fddb
 
+from datasets.aichal import aichal
 
 import numpy as np
 
@@ -235,6 +236,11 @@ for year in ['2015']:
         name = 'wider_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: wider(split, year))
 
+# Set up aichal_<year>_<split> using selective search "fast" mode
+for year in ['2017']:
+    for split in ['train', 'val', 'trainval', 'test']:
+        name = 'aichal_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: aichal(split, year))
 
 
 # Set up fddb_<year>_<split> using selective search "fast" mode
