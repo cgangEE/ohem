@@ -59,7 +59,7 @@ class aichal(imdb):
 
     def getIndexToAnnotation(self):
         fname = os.path.join(self._data_path, 
-                'keypoint_train_annotations_20170902.json')
+                'keypoint_train_annotations_20170909.json')
 
         with open(fname) as f:
             data = json.load(f)
