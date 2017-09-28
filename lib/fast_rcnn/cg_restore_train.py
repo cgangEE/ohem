@@ -52,16 +52,103 @@ class SolverWrapper(object):
             caffemodel = caffemodelFull.split('/')[-1]
 
             os.symlink(caffemodelFull, caffemodel)
-
             self.solver.restore(solverstate)
-
             os.remove(caffemodel)
+
 
         self.solver_param = caffe_pb2.SolverParameter()
         with open(solver_prototxt, 'rt') as f:
             pb2.text_format.Merge(f.read(), self.solver_param)
 
         self.solver.net.layers[0].set_roidb(roidb)
+
+    def vis_detections(self, im, dets, pred_kp, labels = None):
+
+        """Visual debugging of detections."""
+        import matplotlib.pyplot as plt
+        im = im[:, :, (2, 1, 0)]
+
+        fig, ax = plt.subplots(figsize=(12, 12))
+        fig = ax.imshow(im, aspect='equal')
+        plt.axis('off')
+        fig.axes.get_xaxis().set_visible(False)
+        fig.axes.get_yaxis().set_visible(False)
+        print('dets.shape', dets.shape)
+
+        for i in xrange(len(dets)):
+            if labels is None or labels[i] == 1.:
+                bbox = dets[i]
+                kp = pred_kp[i]
+
+                ax.add_patch(
+                        plt.Rectangle((bbox[0], bbox[1]),
+                              bbox[2] - bbox[0],
+                              bbox[3] - bbox[1], fill=False,
+                              edgecolor='red', linewidth=1.5)
+                        )
+                ax.text(bbox[0], bbox[1] - 2,
+                    '{:d}, {:d}'.format(int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1])),
+                        bbox=dict(facecolor='blue', alpha=0.2),
+                        fontsize=8, color='white')
+
+                for j in range(14):
+                    x, y = kp[j * 2 : (j + 1) * 2]
+                    r = (j % 3) * 0.333
+                    g = ((j / 3) % 3) * 0.333
+                    b = (j / 3 / 3) * 0.333
+
+                    ax.add_patch(
+                            plt.Circle((x, y), 10,
+                                  fill=True,
+                                  color=(r, g, b), 
+                                  edgecolor = (r, g, b), 
+                                  linewidth=2.0)
+                        )
+
+
+        plt.show('x')
+
+
+    def gao(self):
+        from fast_rcnn.bbox_transform_kp import clip_boxes, bbox_transform_inv, kp_transform_inv
+
+        net = self.solver.net
+
+        im = net.blobs['data'].data.copy()
+        im = im[0, :, :, :]
+        im = im.transpose(1, 2, 0)
+        im += cfg.PIXEL_MEANS
+        im = im.astype(np.uint8, copy=False)
+
+        rois = net.blobs['rois'].data.copy()
+        boxes = rois[:, 1:5]
+
+#        bbox_targets = net.blobs['head_targets_hard_repool'].data.copy()
+        labels = net.blobs['labels'].data.copy()
+        bbox_targets = net.blobs['bbox_pred'].data.copy()
+
+        bbox_targets[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
+        bbox_targets[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+
+        pred_boxes = bbox_transform_inv(boxes, bbox_targets)
+        pred_boxes = clip_boxes(pred_boxes, im.shape)
+        cls_boxes = pred_boxes[:, 4:]
+
+        kp_targets = net.blobs['kp_pred'].data.copy()
+
+        kp_targets[:, :] *= np.array(cfg.TRAIN.KP_NORMALIZE_STDS)
+        kp_targets[:, :] += np.array(cfg.TRAIN.KP_NORMALIZE_MEANS)
+
+        pred_kp = kp_transform_inv(boxes, kp_targets)
+        print(boxes.shape)
+        print(kp_targets.shape)
+        print(pred_kp.shape)
+        print(cls_boxes.shape)
+
+#        pred_kp = clip_boxes(pred_boxes, im.shape)
+
+        self.vis_detections(im, cls_boxes, pred_kp, labels)
+
 
     def snapshot(self):
         """Take a snapshot of the network after unnormalizing the learned
@@ -130,6 +217,9 @@ class SolverWrapper(object):
             timer.tic()
             self.solver.step(1)
             timer.toc()
+
+#            self.gao()
+
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)
 

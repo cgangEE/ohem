@@ -12,7 +12,7 @@ RoIDataLayer implements a Caffe Python layer.
 import sys
 import caffe
 from fast_rcnn.config import cfg
-from roi_data_layer.minibatch import get_minibatch, get_allrois_minibatch, get_ohem_minibatch
+from roi_data_layer.minibatchKp import get_minibatch, get_allrois_minibatch, get_ohem_minibatch
 import numpy as np
 import yaml
 from multiprocessing import Process, Queue
@@ -125,6 +125,10 @@ class RoIDataLayer(caffe.Layer):
             self._name_to_top_map['gt_boxes'] = idx
             idx += 1
 
+            top[idx].reshape(1, 42)
+            self._name_to_top_map['gt_kps'] = idx
+            idx += 1
+
         print 'RoiDataLayer: name_to_top:', self._name_to_top_map
         assert len(top) == len(self._name_to_top_map)
 
@@ -138,6 +142,7 @@ class RoIDataLayer(caffe.Layer):
             top[top_ind].reshape(*(blob.shape))
             # Copy data into net's input blobs
             top[top_ind].data[...] = blob.astype(np.float32, copy=False)
+
 
 
 

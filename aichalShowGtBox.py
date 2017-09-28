@@ -56,21 +56,29 @@ def showImage(im, boxes, keypoints, cls):
 
 def tattooShowBox(image_set):
     imdb = get_imdb(image_set)
+    imdb.append_flipped_images()
+
     num_images = len(imdb.image_index)
 
-    gt_roidb = imdb.gt_roidb()
+    gt_roidb = imdb.roidb
 
-    for i in xrange(num_images):
-        if i % 100 == 0:
+    for j in xrange(7):
+        #if i % 100 == 0 or True:
+        for k in range(2):
+            i = k * 7 + j
             bbox = gt_roidb[i]['boxes']
             keypoints = gt_roidb[i]['keypoints']
             cls = gt_roidb[i]['gt_classes']
 
             im_name = imdb.image_path_at(i)
             im = cv2.imread(im_name)
+            
+            print(i, gt_roidb[i]['flipped'])                
+            if gt_roidb[i]['flipped']:
+                im = im[:, ::-1, :]
 
             showImage(im, bbox, keypoints, cls)
-            plt.savefig(str(i), bbox_inches='tight', pad_inches=0)
+            plt.savefig(str(j*2+k), bbox_inches='tight', pad_inches=0)
 
 
 

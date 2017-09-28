@@ -17,6 +17,7 @@ def py_cpu_nms(dets, thresh):
 
     areas = (x2 - x1 + 1) * (y2 - y1 + 1)
     order = scores.argsort()[::-1]
+    print('FT')
 
     keep = []
     while order.size > 0:
@@ -32,6 +33,7 @@ def py_cpu_nms(dets, thresh):
         inter = w * h
         ovr = inter / (areas[i] + areas[order[1:]] - inter)
 
+        print('ovr', ovr)
         inds = np.where(ovr <= thresh)[0]
         order = order[inds + 1]
 

@@ -83,11 +83,16 @@ __C.TRAIN.USE_PREFETCH = False
 __C.TRAIN.BBOX_NORMALIZE_TARGETS = True
 # Deprecated (inside weights)
 __C.TRAIN.BBOX_INSIDE_WEIGHTS = (1.0, 1.0, 1.0, 1.0)
+__C.TRAIN.KP_INSIDE_WEIGHTS = (1.0, 1.0)
+
 # Normalize the targets using "precomputed" (or made up) means and stdevs
 # (BBOX_NORMALIZE_TARGETS must also be True)
 __C.TRAIN.BBOX_NORMALIZE_TARGETS_PRECOMPUTED = False
 __C.TRAIN.BBOX_NORMALIZE_MEANS = (0.0, 0.0, 0.0, 0.0)
 __C.TRAIN.BBOX_NORMALIZE_STDS = (0.1, 0.1, 0.2, 0.2)
+
+__C.TRAIN.KP_NORMALIZE_MEANS = tuple([0.0] * 28)
+__C.TRAIN.KP_NORMALIZE_STDS = tuple([0.1] * 28)
 
 # Train using these proposals
 __C.TRAIN.PROPOSAL_METHOD = 'selective_search'

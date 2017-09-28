@@ -137,6 +137,25 @@ class imdb(object):
                 assert (head[:, 2] >= head[:, 0]).all()
 
                 entry['head'] = head
+            #--------------_cg_ added keypoints-------------------------
+            if 'keypoints' in self.roidb[i]:
+
+                keypoints = self.roidb[i]['keypoints'].copy()
+
+                for j in range(14):
+                    oldx1 = keypoints[:, j * 3].copy()
+                    oldx1[oldx1>=widths[i]] = widths[i] - 1
+                    keypoints[:, j * 3] = widths[i] - oldx1 - 1
+
+                for j in range(2):
+                    tmp = keypoints[:, j*18:j*18+9].copy()
+                    keypoints[:, j*18:j*18+9] = keypoints[:, j*18+9:j*18+18].copy()
+                    keypoints[:, j*18+9:j*18+18] = tmp
+
+
+
+                entry['keypoints'] = keypoints
+
                 
 
             #---------------_cg_ added Four parts------------------
@@ -160,7 +179,6 @@ class imdb(object):
                     entry[partName] = part 
                 
             #--------------- end _cg_ added Four parts------------------
-
 
 
             self.roidb.append(entry)

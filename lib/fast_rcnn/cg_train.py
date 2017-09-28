@@ -60,52 +60,17 @@ class SolverWrapper(object):
         bounding-box regression weights. This enables easy use at test-time.
         """
 
-        net = self.solver.net
-
-
-        pred = [k for k in net.params.keys() if 'cg_bbox_pred' in k]
-        scale_bbox_params = (cfg.TRAIN.BBOX_REG and
-                             cfg.TRAIN.BBOX_NORMALIZE_TARGETS and
-                             len(pred) > 0)
-
-        orig_0 = {}
-        orig_1 = {}
-
-        if scale_bbox_params:
-            # save original values
-
-            for layer in pred:
-                orig_0[layer] = net.params[layer][0].data.copy()
-                orig_1[layer] = net.params[layer][1].data.copy()
-
-                # scale and shift with bbox reg unnormalization; then save snapshot
-                net.params[layer][0].data[...] = \
-                        (net.params[layer][0].data *
-                         self.bbox_stds[:, np.newaxis])
-                net.params[layer][1].data[...] = \
-                        (net.params[layer][1].data *
-                         self.bbox_stds + self.bbox_means)
 
         infix = ('_' + cfg.TRAIN.SNAPSHOT_INFIX
                  if cfg.TRAIN.SNAPSHOT_INFIX != '' else '')
-        filename = (self.solver_param.snapshot_prefix + infix +
-                    '_iter_{:d}'.format(self.solver.iter) + '.caffemodel')
-        filename = os.path.join(self.output_dir, filename)
-
-        net.save(str(filename))
-        print 'Wrote snapshot to: {:s}'.format(filename)
-
-        if scale_bbox_params:
-            # restore net to original state
-            for layer in pred:
-                net.params[layer][0].data[...] = orig_0[layer]
-                net.params[layer][1].data[...] = orig_1[layer]
-
 
         self.solver.snapshot()
 
         caffemodel = (self.solver_param.snapshot_prefix + infix +
                     '_iter_{:d}'.format(self.solver.iter) + '.caffemodel')
+        caffemodelFull = os.path.join(self.output_dir, caffemodel)
+
+        shutil.copyfile(caffemodel, caffemodelFull)
         os.remove(caffemodel)
 
         solverstate = (self.solver_param.snapshot_prefix + infix +
@@ -115,7 +80,7 @@ class SolverWrapper(object):
         shutil.copyfile(solverstate, solverstateFull)
         os.remove(solverstate)
 
-        return filename
+        return caffemodelFull
 
     def vis_detections(self, im, dets):
         """Visual debugging of detections."""

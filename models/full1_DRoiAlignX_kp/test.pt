@@ -6496,3 +6496,31 @@ layer {
   bottom: "cls_score"
   top: "cls_prob"
 }
+
+layer {
+  name: "kp_pred"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "kp_pred"
+  param {
+    name: "kp_pred_w"
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    name: "kp_pred_b"
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 28
+    weight_filler {
+      type: "gaussian"
+      std: 0.001
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
