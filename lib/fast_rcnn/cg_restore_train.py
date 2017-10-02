@@ -50,6 +50,8 @@ class SolverWrapper(object):
             solverstate = solverstate.strip()
             caffemodelFull = solverstate.split('.')[0] + '.caffemodel'
             caffemodel = caffemodelFull.split('/')[-1]
+            print(caffemodelFull)
+            print(caffemodel)
 
             os.symlink(caffemodelFull, caffemodel)
             self.solver.restore(solverstate)
@@ -68,15 +70,19 @@ class SolverWrapper(object):
         import matplotlib.pyplot as plt
         im = im[:, :, (2, 1, 0)]
 
-        fig, ax = plt.subplots(figsize=(12, 12))
-        fig = ax.imshow(im, aspect='equal')
-        plt.axis('off')
-        fig.axes.get_xaxis().set_visible(False)
-        fig.axes.get_yaxis().set_visible(False)
         print('dets.shape', dets.shape)
 
         for i in xrange(len(dets)):
             if labels is None or labels[i] == 1.:
+
+                fig, ax = plt.subplots(figsize=(12, 12))
+                fig = ax.imshow(im, aspect='equal')
+                plt.axis('off')
+                fig.axes.get_xaxis().set_visible(False)
+                fig.axes.get_yaxis().set_visible(False)
+                print('dets.shape', dets.shape)
+
+
                 bbox = dets[i]
                 kp = pred_kp[i]
 
@@ -104,13 +110,13 @@ class SolverWrapper(object):
                                   edgecolor = (r, g, b), 
                                   linewidth=2.0)
                         )
+            plt.show('x')
 
 
-        plt.show('x')
 
 
     def gao(self):
-        from fast_rcnn.bbox_transform_kp import clip_boxes, bbox_transform_inv, kp_transform_inv
+        from fast_rcnn.bbox_transform_kp import clip_boxes, bbox_transform_inv, kp_transform_inv, clip_kps
 
         net = self.solver.net
 
@@ -125,6 +131,8 @@ class SolverWrapper(object):
 
 #        bbox_targets = net.blobs['head_targets_hard_repool'].data.copy()
         labels = net.blobs['labels'].data.copy()
+        
+        bbox_gt = net.blobs['bbox_targets'].data.copy()
         bbox_targets = net.blobs['bbox_pred'].data.copy()
 
         bbox_targets[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
@@ -134,20 +142,34 @@ class SolverWrapper(object):
         pred_boxes = clip_boxes(pred_boxes, im.shape)
         cls_boxes = pred_boxes[:, 4:]
 
+        kp_gt = net.blobs['kp_targets'].data.copy()
         kp_targets = net.blobs['kp_pred'].data.copy()
 
         kp_targets[:, :] *= np.array(cfg.TRAIN.KP_NORMALIZE_STDS)
         kp_targets[:, :] += np.array(cfg.TRAIN.KP_NORMALIZE_MEANS)
 
         pred_kp = kp_transform_inv(boxes, kp_targets)
+        pred_kp = clip_kps(pred_kp, im.shape)
+
         print(boxes.shape)
         print(kp_targets.shape)
         print(pred_kp.shape)
         print(cls_boxes.shape)
 
+        print(labels[0])
+        print(bbox_targets[0])
+        print(bbox_gt[0])
+
+        print(kp_targets[0])
+        print(kp_gt[0])
+
+        print(net.blobs['kp_inside_weights'].data.copy()[0])
+
+
 #        pred_kp = clip_boxes(pred_boxes, im.shape)
 
         self.vis_detections(im, cls_boxes, pred_kp, labels)
+        exit(0)
 
 
     def snapshot(self):
@@ -218,7 +240,7 @@ class SolverWrapper(object):
             self.solver.step(1)
             timer.toc()
 
-#            self.gao()
+            self.gao()
 
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)

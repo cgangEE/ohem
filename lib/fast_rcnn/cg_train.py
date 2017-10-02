@@ -82,20 +82,29 @@ class SolverWrapper(object):
 
         return caffemodelFull
 
-    def vis_detections(self, im, dets):
+
+    def vis_detections(self, im, dets, pred_kp, labels = None):
+
         """Visual debugging of detections."""
         import matplotlib.pyplot as plt
         im = im[:, :, (2, 1, 0)]
 
-        fig, ax = plt.subplots(figsize=(12, 12))
-        fig = ax.imshow(im, aspect='equal')
-        plt.axis('off')
-        fig.axes.get_xaxis().set_visible(False)
-        fig.axes.get_yaxis().set_visible(False)
         print('dets.shape', dets.shape)
 
-        for i in xrange(min(20, len(dets))):
+        for i in xrange(len(dets)):
+            if labels is None or labels[i] == 1.:
+
+                fig, ax = plt.subplots(figsize=(12, 12))
+                fig = ax.imshow(im, aspect='equal')
+                plt.axis('off')
+                fig.axes.get_xaxis().set_visible(False)
+                fig.axes.get_yaxis().set_visible(False)
+                print('dets.shape', dets.shape)
+
+
                 bbox = dets[i]
+                kp = pred_kp[i]
+
                 ax.add_patch(
                         plt.Rectangle((bbox[0], bbox[1]),
                               bbox[2] - bbox[0],
@@ -107,11 +116,26 @@ class SolverWrapper(object):
                         bbox=dict(facecolor='blue', alpha=0.2),
                         fontsize=8, color='white')
 
-        plt.show('x')
+                for j in range(14):
+                    x, y = kp[j * 2 : (j + 1) * 2]
+                    r = (j % 3) * 0.333
+                    g = ((j / 3) % 3) * 0.333
+                    b = (j / 3 / 3) * 0.333
+
+                    ax.add_patch(
+                            plt.Circle((x, y), 10,
+                                  fill=True,
+                                  color=(r, g, b), 
+                                  edgecolor = (r, g, b), 
+                                  linewidth=2.0)
+                        )
+            plt.show('x')
+
+
 
 
     def gao(self):
-        from fast_rcnn.bbox_transform import clip_boxes, bbox_transform_inv
+        from fast_rcnn.bbox_transform_kp import clip_boxes, bbox_transform_inv, kp_transform_inv, clip_kps
 
         net = self.solver.net
 
@@ -121,32 +145,51 @@ class SolverWrapper(object):
         im += cfg.PIXEL_MEANS
         im = im.astype(np.uint8, copy=False)
 
-        rois = net.blobs['rois_hard'].data.copy()
+        rois = net.blobs['rois'].data.copy()
         boxes = rois[:, 1:5]
 
-        box_deltas = net.blobs['bbox_pred'].data.copy()
-        box_targets = net.blobs['bbox_targets_hard'].data.copy()
-        repool = net.blobs['rois_repool'].data.copy()
+#        bbox_targets = net.blobs['head_targets_hard_repool'].data.copy()
+        labels = net.blobs['labels'].data.copy()
+        
+        bbox_gt = net.blobs['bbox_targets'].data.copy()
+        bbox_targets = net.blobs['bbox_pred'].data.copy()
 
-        j = 1
-        box_targets[:, j*4:(j+1)*4] *= np.array(
-                cfg.TRAIN.BBOX_NORMALIZE_STDS)
-        box_targets[:, j*4:(j+1)*4] += np.array(
-                cfg.TRAIN.BBOX_NORMALIZE_MEANS)
+        bbox_targets[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
+        bbox_targets[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
 
-        print('box_deltas.shape', box_deltas.shape)
-        print('box_targets.shape', box_targets.shape)
-        print('box_deltas[0]', box_deltas[0])
-        print('box_targets[0]', box_targets[0])
-
-
-        pred_boxes = bbox_transform_inv(boxes, box_targets)
+        pred_boxes = bbox_transform_inv(boxes, bbox_targets)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
-        j = 1
-        cls_boxes = pred_boxes[:, j*4:(j+1)*4]
-        self.vis_detections(im, repool[:, 1:])
+        cls_boxes = pred_boxes[:, 4:]
 
+        kp_gt = net.blobs['kp_targets'].data.copy()
+        kp_targets = net.blobs['kp_pred'].data.copy()
+
+        kp_targets[:, :] *= np.array(cfg.TRAIN.KP_NORMALIZE_STDS)
+        kp_targets[:, :] += np.array(cfg.TRAIN.KP_NORMALIZE_MEANS)
+
+        pred_kp = kp_transform_inv(boxes, kp_targets)
+        pred_kp = clip_kps(pred_kp, im.shape)
+
+        print(boxes.shape)
+        print(kp_targets.shape)
+        print(pred_kp.shape)
+        print(cls_boxes.shape)
+
+        print(labels[0])
+        print(bbox_targets[0])
+        print(bbox_gt[0])
+
+        print(kp_targets[0])
+        print(kp_gt[0])
+
+        print(net.blobs['kp_inside_weights'].data.copy()[0])
+
+
+#        pred_kp = clip_boxes(pred_boxes, im.shape)
+
+        self.vis_detections(im, cls_boxes, pred_kp, labels)
         exit(0)
+
 
     def train_model(self, max_iters):
         """Network training loop."""
