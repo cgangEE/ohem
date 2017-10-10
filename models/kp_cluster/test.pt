@@ -6328,26 +6328,50 @@ layer {
 }
 
 
-
+# C++ implementation of the proposal layer
 layer {
-  name: 'proposal'
-  type: 'Proposal'
+  name: 'proposalCluster'
+  type: 'ProposalCluster'
   bottom: 'rpn_cls_prob_reshape'
   bottom: 'rpn_bbox_pred'
   bottom: 'im_info'
   top: 'rois'
   top: 'scores'
   proposal_param {
-    ratio: 1.0 ratio: 2.0 ratio: 3.0 ratio: 4.0 ratio: 5.0
-    scale: 3 scale: 6 scale: 9 scale: 16 scale: 32
+	scale: 288.41905852952016 scale: 330.69291224059697 
+	scale: 177.52460292429367 scale: 389.36747438675741 
+	scale: 200.1000247700311 scale: 556.39952104011354 
+	scale: 436.584541210297 scale: 651.96170966575926 
+	scale: 213.53094684159683 scale: 202.97538772705596 
+	scale: 241.22300079086983 scale: 433.27670587968186 
+	scale: 301.13800847200184 scale: 601.89076788719888 
+	scale: 401.56632629188914 scale: 865.02644038893197 
+	scale: 371.18759448230617 scale: 537.53058807326215 
+	scale: 463.64285040437113 scale: 552.84527239107513 
+	scale: 247.14857538856998 scale: 722.37627519137061
+	scale: 577.26130392110156 scale: 712.33176918314439 
+	scale: 279.6410102874321 scale: 531.12416732802433 
+	scale: 428.31110115659402 scale: 387.7211908283403 
+	scale: 359.14457466417787 scale: 618.99426841621118 
+	scale: 309.13616778874649 scale: 467.3783554463505 
+	scale: 162.90672431564707 scale: 294.46220042264042 
+	scale: 198.39612311183444 scale: 477.34782520581018 
+	scale: 311.26137781465212 scale: 800.39912220791598 
+	scale: 184.02858237985456 scale: 696.11076799093087 
+	scale: 622.63250322289696 scale: 507.57399237584247 
+	scale: 99.350913215206745 scale: 233.4917709590988 
+	scale: 133.81625625311372 scale: 458.35610729946347 
+	scale: 247.48418111686212 scale: 856.4245119950823 
+	scale: 247.67786153241551 scale: 597.14578239290563
     base_size: 8
     feat_stride: 8
     pre_nms_topn: 12000
-    post_nms_topn: 200
+    post_nms_topn: 2000
     nms_thresh: 0.7
     min_size: 1
   }
 }
+
 
 
 #######################cg_add############################
