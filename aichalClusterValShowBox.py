@@ -49,10 +49,7 @@ def showImage(im, boxes, keypoints):
 
             keypoint = keypoints[i]
             for j in range(14):
-                if keypoint[j * 3 + 2] == 3:
-                    continue
-
-                x, y, z = keypoint[j * 3 : (j + 1) * 3]
+                x, y = keypoint[j * 2 : (j + 1) * 2]
 
 
                 ax.add_patch(
@@ -63,49 +60,47 @@ def showImage(im, boxes, keypoints):
                     )
             for l in line:
                 i0 = l[0] - 1
-                p0 = keypoint[i0 * 3 : (i0 + 1) * 3] 
+                p0 = keypoint[i0 * 2 : (i0 + 1) * 2] 
 
                 i1 = l[1] - 1
-                p1 = keypoint[i1 * 3 : (i1 + 1) * 3]
-
-
-                if p0[2] == 3 or p1[2] == 3:
-                    continue
+                p1 = keypoint[i1 * 2 : (i1 + 1) * 2]
                 
                 ax.add_patch(
-                        plt.Arrow(p0[0], p0[1], 
-                        float(p1[0]) - p0[0], float(p1[1]) - p0[1], 
+                        plt.Arrow(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], 
                         color = c[i])
                         )
 
 
-def tattooShowBox(image_set):
-    imdb = get_imdb(image_set)
-    imdb.append_flipped_images()
 
+def showBox(image_set):
+    cache_file =  \
+        'output/kpCluster/aichal_val/zf_faster_rcnn_iter_100000_inference/detections.pkl'
+
+    if os.path.exists(cache_file):
+        with open(cache_file, 'rb') as fid:
+            results = cPickle.load(fid)
+    else:
+        print(cache_file + ' not found')
+
+    imdb = get_imdb(image_set)
     num_images = len(imdb.image_index)
 
-    gt_roidb = imdb.roidb
+    boxes = np.array(results['boxes'])
+    kps = results['all_kps']
+
 
     for i in xrange(num_images):
         if i % 3000 == 0:
-            bbox = gt_roidb[i]['boxes']
-            keypoints = gt_roidb[i]['keypoints']
-            cls = gt_roidb[i]['gt_classes']
-
             im_name = imdb.image_path_at(i)
             im = cv2.imread(im_name)
             
-            print(i, gt_roidb[i]['flipped'])                
-            if gt_roidb[i]['flipped']:
-                im = im[:, ::-1, :]
+            showImage(im, boxes[1][i], kps[1][i])
+            plt.savefig(str(i) + 'Cluster', bbox_inches='tight', pad_inches=0)
 
 
-            showImage(im, bbox, keypoints)
-            plt.savefig(str(i) + 'GT', bbox_inches='tight', pad_inches=0)
 
 
 
 if __name__ == '__main__':
-    tattooShowBox('aichal_2017_val')
+    showBox('aichal_2017_val')
     

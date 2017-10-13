@@ -37,3 +37,16 @@ fix repool cls change which caused label error
 除了rpn, loss都是0.25, 去除repool的cls预测
 
 
+### full1\_DRoiAlignX\_kp
+不仅回归bbox，还回归kp的位置
+
+
+### full1\_DRoiAlignX\_kpCls
+不仅回归kp的位置，还预测kp的类别
+
+
+### kp\_cluster
+将手工设计的anchor，用聚类得到的anchor来代替
+
+### aichal\_cluster
+将手工设计的anchor，用聚类得到的anchor来代替，并且只预测bbox

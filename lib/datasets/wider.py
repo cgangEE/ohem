@@ -58,7 +58,7 @@ class wider(imdb):
 
     def getIndexToAnnotation(self):
         ret = {}
-        fName = os.path.join(self._data_path, 'train_ann.txt')
+        fName = os.path.join(self._data_path, self._image_set + '_ann.txt')
         f = open(fName, 'r')
 
         for line in f:

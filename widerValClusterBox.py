@@ -17,7 +17,7 @@ matplotlib.rcParams.update({'figure.max_open_warning':0})
 
 def getBox(image_set):
 
-    filename = 'myBox.pkl'
+    filename = 'myBox' + str(image_set) + '.pkl'
     min_size = 640
     max_size = 1000
 
@@ -103,9 +103,9 @@ def clusterBox(image_set):
     scale = [3, 6, 9, 16, 32]
     ratio = [1.0, 2.0, 3.0, 4.0, 5.0]
     getAveIoU(base_size, scale, ratio, myBox, n)
+
+
     exit(0)
-
-
             
     thresh = 0.006
 
@@ -162,5 +162,5 @@ def clusterBox(image_set):
     pl.savefig('iouList_' + str(thresh) + '.png')
 
 if __name__ == '__main__':
-    clusterBox('aichal_2017_val')
+    clusterBox('wider_2015_val')
     

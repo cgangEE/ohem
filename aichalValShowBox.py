@@ -10,52 +10,10 @@ import matplotlib.pyplot as plt
 import matplotlib
 import cv2
 import random
+from aichalClusterValShowBox import showImage
 
 matplotlib.rcParams.update({'figure.max_open_warning':0})
 
-
-def showImage(im, boxes, keypoints):
-    classToColor = ['', 'red', 'yellow', 'blue', 'magenta']
-    im = im[:, :, (2, 1, 0)]
-    fig, ax = plt.subplots(figsize=(12, 12))
-    fig = ax.imshow(im, aspect='equal')
-    plt.axis('off')
-    fig.axes.get_xaxis().set_visible(False)
-    fig.axes.get_yaxis().set_visible(False)
-
-    thresh = 0.7
-
-    for i in xrange(boxes.shape[0]):
-            bbox = boxes[i]
-            if bbox[-1] < thresh:
-                continue
-            ax.add_patch(
-                    plt.Rectangle((bbox[0], bbox[1]),
-                          bbox[2] - bbox[0],
-                          bbox[3] - bbox[1], fill=False,
-                          edgecolor= 'red', linewidth=2.0)
-                )
-            ax.text(bbox[0], bbox[1] - 2,
-                    '{:d}, {:d}'.format(int(bbox[2] - bbox[0]), 
-                    int(bbox[3] - bbox[1])),
-                    bbox=dict(facecolor='blue', alpha=0.2),
-                    fontsize=8, color='white')
-
-            keypoint = keypoints[i]
-            for j in range(14):
-                x, y = keypoint[j * 2 : (j + 1) * 2]
-
-                r = (j % 3) * 0.333
-                g = ((j / 3) % 3) * 0.333
-                b = (j / 3 / 3) * 0.333
-
-                ax.add_patch(
-                        plt.Circle((x, y), 10,
-                              fill=True,
-                              color=(r, g, b), 
-                              edgecolor = (r, g, b), 
-                              linewidth=2.0)
-                    )
 
 
 
