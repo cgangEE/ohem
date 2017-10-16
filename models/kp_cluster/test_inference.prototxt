@@ -3732,7 +3732,7 @@ layer {
     scale: 247.677856445
     scale: 597.145751953
     pre_nms_topn: 12000
-    post_nms_topn: 2000
+    post_nms_topn: 200
     nms_thresh: 0.699999988079
   }
 }

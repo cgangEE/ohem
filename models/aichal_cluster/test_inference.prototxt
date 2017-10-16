@@ -3670,8 +3670,8 @@ layer {
   }
 }
 layer {
-  name: "proposal"
-  type: "Proposal"
+  name: "proposalCluster"
+  type: "ProposalCluster"
   bottom: "rpn_cls_prob_reshape"
   bottom: "rpn_bbox_pred"
   bottom: "im_info"
@@ -3681,18 +3681,58 @@ layer {
     feat_stride: 8
     base_size: 8
     min_size: 1
-    ratio: 1.0
-    ratio: 2.0
-    ratio: 3.0
-    ratio: 4.0
-    ratio: 5.0
-    scale: 3.0
-    scale: 6.0
-    scale: 9.0
-    scale: 16.0
-    scale: 32.0
+    scale: 288.419067383
+    scale: 330.692901611
+    scale: 177.524597168
+    scale: 389.367462158
+    scale: 200.100021362
+    scale: 556.399536133
+    scale: 436.584533691
+    scale: 651.961730957
+    scale: 213.530944824
+    scale: 202.975387573
+    scale: 241.223007202
+    scale: 433.276702881
+    scale: 301.138000488
+    scale: 601.89074707
+    scale: 401.566314697
+    scale: 865.026428223
+    scale: 371.187591553
+    scale: 537.530578613
+    scale: 463.642852783
+    scale: 552.845275879
+    scale: 247.148574829
+    scale: 722.376281738
+    scale: 577.261291504
+    scale: 712.331787109
+    scale: 279.641021729
+    scale: 531.124145508
+    scale: 428.311096191
+    scale: 387.721191406
+    scale: 359.144561768
+    scale: 618.994262695
+    scale: 309.136169434
+    scale: 467.378356934
+    scale: 162.906723022
+    scale: 294.462188721
+    scale: 198.396118164
+    scale: 477.347839355
+    scale: 311.261383057
+    scale: 800.399108887
+    scale: 184.028579712
+    scale: 696.110778809
+    scale: 622.632507324
+    scale: 507.574005127
+    scale: 99.3509140015
+    scale: 233.491775513
+    scale: 133.816253662
+    scale: 458.356109619
+    scale: 247.484176636
+    scale: 856.424499512
+    scale: 247.677856445
+    scale: 597.145751953
     pre_nms_topn: 12000
-    post_nms_topn: 200
+    post_nms_topn: 2000
     nms_thresh: 0.699999988079
   }
 }

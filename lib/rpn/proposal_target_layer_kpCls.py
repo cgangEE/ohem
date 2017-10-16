@@ -195,8 +195,15 @@ def _get_kp_regression_labels(kp_target_data, gt_kps):
     for ind in inds:
         kp_targets[ind] = kp_target_data[ind, 1:]
         for i in range(14):
-            kp_labels[ind, i] = gt_kps[ind, i * 3 + 2]
-            if gt_kps[ind, i * 3 + 2] == 1:
+
+            #kp_labels[ind, i] = gt_kps[ind, i * 3 + 2]
+
+            if gt_kps[ind, i * 3 + 2] <= 2:
+                kp_labels[ind, i] = 1
+            else:
+                kp_labels[ind, i] = 0
+
+            if gt_kps[ind, i * 3 + 2] <= 2:
                 kp_inside_weights[ind, i*2: i*2+2] = cfg.TRAIN.KP_INSIDE_WEIGHTS
 
     return kp_targets, kp_inside_weights, kp_labels

@@ -42,8 +42,8 @@ class aichal2(imdb):
 
 
     def image_path_from_index(self, index):
-        image_path = os.path.join(self._data_path, 'images',
-                                  index)
+        image_path = os.path.join(self._data_path, self._image_set,
+                                  index )
         assert os.path.exists(image_path), \
                 'Path does not exist: {}'.format(image_path)
         return image_path
@@ -59,7 +59,7 @@ class aichal2(imdb):
 
     def getIndexToAnnotation(self):
         fname = os.path.join(self._data_path, 
-                'keypoint_train_annotations_20170909.json')
+                self._image_set + '.json')
 
         with open(fname) as f:
             data = json.load(f)

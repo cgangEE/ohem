@@ -50,13 +50,10 @@ class SolverWrapper(object):
             solverstate = solverstate.strip()
             caffemodelFull = solverstate.split('.')[0] + '.caffemodel'
             caffemodel = caffemodelFull.split('/')[-1]
-            print(caffemodelFull)
-            print(caffemodel)
 
             os.symlink(caffemodelFull, caffemodel)
             self.solver.restore(solverstate)
             os.remove(caffemodel)
-
 
         self.solver_param = caffe_pb2.SolverParameter()
         with open(solver_prototxt, 'rt') as f:
@@ -171,51 +168,21 @@ class SolverWrapper(object):
         self.vis_detections(im, cls_boxes, pred_kp, labels)
         exit(0)
 
-
     def snapshot(self):
         """Take a snapshot of the network after unnormalizing the learned
         bounding-box regression weights. This enables easy use at test-time.
         """
 
-        net = self.solver.net
-
-        cg_bbox_pred = [k for k in net.params.keys() if 'cg_bbox_pred' in k][0]
-        scale_bbox_params = (cfg.TRAIN.BBOX_REG and
-                             cfg.TRAIN.BBOX_NORMALIZE_TARGETS and
-                             net.params.has_key(cg_bbox_pred))
-
-        if scale_bbox_params:
-            # save original values
-            orig_0 = net.params[cg_bbox_pred][0].data.copy()
-            orig_1 = net.params[cg_bbox_pred][1].data.copy()
-
-            # scale and shift with bbox reg unnormalization; then save snapshot
-            net.params[cg_bbox_pred][0].data[...] = \
-                    (net.params[cg_bbox_pred][0].data *
-                     self.bbox_stds[:, np.newaxis])
-            net.params[cg_bbox_pred][1].data[...] = \
-                    (net.params[cg_bbox_pred][1].data *
-                     self.bbox_stds + self.bbox_means)
-
         infix = ('_' + cfg.TRAIN.SNAPSHOT_INFIX
                  if cfg.TRAIN.SNAPSHOT_INFIX != '' else '')
-        filename = (self.solver_param.snapshot_prefix + infix +
-                    '_iter_{:d}'.format(self.solver.iter) + '.caffemodel')
-        filename = os.path.join(self.output_dir, filename)
-
-        net.save(str(filename))
-        print 'Wrote snapshot to: {:s}'.format(filename)
-
-        if scale_bbox_params:
-            # restore net to original state
-            net.params[cg_bbox_pred][0].data[...] = orig_0
-            net.params[cg_bbox_pred][1].data[...] = orig_1
-
 
         self.solver.snapshot()
 
         caffemodel = (self.solver_param.snapshot_prefix + infix +
                     '_iter_{:d}'.format(self.solver.iter) + '.caffemodel')
+        caffemodelFull = os.path.join(self.output_dir, caffemodel)
+
+        shutil.copyfile(caffemodel, caffemodelFull)
         os.remove(caffemodel)
 
         solverstate = (self.solver_param.snapshot_prefix + infix +
@@ -225,7 +192,8 @@ class SolverWrapper(object):
         shutil.copyfile(solverstate, solverstateFull)
         os.remove(solverstate)
 
-        return filename
+        return caffemodelFull
+
 
     def train_model(self, max_iters):
         """Network training loop."""
@@ -240,7 +208,7 @@ class SolverWrapper(object):
             self.solver.step(1)
             timer.toc()
 
-            self.gao()
+#            self.gao()
 
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)

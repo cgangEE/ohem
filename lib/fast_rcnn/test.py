@@ -190,6 +190,8 @@ def im_detect(net, im, _t, boxes=None):
     if cfg.TEST.BBOX_REG:
         # Apply bounding-box regression deltas
         box_deltas = blobs_out['bbox_pred']
+        box_deltas[:, 4:] *= np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS)
+        box_deltas[:, 4:] += np.array(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
         pred_boxes = bbox_transform_inv(boxes, box_deltas)
         pred_boxes = clip_boxes(pred_boxes, im.shape)
     else:

@@ -11,7 +11,7 @@ import matplotlib
 import cv2
 import random
 import pylab as pl
-import PIL
+import PIL, json
 
 matplotlib.rcParams.update({'figure.max_open_warning':0})
 
@@ -87,7 +87,6 @@ def getAveIoU(base_size, scale, ratio, myBox, n):
     aveIoU /= n                    
 
     
-    print(center)
     print(len(center))
     print(aveIoU)
 
@@ -105,7 +104,6 @@ def clusterBox(image_set):
     getAveIoU(base_size, scale, ratio, myBox, n)
 
 
-    exit(0)
             
     thresh = 0.006
 
@@ -137,8 +135,10 @@ def clusterBox(image_set):
 
             aveIoU /= n                    
             print(centerNum, times, aveIoU)
+            '''
             for i in range(centerNum):
                 print(center[i])
+            '''
             
 
             for j in range(centerNum):
@@ -156,11 +156,29 @@ def clusterBox(image_set):
             preIoU = aveIoU
 
 
+    with open('widerValCluster.json', 'w') as f: 
+        json.dump(center, f)
 
     print(len(IoUList))
     pl.plot(range(1, len(IoUList) + 1), IoUList, 'o')
     pl.savefig('iouList_' + str(thresh) + '.png')
 
+
+def writeCenterBox():
+    with open('widerValCluster.json', 'r') as f:
+        center = json.load(f)
+
+    box_list = [] 
+
+    for b in center:
+        print("scale: {} scale: {}".format(b[0], b[1]))
+        box_list.append(b[0]);
+        box_list.append(b[1]);
+
+    print(box_list)
+
+
 if __name__ == '__main__':
-    clusterBox('wider_2015_val')
+    #clusterBox('wider_2015_val')
+    writeCenterBox()
     
