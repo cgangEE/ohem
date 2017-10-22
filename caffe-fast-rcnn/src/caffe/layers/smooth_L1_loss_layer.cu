@@ -57,7 +57,18 @@ void SmoothL1LossLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
 
   Dtype loss;
   caffe_gpu_dot(count, ones_.gpu_data(), errors_.gpu_data(), &loss);
-  top[0]->mutable_cpu_data()[0] = loss / bottom[0]->num();
+
+
+
+  if (normalize_)  {
+    caffe_gpu_dot(count, ones_.gpu_data(), 
+          bottom[2]->gpu_data(), &normalize_count_);
+    if (normalize_count_ == 0)
+      normalize_count_ = 1;
+  } else
+    normalize_count_ = bottom[0]->num();
+
+  top[0]->mutable_cpu_data()[0] = loss / normalize_count_;
 }
 
 template <typename Dtype>
@@ -87,7 +98,8 @@ void SmoothL1LossLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
   for (int i = 0; i < 2; ++i) {
     if (propagate_down[i]) {
       const Dtype sign = (i == 0) ? 1 : -1;
-      const Dtype alpha = sign * top[0]->cpu_diff()[0] / bottom[i]->num();
+      const Dtype alpha = sign * top[0]->cpu_diff()[0] / normalize_count_;
+
       caffe_gpu_axpby(
           count,                           // count
           alpha,                           // alpha

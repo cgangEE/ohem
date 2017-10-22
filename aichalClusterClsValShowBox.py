@@ -14,7 +14,7 @@ import random
 matplotlib.rcParams.update({'figure.max_open_warning':0})
 
 
-def showImage(im, boxes, keypoints, kpType):
+def showImage(im, boxes, keypoints):
     classToColor = ['', 'red', 'yellow', 'blue', 'magenta']
     im = im[:, :, (2, 1, 0)]
     fig, ax = plt.subplots(figsize=(12, 12))
@@ -30,12 +30,11 @@ def showImage(im, boxes, keypoints, kpType):
 
     c = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w']
 
-
     for i in xrange(boxes.shape[0]):
 
             bbox = boxes[i]
-
-            '''
+            if bbox[-1] < thresh:
+                continue
             ax.add_patch(
                     plt.Rectangle((bbox[0], bbox[1]),
                           bbox[2] - bbox[0],
@@ -47,59 +46,62 @@ def showImage(im, boxes, keypoints, kpType):
                     int(bbox[3] - bbox[1])),
                     bbox=dict(facecolor='blue', alpha=0.2),
                     fontsize=8, color='white')
-            '''
 
             keypoint = keypoints[i]
             for j in range(14):
-                if keypoint[j * 3 + 2] <= kpType:
-                    x, y, z = keypoint[j * 3 : (j + 1) * 3]
-                    ax.add_patch(
-                            plt.Circle((x, y), 3,
-                                  fill=True,
-                                  color = c[i], 
-                                  linewidth=2.0)
-                        )
+                x, y = keypoint[j * 2 : (j + 1) * 2]
 
+
+                ax.add_patch(
+                        plt.Circle((x, y), 3,
+                              fill=True,
+                              color = c[i], 
+                              linewidth=2.0)
+                    )
             for l in line:
                 i0 = l[0] - 1
-                p0 = keypoint[i0 * 3 : (i0 + 1) * 3] 
+                p0 = keypoint[i0 * 2 : (i0 + 1) * 2] 
+
                 i1 = l[1] - 1
-                p1 = keypoint[i1 * 3 : (i1 + 1) * 3]
-                if p0[2] <= kpType and p1[2] <= kpType:
-                    ax.add_patch(
-                            plt.Arrow(p0[0], p0[1], 
-                            float(p1[0]) - p0[0], float(p1[1]) - p0[1], 
-                            color = c[i])
-                            )
+                p1 = keypoint[i1 * 2 : (i1 + 1) * 2]
+                
+                ax.add_patch(
+                        plt.Arrow(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], 
+                        color = c[i])
+                        )
 
 
-def tattooShowBox(image_set):
+
+def showBox(image_set):
+    cache_file =  \
+        'output/kpClusterCls/aichal_val/zf_faster_rcnn_iter_100000_inference/detections.pkl'
+
+    if os.path.exists(cache_file):
+        with open(cache_file, 'rb') as fid:
+            results = cPickle.load(fid)
+    else:
+        print(cache_file + ' not found')
+
     imdb = get_imdb(image_set)
-#    imdb.append_flipped_images()
     num_images = len(imdb.image_index)
-    gt_roidb = imdb.roidb
 
-    kpType = 1
+    boxes = np.array(results['boxes'])
+    kps = results['all_kps']
+
 
     for i in xrange(num_images):
-        if i % 1000 == 0:
-            bbox = gt_roidb[i]['boxes']
-            keypoints = gt_roidb[i]['keypoints']
-            cls = gt_roidb[i]['gt_classes']
-
+        if i % 3000 == 0:
             im_name = imdb.image_path_at(i)
+            print(im_name)
             im = cv2.imread(im_name)
             
-            print(i, gt_roidb[i]['flipped'])                
-            if gt_roidb[i]['flipped']:
-                im = im[:, ::-1, :]
+            showImage(im, boxes[1][i], kps[1][i])
+            plt.savefig(str(i) + 'ClusterCls', bbox_inches='tight', pad_inches=0)
 
-            showImage(im, bbox, keypoints, kpType)
 
-            plt.savefig(str(i) + 'GT_kpType' +str(kpType), 
-                    bbox_inches='tight', pad_inches=0)
+
 
 
 if __name__ == '__main__':
-    tattooShowBox('aichal_2017_val')
+    showBox('aichal_2017_val')
     

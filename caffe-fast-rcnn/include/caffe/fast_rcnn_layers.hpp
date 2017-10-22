@@ -178,7 +178,9 @@ class SmoothL1LossLayer : public LossLayer<Dtype> {
   Blob<Dtype> errors_;
   Blob<Dtype> ones_;
   bool has_weights_;
+  bool normalize_;
   Dtype sigma2_;
+  Dtype normalize_count_;
 };
 
 template <typename Dtype>

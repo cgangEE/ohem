@@ -1,7 +1,7 @@
 for i in {10..10}
 do
 	echo 'Testing'  $i &>> log_aichal_cluster_cls_val_${i}
-	tools/test_net_kp_cls.py \
+	tools/test_net_kp.py \
 	    --gpu 0 \
 	    --def models/kp_cluster_cls/test_inference.prototxt \
 		--net output/kpClusterCls/aichal_train/zf_faster_rcnn_iter_${i}0000_inference.caffemodel \

@@ -19,6 +19,7 @@ import cPickle
 from utils.blob import im_list_to_blob
 import os
 from utils.cython_bbox import bbox_vote
+import matplotlib.pyplot as plt
 
 
 def _get_image_blob(im):
@@ -179,12 +180,10 @@ def im_detect(net, im, _t, boxes=None):
         # unscale back to raw image space
         boxes = rois[:, 1:5] / im_scales[0]
 
-    scores = blobs_out['cls_prob']
-    kp_scores = blobs_out['kp_cls_prob']
+    scores = blobs_out['cls_prob'].copy()
+    kp_scores = blobs_out['kp_cls_prob'].copy()
+    kp_scores = kp_scores[:, 1].reshape(-1, 14)
 
-    print('scores.shape: {}', scores.shape)
-    print('kp_scores.shape: {}', kp_scores.shape)
-    exit(0)
 
     if cfg.TEST.BBOX_REG:
         # Apply bounding-box regression deltas
@@ -202,7 +201,7 @@ def im_detect(net, im, _t, boxes=None):
 
     _t['im_postproc'].toc()
 
-    return scores, pred_boxes, pred_kp
+    return scores, pred_boxes, pred_kp, kp_scores
 
 def vis_detections(im, dets, pred_kp, labels = None):
 
@@ -272,6 +271,85 @@ def apply_nms(all_boxes, thresh):
             nms_boxes[cls_ind][im_ind] = dets[keep, :].copy()
     return nms_boxes
 
+
+
+def showImage(im, boxes, scores, kps, kp_scores, imageId):
+
+    print('boxes.shape', boxes.shape)
+    print('scores.shape', scores.shape)
+    print('kps.shape', kps.shape)
+    print('kp_scores.shape', kp_scores.shape)
+
+    ind = np.argsort(scores)[::-1]
+    boxes = boxes[ind]
+    scores = scores[ind]
+    kps = kps[ind]
+    kp_scores = kp_scores[ind]
+
+    classToColor = ['', 'red', 'yellow', 'blue', 'magenta']
+    im = im[:, :, (2, 1, 0)]
+
+    thresh = 0.5
+
+    line = [[13, 14], [14, 4], [4, 5], [5, 6], [14, 1], [1, 2], [2, 3], \
+            [14, 10], [10, 11], [11, 12], [14, 7], [7, 8], [8, 9]]
+
+    c = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w']
+
+    for i in xrange(boxes.shape[0]):
+
+        fig, ax = plt.subplots(figsize=(12, 12))
+        fig = ax.imshow(im, aspect='equal')
+        plt.axis('off')
+        fig.axes.get_xaxis().set_visible(False)
+        fig.axes.get_yaxis().set_visible(False)
+
+        bbox = boxes[i]
+
+        ax.add_patch(
+                plt.Rectangle((bbox[0], bbox[1]),
+                      bbox[2] - bbox[0],
+                      bbox[3] - bbox[1], fill=False,
+                      edgecolor= c[0], linewidth=2.0)
+            )
+        ax.text(bbox[0], bbox[1] - 2,
+                '{:d}, {:d}, {:.3f}'.format(int(bbox[2] - bbox[0]), 
+                int(bbox[3] - bbox[1]), scores[i]),
+                bbox=dict(facecolor='blue', alpha=0.2),
+                fontsize=8, color='white')
+
+        keypoint = kps[i]
+        for j in range(14):
+            x, y = keypoint[j * 2 : (j + 1) * 2]
+
+            ax.add_patch(
+                    plt.Circle((x, y), 3,
+                          fill=True,
+                          color = c[1], 
+                          linewidth=2.0)
+                )
+
+            ax.text(x, y - 2, '{:.3f}'.format(kp_scores[i, j]),
+                    bbox=dict(facecolor='blue', alpha=0.2),
+                    fontsize=8, color='white')
+
+        for l in line:
+            i0 = l[0] - 1
+            p0 = keypoint[i0 * 2 : (i0 + 1) * 2] 
+
+            i1 = l[1] - 1
+            p1 = keypoint[i1 * 2 : (i1 + 1) * 2]
+            
+            ax.add_patch(
+                    plt.Arrow(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], 
+                    color = c[2])
+                    )
+
+        plt.savefig(str(imageId) + '_' + str(i), bbox_inches='tight', pad_inches=0)
+        
+
+
+
 def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
     """Test a Fast R-CNN network on an image database."""
     num_images = len(imdb.image_index)
@@ -305,23 +383,27 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
             box_proposals = roidb[i]['boxes'][roidb[i]['gt_classes'] == 0]
 
         im = cv2.imread(imdb.image_path_at(i))
-        scores, boxes, kps = im_detect(net, im, _t, box_proposals)
+        scores, boxes, kps, kp_scores = im_detect(net, im, _t, box_proposals)
 
 
         _t['misc'].tic()
         # skip j = 0, because it's the background class
         for j in xrange(1, imdb.num_classes):
+
+            showImage(im, boxes[:, 4:8], scores[:, 1], kps, kp_scores, i)
+            if i == 10:
+                exit(0)
+
             inds = np.where(scores[:, j] > thresh)[0]
             cls_scores = scores[inds, j]
             cls_boxes = boxes[inds, j*4:(j+1)*4]
             cls_kps = kps[inds, :]
+            cls_kp_scores = kp_scores[inds, :]
 
             cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
                 .astype(np.float32, copy=False)
 
-                
             keep = nms(cls_dets, cfg.TEST.NMS)
-
 
             dets_NMSed = cls_dets[keep, :]
             pred_kp = cls_kps[keep, :]
@@ -334,7 +416,6 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
 
             if vis:
                 vis_detections(im, cls_dets, pred_kp)
-
 
             all_boxes[j][i] = cls_dets
             all_kps[j][i] = pred_kp

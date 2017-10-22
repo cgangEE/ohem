@@ -42,6 +42,8 @@ __C.TRAIN.MAX_SIZE = 1000
 # Images to use per minibatch
 __C.TRAIN.IMS_PER_BATCH = 2
 
+__C.TRAIN.RADIUS = 25
+
 # Minibatch size (number of regions of interest [ROIs])
 __C.TRAIN.BATCH_SIZE = 128
 
@@ -147,6 +149,8 @@ __C.TEST.SCALE_MULTIPLE_OF = 1
 # Scales to use during testing (can list multiple scales)
 # Each scale is the pixel size of an image's shortest side
 __C.TEST.SCALES = (600,)
+
+__C.TEST.RADIUS = 25
 
 # Max pixel size of the longest side of a scaled input image
 __C.TEST.MAX_SIZE = 1000

@@ -191,6 +191,25 @@ class SolverWrapper(object):
         exit(0)
 
 
+    def gao_fcn_reg(self, iter_num):
+
+        net = self.solver.net
+        im = net.blobs['data'].data.copy()
+        im = im[0, :, :, :]
+        im = im.transpose(1, 2, 0)
+        im += cfg.PIXEL_MEANS
+        im = im.astype(np.uint8, copy=False)
+
+
+        reg_targets = net.blobs['reg_targets'].data.copy()
+        rpn_cls_reg = net.blobs['upsample/rpn_cls_reg'].data.copy()
+
+        reg_targets = np.abs(reg_targets * 255)
+        rpn_cls_reg = np.abs(rpn_cls_reg * 255)
+
+        cv2.imwrite(str(iter_num) + 'reg_targets.png', reg_targets[0,0])
+        cv2.imwrite(str(iter_num) + 'rpn_reg.png' , rpn_cls_reg[0,0])
+
     def train_model(self, max_iters):
         """Network training loop."""
         last_snapshot_iter = -1
@@ -204,7 +223,7 @@ class SolverWrapper(object):
             self.solver.step(1)
             timer.toc()
 
-#            self.gao()         
+#            self.gao_fcn_reg(self.solver.iter)         
 
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)
