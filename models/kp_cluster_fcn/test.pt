@@ -6521,30 +6521,130 @@ layer {
   top: "cls_prob"
 }
 
+
+
+
+
+###########################################################################
+## Repooling
+###########################################################################
+
+
 layer {
-  name: "kp_pred"
-  type: "InnerProduct"
-  bottom: "fc7"
-  top: "kp_pred"
-  param {
-    name: "kp_pred_w"
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    name: "kp_pred_b"
-    lr_mult: 2
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 28
-    weight_filler {
-      type: "gaussian"
-      std: 0.001
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
+  name: 'rois_repool'
+  type: 'Python'
+  bottom: 'rois'
+  bottom: "bbox_pred"
+  bottom: 'im_info'
+  top: 'rois_repool'
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repooling"
+    layer: 'RepoolingLayer'
   }
 }
+
+
+
+
+######################################################
+### 		KP FCN 
+######################################################
+
+layer {
+  name: "roi_pool5_kp"
+  type: "ROIAlign"
+  bottom: "convf"
+  bottom: "rois_repool"
+  top: "pool5_kp"
+  propagate_down: true
+  propagate_down: false
+  roi_pooling_param {
+    pooled_w: 24
+    pooled_h: 24
+    spatial_scale: 0.125 # 1/8
+  }
+}
+
+
+layer {
+  name: "fcn_conv1"
+  type: "Convolution"
+  bottom: "pool5_kp"
+  top: "fcn_conv1"
+  param { lr_mult: 1.0 decay_mult: 1.0 }
+  param { lr_mult: 2.0 decay_mult: 0 }
+  convolution_param {
+    num_output: 128 kernel_size: 3 pad: 1 stride: 1
+    weight_filler { type: "gaussian" std: 0.01 }
+    bias_filler { type: "constant" value: 0 }
+  }
+}
+
+
+layer {
+  name: "fcn_conv1_relu"
+  type: "ReLU"
+  bottom: "fcn_conv1"
+  top: "fcn_conv1"
+}
+
+
+layer {
+  name: "pred_fcn"
+  type: "Convolution"
+  bottom: "fcn_conv1"
+  top: "pred_fcn"
+  param { lr_mult: 1.0 decay_mult: 1.0 }
+  param { lr_mult: 2.0 decay_mult: 0 }
+  convolution_param {
+    num_output: 28
+    kernel_size: 1 pad: 0 stride: 1
+    weight_filler { type: "gaussian" std: 0.01 }
+    bias_filler { type: "constant" value: 0 }
+  }
+}
+
+
+layer {
+  name: "upsample/pred_fcn"
+  type: "Deconvolution"
+  bottom: "pred_fcn"
+  top: "upsample/pred_fcn"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 28
+    kernel_size: 16
+    pad: 4
+    stride: 8
+    group: 28
+    bias_term: false
+    weight_filler: {
+      type: "bilinear"
+    }
+  }    
+}
+
+
+layer {
+  name: 'pred_fcn_reshape'
+  type: 'Reshape'
+  bottom: 'upsample/pred_fcn'
+  top: 'pred_fcn_reshape'
+  reshape_param { shape { dim: -1 dim: 2 dim: 0 dim: 0 } }
+}
+
+
+
+layer {
+  name: "pred_fcn_prob"
+  type: "Softmax"
+  bottom: 'pred_fcn_reshape'
+  top: "pred_fcn_prob"
+}
+

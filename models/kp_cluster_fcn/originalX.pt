@@ -6346,9 +6346,9 @@ layer {
   top: "rpn_bbox_inside_weights"
   top: "rpn_bbox_outside_weights"
   python_param {
-    module: "rpn.anchor_target_layer"
+    module: "rpn.anchor_cluster_target_layer"
     layer: "AnchorTargetLayer"
-    param_str: "{\'base_size\': 8, \'feat_stride\': 8, \'scales\': [3, 6, 9, 16, 32], \'ratios\': [1.0, 2.0, 3.0, 4.0, 5.0]}"
+    param_str: "{\'base_size\': 8, \'feat_stride\': 8, \'scales\': [ 288.41905852952016, 330.69291224059697, 177.52460292429367, 389.36747438675741, 200.1000247700311, 556.39952104011354, 436.584541210297, 651.96170966575926, 213.53094684159683, 202.97538772705596, 241.22300079086983, 433.27670587968186, 301.13800847200184, 601.89076788719888, 401.56632629188914, 865.02644038893197, 371.18759448230617, 537.53058807326215, 463.64285040437113, 552.84527239107513, 247.14857538856998, 722.37627519137061, 577.26130392110156, 712.33176918314439, 279.6410102874321, 531.12416732802433, 428.31110115659402, 387.7211908283403, 359.14457466417787, 618.99426841621118, 309.13616778874649, 467.3783554463505, 162.90672431564707, 294.46220042264042, 198.39612311183444, 477.34782520581018, 311.26137781465212, 800.39912220791598, 184.02858237985456, 696.11076799093087, 622.63250322289696, 507.57399237584247, 99.350913215206745, 233.4917709590988, 133.81625625311372, 458.35610729946347, 247.48418111686212, 856.4245119950823, 247.67786153241551, 597.14578239290563]}"
   }
 }
 layer {
@@ -6399,8 +6399,8 @@ layer {
   }
 }
 layer {
-  name: "proposal"
-  type: "Proposal"
+  name: "proposalCluster"
+  type: "ProposalCluster"
   bottom: "rpn_cls_prob_reshape"
   bottom: "rpn_bbox_pred"
   bottom: "im_info"
@@ -6410,16 +6410,56 @@ layer {
     feat_stride: 8
     base_size: 8
     min_size: 1
-    ratio: 1.0
-    ratio: 2.0
-    ratio: 3.0
-    ratio: 4.0
-    ratio: 5.0
-    scale: 3.0
-    scale: 6.0
-    scale: 9.0
-    scale: 16.0
-    scale: 32.0
+    scale: 288.419067383
+    scale: 330.692901611
+    scale: 177.524597168
+    scale: 389.367462158
+    scale: 200.100021362
+    scale: 556.399536133
+    scale: 436.584533691
+    scale: 651.961730957
+    scale: 213.530944824
+    scale: 202.975387573
+    scale: 241.223007202
+    scale: 433.276702881
+    scale: 301.138000488
+    scale: 601.89074707
+    scale: 401.566314697
+    scale: 865.026428223
+    scale: 371.187591553
+    scale: 537.530578613
+    scale: 463.642852783
+    scale: 552.845275879
+    scale: 247.148574829
+    scale: 722.376281738
+    scale: 577.261291504
+    scale: 712.331787109
+    scale: 279.641021729
+    scale: 531.124145508
+    scale: 428.311096191
+    scale: 387.721191406
+    scale: 359.144561768
+    scale: 618.994262695
+    scale: 309.136169434
+    scale: 467.378356934
+    scale: 162.906723022
+    scale: 294.462188721
+    scale: 198.396118164
+    scale: 477.347839355
+    scale: 311.261383057
+    scale: 800.399108887
+    scale: 184.028579712
+    scale: 696.110778809
+    scale: 622.632507324
+    scale: 507.574005127
+    scale: 99.3509140015
+    scale: 233.491775513
+    scale: 133.816253662
+    scale: 458.356109619
+    scale: 247.484176636
+    scale: 856.424499512
+    scale: 247.677856445
+    scale: 597.145751953
     pre_nms_topn: 12000
     post_nms_topn: 2000
     nms_thresh: 0.699999988079
@@ -6435,17 +6475,13 @@ layer {
   type: "Python"
   bottom: "rpn_rois"
   bottom: "gt_boxes"
-  bottom: "gt_kps"
   top: "rois"
   top: "labels"
   top: "bbox_targets"
   top: "bbox_inside_weights"
   top: "bbox_outside_weights"
-  top: "kp_targets"
-  top: "kp_inside_weights"
-  top: "kp_outside_weights"
   python_param {
-    module: "rpn.proposal_target_layer_kp"
+    module: "rpn.proposal_target_layer"
     layer: "ProposalTargetLayer"
     param_str: "\'num_classes\': 2"
   }
@@ -6611,25 +6647,55 @@ layer {
   propagate_down: false
 }
 layer {
-  name: "kp_pred"
-  type: "InnerProduct"
-  bottom: "fc7"
-  top: "kp_pred"
+  name: "rois_repool"
+  type: "Python"
+  bottom: "rois"
+  bottom: "bbox_pred"
+  bottom: "im_info"
+  top: "rois_repool"
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repooling"
+    layer: "RepoolingLayer"
+  }
+}
+layer {
+  name: "roi_pool5_kp"
+  type: "ROIAlign"
+  bottom: "convf"
+  bottom: "rois_repool"
+  top: "pool5_kp"
+  propagate_down: true
+  propagate_down: false
+  roi_pooling_param {
+    pooled_h: 24
+    pooled_w: 24
+    spatial_scale: 0.125
+  }
+}
+layer {
+  name: "fcn_conv1"
+  type: "Convolution"
+  bottom: "pool5_kp"
+  top: "fcn_conv1"
   param {
-    name: "kp_pred_w"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
-    name: "kp_pred_b"
     lr_mult: 2.0
     decay_mult: 0.0
   }
-  inner_product_param {
-    num_output: 28
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    stride: 1
     weight_filler {
       type: "gaussian"
-      std: 0.0010000000475
+      std: 0.00999999977648
     }
     bias_filler {
       type: "constant"
@@ -6638,16 +6704,98 @@ layer {
   }
 }
 layer {
-  name: "loss_kp"
-  type: "SmoothL1Loss"
-  bottom: "kp_pred"
+  name: "fcn_conv1_relu"
+  type: "ReLU"
+  bottom: "fcn_conv1"
+  top: "fcn_conv1"
+}
+layer {
+  name: "pred_fcn"
+  type: "Convolution"
+  bottom: "fcn_conv1"
+  top: "pred_fcn"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  convolution_param {
+    num_output: 28
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "upsample/pred_fcn"
+  type: "Deconvolution"
+  bottom: "pred_fcn"
+  top: "upsample/pred_fcn"
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  convolution_param {
+    num_output: 28
+    bias_term: false
+    pad: 4
+    kernel_size: 16
+    group: 28
+    stride: 8
+    weight_filler {
+      type: "bilinear"
+    }
+  }
+}
+layer {
+  name: "pred_fcn_reshape"
+  type: "Reshape"
+  bottom: "upsample/pred_fcn"
+  top: "pred_fcn_reshape"
+  reshape_param {
+    shape {
+      dim: -1
+      dim: 2
+      dim: 0
+      dim: 0
+    }
+  }
+}
+layer {
+  name: "roi-data"
+  type: "Python"
+  bottom: "rois_repool"
+  bottom: "gt_boxes"
+  bottom: "gt_kps"
+  top: "kp_targets"
+  python_param {
+    module: "rpn.proposal_target_layer_kpFcn"
+    layer: "ProposalTargetLayer"
+    param_str: "\'num_classes\': 2"
+  }
+}
+layer {
+  name: "loss_fcn"
+  type: "SoftmaxWithLoss"
+  bottom: "pred_fcn_reshape"
   bottom: "kp_targets"
-  bottom: "kp_inside_weights"
-  bottom: "kp_outside_weights"
-  top: "loss_kp"
+  top: "loss_fcn"
   loss_weight: 1.0
   propagate_down: true
   propagate_down: false
-  propagate_down: false
-  propagate_down: false
+  loss_param {
+    ignore_label: -1
+    normalize: true
+  }
 }

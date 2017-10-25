@@ -35,7 +35,8 @@ class RepoolingLayer(caffe.Layer):
         boxes = bottom[0].data.copy()[:, 1:5]
         box_deltas = bottom[1].data.copy()
         im_info = bottom[2].data.copy()
-        im_shape = (im_info[0, 0], im_info[0, 1])
+        im_shape = (im_info[0, 0] / im_info[0,3], im_info[0, 1] / im_info[0,2])
+        im_shape = map(int,map(round, im_shape))
 
         j = 1
         box_deltas[:, j*4:(j+1)*4] *= np.array(

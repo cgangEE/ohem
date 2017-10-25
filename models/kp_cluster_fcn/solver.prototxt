@@ -1,4 +1,4 @@
-train_net: "models/kp_cluster/original.pt"
+train_net: "models/kp_cluster_fcn/originalX.pt"
 
 base_lr: 0.001
 lr_policy: "step"

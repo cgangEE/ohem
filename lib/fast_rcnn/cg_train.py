@@ -210,6 +210,104 @@ class SolverWrapper(object):
         cv2.imwrite(str(iter_num) + 'reg_targets.png', reg_targets[0,0])
         cv2.imwrite(str(iter_num) + 'rpn_reg.png' , rpn_cls_reg[0,0])
 
+    def showImage(self, im, labels, rois, kpFcnLabel, kpFcnPred, imageId):
+
+        classToColor = ['', 'red', 'yellow', 'blue', 'magenta']
+        im = im[:, :, (2, 1, 0)]
+
+        thresh = 0.5
+
+        line = [[13, 14], [14, 4], [4, 5], [5, 6], [14, 1], [1, 2], [2, 3], \
+                [14, 10], [10, 11], [11, 12], [14, 7], [7, 8], [8, 9]]
+
+        c = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w']
+
+
+        fig, ax = plt.subplots(figsize=(12, 12))
+        fig = ax.imshow(im, aspect='equal')
+        plt.axis('off')
+        fig.axes.get_xaxis().set_visible(False)
+        fig.axes.get_yaxis().set_visible(False)
+
+
+
+        for i, box in enumerate(rois):
+            if labels[i] != 0:
+                ax.add_patch(
+                        plt.Rectangle((box[0], box[1]),
+                              box[2] - box[0],
+                              box[3] - box[1], fill=False,
+                              edgecolor= 'r', linewidth=2.0)
+                    )
+                
+                kpLabel = kpFcnLabel[i, 0]
+                kpPred = kpFcnPred[i, 1]
+                print(np.min(kpLabel), np.max(kpLabel), 
+                        np.min(kpPred), np.max(kpPred))
+                kpPred /= np.max(kpPred)
+
+                cv2.imwrite('{}_kpFcnLabel.png'.format(i), kpLabel * 255)
+                cv2.imwrite('{}_kpFcnPred.png'.format(i), kpPred * 255)
+            
+
+        '''
+        for j in range(14):
+            x, y, p = kp[j * 3 : (j + 1) * 3]
+
+            ax.add_patch(
+                    plt.Circle((x, y), 3,
+                          fill=True,
+                          color = c[1], 
+                          linewidth=2.0)
+                )
+
+            ax.text(x, y - 2, '{:.3f}'.format(kp_scores[i, j]),
+                    bbox=dict(facecolor='blue', alpha=0.2),
+                    fontsize=8, color='white')
+
+        for l in line:
+            i0 = l[0] - 1
+            p0 = kp[i0 * 3 : (i0 + 1) * 3] 
+
+            i1 = l[1] - 1
+            p1 = kp[i1 * 3 : (i1 + 1) * 3]
+            
+            ax.add_patch(
+                    plt.Arrow(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], 
+                    color = c[2])
+                    )
+
+        '''
+        plt.savefig(str(imageId) , bbox_inches='tight', pad_inches=0)
+        exit(0)
+        
+
+
+
+    def gao_cluster_fcn(self, iter_num):
+        net = self.solver.net
+        im = net.blobs['data'].data.copy()
+        im = im[0, :, :, :]
+        im = im.transpose(1, 2, 0)
+        im += cfg.PIXEL_MEANS
+        im = im.astype(np.uint8, copy=False)
+
+
+        rois = net.blobs['rois_repool'].data.copy()
+        boxes = rois[:, 1:5] 
+        scores = net.blobs['labels'].data.copy()
+
+        kpLabel = net.blobs['kp_targets'].data.copy().reshape(-1, 14, 192, 192)
+        kpFcn = net.blobs['pred_fcn_reshape'].data.copy().reshape(-1, 28, 192, 192)
+
+
+        self.showImage(im, scores, boxes, kpLabel, kpFcn, iter_num)
+
+        exit(0)
+
+
+
+
     def train_model(self, max_iters):
         """Network training loop."""
         last_snapshot_iter = -1
@@ -222,8 +320,7 @@ class SolverWrapper(object):
             timer.tic()
             self.solver.step(1)
             timer.toc()
-
-#            self.gao_fcn_reg(self.solver.iter)         
+#            self.gao_cluster_fcn(self.solver.iter)         
 
             if self.solver.iter % (10 * self.solver_param.display) == 0:
                 print 'speed: {:.3f}s / iter'.format(timer.average_time)
@@ -235,6 +332,8 @@ class SolverWrapper(object):
         if last_snapshot_iter != self.solver.iter:
             model_paths.append(self.snapshot())
         return model_paths
+
+
 
 def get_training_roidb(imdb):
     """Returns a roidb (Region of Interest database) for use in training."""
