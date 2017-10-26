@@ -113,7 +113,10 @@ def _get_blobs(im, rois):
     return blobs, im_scale_factors
 
 
-def showImage(im, rois, kpFcn, imageId):
+def showImage(im, box, kps, imageIdx):
+    print(box)
+    print(kps)
+    exit(0)
 
     classToColor = ['', 'red', 'yellow', 'blue', 'magenta']
     im = im[:, :, (2, 1, 0)]
@@ -229,22 +232,27 @@ def im_detect(net, im, _t, idx):
     _t['im_net'].tic()
     blobs_out = net.forward()
     _t['im_net'].toc()
-    #blobs_out = net.forward(**forward_kwargs)
 
 
     _t['im_postproc'].tic()
-    rois = net.blobs['rois_repool'].data.copy()[:,1:5]
+
+    rois = net.blobs['rois'].data.copy()[:,1:5]
     kpFcn = blobs_out['pred_fcn_prob'].reshape(-1, 28, 192, 192)
-    showImage(im,  rois, kpFcn, idx)
+
+    R = cfg.TEST.RADIUS
+
+    for i, box in enumerate(rois):
+        kps = []
+        for j in range(14):
+            kp = kpFcn[i, j * 2 + 1]
+            p = np.max(kp)
+            y, x = np.unravel_index(np.argmax(kp), kp.shape)
+            kps += [x, y, p]
+        showImage(im, box, kps, i)
+
     exit(0)
 
-    '''
-    kp_deltas = blobs_out['kp_pred']
-    kp_deltas[:, :] *= np.array(cfg.TRAIN.KP_NORMALIZE_STDS)
-    kp_deltas[:, :] += np.array(cfg.TRAIN.KP_NORMALIZE_MEANS)
-    pred_kp = kp_transform_inv(boxes, kp_deltas)
-    pred_kp = clip_kps(pred_kp, im.shape)
-    '''
+
 
     _t['im_postproc'].toc()
 

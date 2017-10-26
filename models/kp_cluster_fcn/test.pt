@@ -6525,28 +6525,6 @@ layer {
 
 
 
-###########################################################################
-## Repooling
-###########################################################################
-
-
-layer {
-  name: 'rois_repool'
-  type: 'Python'
-  bottom: 'rois'
-  bottom: "bbox_pred"
-  bottom: 'im_info'
-  top: 'rois_repool'
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  python_param {
-    module: "roi_data_layer.repooling"
-    layer: 'RepoolingLayer'
-  }
-}
-
-
 
 
 ######################################################
@@ -6557,7 +6535,7 @@ layer {
   name: "roi_pool5_kp"
   type: "ROIAlign"
   bottom: "convf"
-  bottom: "rois_repool"
+  bottom: "rois"
   top: "pool5_kp"
   propagate_down: true
   propagate_down: false
@@ -6630,7 +6608,6 @@ layer {
   }    
 }
 
-
 layer {
   name: 'pred_fcn_reshape'
   type: 'Reshape'
@@ -6640,11 +6617,11 @@ layer {
 }
 
 
-
 layer {
   name: "pred_fcn_prob"
   type: "Softmax"
   bottom: 'pred_fcn_reshape'
   top: "pred_fcn_prob"
 }
+
 

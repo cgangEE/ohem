@@ -6475,13 +6475,15 @@ layer {
   type: "Python"
   bottom: "rpn_rois"
   bottom: "gt_boxes"
+  bottom: "gt_kps"
   top: "rois"
   top: "labels"
   top: "bbox_targets"
   top: "bbox_inside_weights"
   top: "bbox_outside_weights"
+  top: "kp_targets"
   python_param {
-    module: "rpn.proposal_target_layer"
+    module: "rpn.proposal_target_layer_kpFcn"
     layer: "ProposalTargetLayer"
     param_str: "\'num_classes\': 2"
   }
@@ -6647,25 +6649,10 @@ layer {
   propagate_down: false
 }
 layer {
-  name: "rois_repool"
-  type: "Python"
-  bottom: "rois"
-  bottom: "bbox_pred"
-  bottom: "im_info"
-  top: "rois_repool"
-  propagate_down: false
-  propagate_down: false
-  propagate_down: false
-  python_param {
-    module: "roi_data_layer.repooling"
-    layer: "RepoolingLayer"
-  }
-}
-layer {
   name: "roi_pool5_kp"
   type: "ROIAlign"
   bottom: "convf"
-  bottom: "rois_repool"
+  bottom: "rois"
   top: "pool5_kp"
   propagate_down: true
   propagate_down: false
@@ -6770,19 +6757,6 @@ layer {
       dim: 0
       dim: 0
     }
-  }
-}
-layer {
-  name: "roi-data"
-  type: "Python"
-  bottom: "rois_repool"
-  bottom: "gt_boxes"
-  bottom: "gt_kps"
-  top: "kp_targets"
-  python_param {
-    module: "rpn.proposal_target_layer_kpFcn"
-    layer: "ProposalTargetLayer"
-    param_str: "\'num_classes\': 2"
   }
 }
 layer {

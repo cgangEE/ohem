@@ -73,6 +73,7 @@ def kps_transform(ex_rois, gt_kps, labels):
 
     targets = np.ones((n, 14, H, W)) * -1
 
+
     for i in range(n):
         if labels[i] != 0:
 
@@ -86,7 +87,7 @@ def kps_transform(ex_rois, gt_kps, labels):
                     targets[i,j] = np.zeros((H, W))
                     cv2.circle(targets[i,j], (xi, yi), R, 1, -1)
 
-    
+
     targets = targets.reshape(-1, 1, H, W)
     return targets
 

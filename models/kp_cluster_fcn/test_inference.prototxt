@@ -3887,8 +3887,8 @@ layer {
   propagate_down: true
   propagate_down: false
   roi_pooling_param {
-    pooled_h: 28
-    pooled_w: 28
+    pooled_h: 24
+    pooled_w: 24
     spatial_scale: 0.125
   }
 }
@@ -3921,30 +3921,15 @@ layer {
   }
 }
 layer {
-  name: "upsample/fcn_conv1"
-  type: "Deconvolution"
+  name: "fcn_conv1_relu"
+  type: "ReLU"
   bottom: "fcn_conv1"
-  top: "upsample/fcn_conv1"
-  param {
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  convolution_param {
-    num_output: 128
-    bias_term: false
-    pad: 1
-    kernel_size: 4
-    group: 128
-    stride: 2
-    weight_filler {
-      type: "bilinear"
-    }
-  }
+  top: "fcn_conv1"
 }
 layer {
   name: "pred_fcn"
   type: "Convolution"
-  bottom: "upsample/fcn_conv1"
+  bottom: "fcn_conv1"
   top: "pred_fcn"
   param {
     lr_mult: 1.0
@@ -3970,9 +3955,30 @@ layer {
   }
 }
 layer {
+  name: "upsample/pred_fcn"
+  type: "Deconvolution"
+  bottom: "pred_fcn"
+  top: "upsample/pred_fcn"
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  convolution_param {
+    num_output: 28
+    bias_term: false
+    pad: 4
+    kernel_size: 16
+    group: 28
+    stride: 8
+    weight_filler {
+      type: "bilinear"
+    }
+  }
+}
+layer {
   name: "pred_fcn_reshape"
   type: "Reshape"
-  bottom: "pred_fcn"
+  bottom: "upsample/pred_fcn"
   top: "pred_fcn_reshape"
   reshape_param {
     shape {
