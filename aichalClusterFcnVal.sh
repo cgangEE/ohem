@@ -1,4 +1,4 @@
-for i in {1..10}
+for i in {10..10}
 do
 	echo 'Testing'  $i &>> log_aichal_cluster_fcn_val_${i}
 	tools/test_net_kpFcn.py \

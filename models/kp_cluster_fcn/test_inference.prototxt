@@ -3878,11 +3878,30 @@ layer {
   bottom: "cls_score"
   top: "cls_prob"
 }
+
+
+layer {
+  name: 'rois_repool'
+  type: 'Python'
+  bottom: 'rois'
+  bottom: "bbox_pred"
+  bottom: 'im_info'
+  top: 'rois_repool'
+  propagate_down: false
+  propagate_down: false
+  propagate_down: false
+  python_param {
+    module: "roi_data_layer.repooling"
+    layer: 'RepoolingLayer'
+  }
+}
+
+
 layer {
   name: "roi_pool5_kp"
   type: "ROIAlign"
   bottom: "convf"
-  bottom: "rois"
+  bottom: "rois_repool"
   top: "pool5_kp"
   propagate_down: true
   propagate_down: false

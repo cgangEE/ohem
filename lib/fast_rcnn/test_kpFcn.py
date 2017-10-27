@@ -13,6 +13,7 @@ import argparse
 from utils.timer import Timer
 import numpy as np
 import cv2
+from scipy import signal
 import caffe
 from fast_rcnn.nms_wrapper import nms
 import cPickle
@@ -113,10 +114,9 @@ def _get_blobs(im, rois):
     return blobs, im_scale_factors
 
 
-def showImage(im, box, kps, imageIdx):
+def showImage(im, box, score, kp, imageIdx, boxIdx):
     print(box)
-    print(kps)
-    exit(0)
+    print(kp)
 
     classToColor = ['', 'red', 'yellow', 'blue', 'magenta']
     im = im[:, :, (2, 1, 0)]
@@ -135,28 +135,21 @@ def showImage(im, box, kps, imageIdx):
     fig.axes.get_xaxis().set_visible(False)
     fig.axes.get_yaxis().set_visible(False)
 
-    print(rois.shape)
-    print(kpFcn.shape)
 
-    thresh = 0.990
+    ax.add_patch(
+            plt.Rectangle((box[0], box[1]),
+                  box[2] - box[0],
+                  box[3] - box[1], fill=False,
+                  edgecolor= 'r', linewidth=2.0)
+        )
 
-    print(im.shape)
-    for i, box in enumerate(rois):
-        print(box)
-        ax.add_patch(
-                plt.Rectangle((box[0], box[1]),
-                      box[2] - box[0],
-                      box[3] - box[1], fill=False,
-                      edgecolor= 'r', linewidth=2.0)
-            )
-        for j in range(14):
-            kp = kpFcn[i, j * 2 + 1]
-            cv2.imwrite('{}_{}_kpFcn.png'.format(i, j), kp * 255)
+    prob = sum(kp[2::3]) / 14
 
-
+    ax.text(box[0], box[1] - 2, '{:.3f} {:.3f}'.format(score, prob),
+            bbox=dict(facecolor='blue', alpha=0.2),
+            fontsize=8, color='white')
              
 
-    '''
     for j in range(14):
         x, y, p = kp[j * 3 : (j + 1) * 3]
 
@@ -164,12 +157,8 @@ def showImage(im, box, kps, imageIdx):
                 plt.Circle((x, y), 3,
                       fill=True,
                       color = c[1], 
-                      linewidth=2.0)
-            )
+                      linewidth=2.0))
 
-        ax.text(x, y - 2, '{:.3f}'.format(kp_scores[i, j]),
-                bbox=dict(facecolor='blue', alpha=0.2),
-                fontsize=8, color='white')
 
     for l in line:
         i0 = l[0] - 1
@@ -183,8 +172,9 @@ def showImage(im, box, kps, imageIdx):
                 color = c[2])
                 )
 
-    '''
-    plt.savefig(str(imageId) , bbox_inches='tight', pad_inches=0)
+
+    plt.savefig('{}_{}_repoolRect.png'.format(imageIdx, boxIdx), 
+            bbox_inches='tight', pad_inches=0)
     
 
 
@@ -236,74 +226,72 @@ def im_detect(net, im, _t, idx):
 
     _t['im_postproc'].tic()
 
-    rois = net.blobs['rois'].data.copy()[:,1:5]
+
+    rois = net.blobs['rois_repool'].data.copy()[:,1:5] / im_scales[0]
+    scores = net.blobs['cls_prob'].data.copy()[:,1]
+
     kpFcn = blobs_out['pred_fcn_prob'].reshape(-1, 28, 192, 192)
 
     R = cfg.TEST.RADIUS
+    R2 = R*2
+
+    H = 192
+    W = 192
+    f = np.zeros((R * 2 + 1, R * 2 + 1))
+    cv2.circle(f, (R, R), R, 1, -1)
+   
+    kps = []
 
     for i, box in enumerate(rois):
-        kps = []
+        kp = []
+        x1, y1, x2, y2 = box
+
         for j in range(14):
-            kp = kpFcn[i, j * 2 + 1]
-            p = np.max(kp)
-            y, x = np.unravel_index(np.argmax(kp), kp.shape)
-            kps += [x, y, p]
-        showImage(im, box, kps, i)
 
-    exit(0)
+            '''
+            kpMap = kpFcn[i, j * 2 + 1].copy()
+            kpMap = signal.fftconvolve(kpMap, f, mode='same') / (R * R * 3.14)
+            
+            p = np.max(kpMap)
+            y, x = np.unravel_index(np.argmax(kpMap), kpMap.shape)
+            '''
+
+            prob = kpFcn[i, j * 2 + 1].copy()
+
+            w, h = prob.shape
+            prob = np.cumsum(np.cumsum(prob, axis=0), axis=1)
+
+            prob_ij = np.lib.pad(prob, ((R2, 0), (R2, 0)), 
+                    'constant', constant_values=0)[:w,:h]
+            prob_i = np.lib.pad(prob, ((R2, 0), (0, 0)), 
+                    'constant', constant_values=0)[:w,:]
+            prob_j = np.lib.pad(prob, ((0, 0), (R2, 0)), 
+                    'constant', constant_values=0)[:,:h]
 
 
+            prob = prob - prob_i - prob_j + prob_ij
+
+
+            p = np.max(prob) / (R2 * R2)
+            y, x = np.unravel_index(np.argmax(prob), prob.shape)
+            x -= R
+            y -= R
+
+            x = float(x) / (W - 1) * (x2 - x1) + x1
+            y = float(y) / (H - 1) * (y2 - y1) + y1
+            kp += [x, y, p]
+
+#        showImage(im, box, scores[i], kp, idx, i)
+
+        kps.append(kp) 
+
+#    if idx == 10:
+#        exit(0)
 
     _t['im_postproc'].toc()
 
-    return scores, pred_boxes, pred_kp
+    return rois, scores, kps
 
-
-
-def vis_detections(im, dets, pred_kp, labels = None):
-
-    """Visual debugging of detections."""
-    import matplotlib.pyplot as plt
-    im = im[:, :, (2, 1, 0)]
-
-    fig, ax = plt.subplots(figsize=(12, 12))
-    fig = ax.imshow(im, aspect='equal')
-    plt.axis('off')
-    fig.axes.get_xaxis().set_visible(False)
-    fig.axes.get_yaxis().set_visible(False)
-    print('dets.shape', dets.shape)
-
-    for i in xrange(len(dets)):
-        if labels is None or labels[i] == 1.:
-            bbox = dets[i]
-            kp = pred_kp[i]
-
-            ax.add_patch(
-                    plt.Rectangle((bbox[0], bbox[1]),
-                          bbox[2] - bbox[0],
-                          bbox[3] - bbox[1], fill=False,
-                          edgecolor='red', linewidth=1.5)
-                    )
-            ax.text(bbox[0], bbox[1] - 2,
-                '{:d}, {:d}'.format(int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1])),
-                    bbox=dict(facecolor='blue', alpha=0.2),
-                    fontsize=8, color='white')
-
-            for j in range(14):
-                x, y = kp[j * 2 : (j + 1) * 2]
-                r = (j % 3) * 0.333
-                g = ((j / 3) % 3) * 0.333
-                b = (j / 3 / 3) * 0.333
-
-                ax.add_patch(
-                        plt.Circle((x, y), 10,
-                              fill=True,
-                              color=(r, g, b), 
-                              edgecolor = (r, g, b), 
-                              linewidth=2.0)
-                    )
-
-    plt.show('x')
 
 
 def apply_nms(all_boxes, thresh):
@@ -328,62 +316,39 @@ def apply_nms(all_boxes, thresh):
             nms_boxes[cls_ind][im_ind] = dets[keep, :].copy()
     return nms_boxes
 
+
+
 def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
     """Test a Fast R-CNN network on an image database."""
     num_images = len(imdb.image_index)
     # all detections are collected into:
     #    all_boxes[cls][image] = N x 5 array of detections in
     #    (x1, y1, x2, y2, score)
-    all_boxes = [[[] for _ in xrange(num_images)]
-                 for _ in xrange(imdb.num_classes)]
 
-    all_kps = [[[] for _ in xrange(num_images)]
-                 for _ in xrange(imdb.num_classes)]
+    all_rois = []
+    all_scores = []
+    all_kps = []
 
     output_dir = get_output_dir(imdb, net)
 
     # timers
     _t = {'im_preproc': Timer(), 'im_net' : Timer(), 'im_postproc': Timer(), 'misc' : Timer()}
 
-    if not cfg.TEST.HAS_RPN:
-        roidb = imdb.roidb
 
     for i in xrange(num_images):
 
         im = cv2.imread(imdb.image_path_at(i))
-        scores, boxes, kps = im_detect(net, im, _t, i)
+        rois, scores, kps = im_detect(net, im, _t, i)
+
 
 
         _t['misc'].tic()
-        # skip j = 0, because it's the background class
-        for j in xrange(1, imdb.num_classes):
-            inds = np.where(scores[:, j] > thresh)[0]
-            cls_scores = scores[inds, j]
-            cls_boxes = boxes[inds, j*4:(j+1)*4]
-            cls_kps = kps[inds, :]
-
-            cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
-                .astype(np.float32, copy=False)
-
-                
-            keep = nms(cls_dets, cfg.TEST.NMS)
+        all_rois.append(rois)
+        all_scores.append(scores)
+        all_kps.append(kps)
+        _t['misc'].toc()
 
 
-            dets_NMSed = cls_dets[keep, :]
-            pred_kp = cls_kps[keep, :]
-            
-            if cfg.TEST.BBOX_VOTE:
-                cls_dets = bbox_vote(dets_NMSed, cls_dets)
-            else:
-                cls_dets = dets_NMSed
-
-
-            if vis:
-                vis_detections(im, cls_dets, pred_kp)
-
-
-            all_boxes[j][i] = cls_dets
-            all_kps[j][i] = pred_kp
 
 
         print 'im_detect: {:d}/{:d}  net {:.3f}s  preproc {:.3f}s  postproc {:.3f}s  misc {:.3f}s' \
@@ -391,8 +356,10 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
                       _t['im_preproc'].average_time, _t['im_postproc'].average_time,
                       _t['misc'].average_time)
 
-    results = {"boxes" : all_boxes, 
-                "all_kps" : all_kps}
+    results = {"all_rois" : all_rois, 
+                "all_scores" : all_scores,
+                "all_kps" : all_kps
+                }
 
     det_file = os.path.join(output_dir, 'detections.pkl')
     with open(det_file, 'wb') as f:
