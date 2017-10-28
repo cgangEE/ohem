@@ -250,6 +250,9 @@ def im_detect(net, im, _t, idx):
     kernel = gkern(R, 3)
     kp = []
 
+    cv2.imwrite('{}.png'.format(idx), im)
+    cv2.imwrite('{}V2.png'.format(idx), np.sum(score[:,1], axis=0) * 255)
+
     for i in range(14):
 
         reg_x = (reg[0, i*2] * R + coord_x).astype(np.int)
@@ -273,6 +276,8 @@ def im_detect(net, im, _t, idx):
 
         kp += [x, y, p]
 
+    if idx == 10:
+        exit(0)
 
     _t['im_postproc'].toc()
     #showImage(im, kp, idx)
