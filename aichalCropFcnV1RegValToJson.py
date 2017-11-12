@@ -77,7 +77,7 @@ def showImage(im, boxes, keypoints):
 
 
 def main(thresh, box_thresh):
-    pkl = 'output/fcnReg/aichalCrop_val/zf_faster_rcnn_iter_100000_inference/detections.pkl'
+    pkl = 'output/fcnV1Reg/aichalCrop_val/zf_faster_rcnn_iter_100000_inference/detections.pkl'
     with open(pkl, 'rb') as fid:
         kps = cPickle.load(fid)
 
@@ -117,12 +117,12 @@ def main(thresh, box_thresh):
         image['keypoint_annotations'] = kp_ann
         data.append(image)
 
-    with open('pred_fcn_reg_val_' 
+    with open('pred_fcnV1_reg_val_' 
             + str(thresh) + '_' + str(box_thresh) + '.json', 'w') as f:
         json.dump(data, f)
 
 def drawProbCurve():
-    pkl = 'output/fcnReg/aichalCrop_val/zf_faster_rcnn_iter_100000_inference/detections.pkl'
+    pkl = 'output/fcnV1Reg/aichalCrop_val/zf_faster_rcnn_iter_100000_inference/detections.pkl'
     prob = []
     with open(pkl, 'rb') as fid:
         kps = cPickle.load(fid)
@@ -139,9 +139,9 @@ def drawProbCurve():
 
 
 if __name__ == '__main__':
-    drawProbCurve()
-    exit(0)
-    for thresh in [0.0, 0.05]: # 0.1, 0.2, 0.3, 0.4]:
+#    drawProbCurve()
+#    exit(0)
+    for thresh in [0.0, 0.05, 0.1, 0.2, 0.3, 0.4]:
         for box_thresh in [0.0, 0.3, 0.5, 0.7, 0.9]:
             main(thresh, box_thresh)
 

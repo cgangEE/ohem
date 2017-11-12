@@ -234,8 +234,9 @@ def im_detect(net, im, _t, idx):
 
     _t['im_postproc'].tic()
 
-    score = net.blobs['rpn_cls_prob'].data.copy()
-    reg = net.blobs['upsample/rpn_cls_reg'].data.copy()
+    score = net.blobs['rpn_cls_prob/twice'].data.copy()
+    reg = net.blobs['upsample/rpn_cls_reg/twice'].data.copy()
+
 
     R = cfg.TRAIN.RADIUS 
     h, w = reg[0,0].shape

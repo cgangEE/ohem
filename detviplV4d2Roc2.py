@@ -311,7 +311,7 @@ if __name__ == '__main__':
     for i in range(10, 11):
         print("Iteration", i)
         cacheFilename = \
-             'output/pvanet_full0_ohem_D/detviplV4d2_test/zf_faster_rcnn_iter_40000/detections.pkl'
+             'output/pvanet_full1_ohem_D/detviplV4d2_test/zf_faster_rcnn_iter_40000/detections.pkl'
 
         if (os.path.exists(cacheFilename)):
             eval_result = []

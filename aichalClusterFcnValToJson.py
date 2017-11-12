@@ -129,23 +129,14 @@ def nms(kps, kps_scores, rois, nms_thresh, kp_thresh):
 
 
 
-def writeJson(image_set, kp_thresh, box_thresh, nms_thresh):
-
-    cache_file =  \
-        'tmp.pkl'
-#        'output/kpClusterFcn/aichal_val/\
-#zf_faster_rcnn_iter_100000_inference/detections.pkl'
-
-    if os.path.exists(cache_file):
-        with open(cache_file, 'rb') as fid:
-            results = cPickle.load(fid)
-    else:
-        print('ft')
+def writeJson(image_set, results, nms_thresh, kp_thresh, box_thresh):
 
 
-    all_rois = np.array(results['all_rois'])[:100]
-    all_scores = np.array(results['all_scores'])[:100]
-    all_kps = np.array(results['all_kps'])[:100]
+
+
+    all_rois = np.array(results['all_rois'])
+    all_scores = np.array(results['all_scores'])
+    all_kps = np.array(results['all_kps'])
 
     '''
     results['all_rois'] = all_rois
@@ -162,10 +153,18 @@ def writeJson(image_set, kp_thresh, box_thresh, nms_thresh):
     imdb = get_imdb(image_set)
     num_images = len(imdb.image_index)
 
-    for i in xrange(all_rois.shape[0]):
+    data = []
 
-        im_name = imdb.image_path_at(i)
-        im = cv2.imread(im_name)
+    for i in xrange(all_rois.shape[0]):
+        print(i)
+
+        imname = imdb.image_path_at(i)
+        im = cv2.imread(imname)
+
+        image = dict()
+        imname = imname.split('/')[-1][:-4]
+        image['image_id'] = imname
+        kp_ann = dict()
 
         rois = all_rois[i]
         scores = all_scores[i];
@@ -186,16 +185,37 @@ def writeJson(image_set, kp_thresh, box_thresh, nms_thresh):
         kps = kps[keep]
         kps_scores = kps_scores[keep]
 
-        showImage(im, rois, kps, i)
+        for j, kp in enumerate(kps):
+            pred_kp = []
+            for k in range(14):
+                pred_kp += [ kp[k*3], kp[k*3+1], 1.0 ]
 
-        if i == 10:
-            exit(0)
+            kp_ann['human' + str(j+1)] = map(int, pred_kp)
+
+
+        image['keypoint_annotations'] = kp_ann
+        data.append(image)
+
+        #showImage(im, rois, kps, i)
+
+
+    with open('pred_cluster_fcn_val_{}_{}_{}.json'.format(
+            nms_thresh, kp_thresh, box_thresh),  'w') as f:
+        json.dump(data, f)
 
 
 if __name__ == '__main__':
-    for kp_thresh in [0.1]:
-        for box_thresh in [0.3]:
-            for nms_thresh in [0.1]:
-                writeJson('aichal_2017_val', 
-                        kp_thresh, box_thresh, nms_thresh)
+    cache_file =  \
+        'output/kpClusterFcn/aichal_val/\
+zf_faster_rcnn_iter_100000_inference/detections.pkl'
+
+    with open(cache_file, 'rb') as fid:
+        results = cPickle.load(fid)
+
+    for nms_thresh in [0.05, 0.1, 0.2, 0.3, 0.4]:
+        for kp_thresh in [0.1, 0.2, 0.3, 0.4]:
+            for box_thresh in [0.3, 0.5, 0.7, 0.9]:
+                    writeJson('aichal_2017_val', results,
+                            nms_thresh, kp_thresh, box_thresh)
     
+

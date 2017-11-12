@@ -135,9 +135,11 @@ class SolverWrapper(object):
 
 
     def gao(self):
+        net = self.solver.net
+        print(net.params['conv1_1/conv'][0].data[0,0])
+        exit(0)
         from fast_rcnn.bbox_transform_kp import clip_boxes, bbox_transform_inv, kp_transform_inv, clip_kps
 
-        net = self.solver.net
 
         im = net.blobs['data'].data.copy()
         im = im[0, :, :, :]
@@ -317,6 +319,7 @@ class SolverWrapper(object):
 
         while self.solver.iter < max_iters:
             # Make one SGD update
+#            self.gao()
             timer.tic()
             self.solver.step(1)
             timer.toc()
