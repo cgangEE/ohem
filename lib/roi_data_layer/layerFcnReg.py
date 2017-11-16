@@ -91,25 +91,36 @@ class RoIDataLayer(caffe.Layer):
         # data blob: holds a batch of N images, each with 3 channels
         idx = 0
         top[idx].reshape(cfg.TRAIN.IMS_PER_BATCH, 3,
-            max(cfg.TRAIN.SCALES), cfg.TRAIN.MAX_SIZE)
+            max(cfg.TRAIN.SCALES) / 32 * 32, cfg.TRAIN.MAX_SIZE / 32 * 32)
         self._name_to_top_map['data'] = idx
         idx += 1
+        
+
     
-        top[idx].reshape(14, 1, max(cfg.TRAIN.SCALES), cfg.TRAIN.MAX_SIZE)
+        top[idx].reshape(14, 1, max(cfg.TRAIN.SCALES) / 32 * 32, 
+                cfg.TRAIN.MAX_SIZE / 32 * 32)
+
         self._name_to_top_map['label'] = idx
         idx += 1
 
-        top[idx].reshape(1, 28, max(cfg.TRAIN.SCALES), cfg.TRAIN.MAX_SIZE)
+        top[idx].reshape(1, 28, max(cfg.TRAIN.SCALES) / 32 * 32, 
+                cfg.TRAIN.MAX_SIZE / 32 * 32)
+
         self._name_to_top_map['reg_targets'] = idx
         idx += 1
 
-        top[idx].reshape(1, 28, max(cfg.TRAIN.SCALES), cfg.TRAIN.MAX_SIZE)
+        top[idx].reshape(1, 28, max(cfg.TRAIN.SCALES) / 32 * 32, 
+                cfg.TRAIN.MAX_SIZE / 32 * 32)
+
         self._name_to_top_map['reg_inside_weights'] = idx
         idx += 1
 
-        top[idx].reshape(1, 28, max(cfg.TRAIN.SCALES), cfg.TRAIN.MAX_SIZE)
+
+        top[idx].reshape(1, 28, max(cfg.TRAIN.SCALES) / 32 * 32, 
+                cfg.TRAIN.MAX_SIZE / 32 * 32)
         self._name_to_top_map['reg_outside_weights'] = idx
         idx += 1
+
 
 
         print 'RoiDataLayer: name_to_top:', self._name_to_top_map

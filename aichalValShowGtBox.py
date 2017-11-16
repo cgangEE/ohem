@@ -56,7 +56,7 @@ def showImage(im, boxes, keypoints, kpType):
                     ax.add_patch(
                             plt.Circle((x, y), 3,
                                   fill=True,
-                                  color = c[i], 
+                                  color = c[i%8], 
                                   linewidth=2.0)
                         )
 
@@ -69,7 +69,7 @@ def showImage(im, boxes, keypoints, kpType):
                     ax.add_patch(
                             plt.Arrow(p0[0], p0[1], 
                             float(p1[0]) - p0[0], float(p1[1]) - p0[1], 
-                            color = c[i])
+                            color = c[i%8])
                             )
 
 
@@ -82,7 +82,7 @@ def tattooShowBox(image_set):
     kpType = 1
 
     for i in xrange(num_images):
-        if i % 1000 == 0:
+#        if i % 1000 == 0:
             bbox = gt_roidb[i]['boxes']
             keypoints = gt_roidb[i]['keypoints']
             cls = gt_roidb[i]['gt_classes']
@@ -98,6 +98,8 @@ def tattooShowBox(image_set):
 
             plt.savefig(str(i) + 'GT_kpType' +str(kpType), 
                     bbox_inches='tight', pad_inches=0)
+            if i == 10:
+                exit(0)
 
 
 if __name__ == '__main__':

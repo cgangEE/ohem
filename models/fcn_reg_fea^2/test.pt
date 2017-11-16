@@ -18,7 +18,6 @@ layer {
   bottom: "data"
   top: "conv1_1/conv"
   param {
-    name: "conv1_1/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -42,17 +41,14 @@ layer {
   bottom: "conv1_1/conv"
   top: "conv1_1/conv"
   param {
-    name: "conv1_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv1_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv1_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -84,12 +80,10 @@ layer {
   bottom: "conv1_1"
   top: "conv1_1"
   param {
-    name: "conv1_1/scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv1_1/scale_1"
     lr_mult: 0.20000000298
     decay_mult: 0.0
   }
@@ -121,7 +115,6 @@ layer {
   bottom: "pool1"
   top: "conv2_1/1"
   param {
-    name: "conv2_1/1/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -145,17 +138,14 @@ layer {
   bottom: "conv2_1/1"
   top: "conv2_1/1"
   param {
-    name: "conv2_1/1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -169,12 +159,10 @@ layer {
   bottom: "conv2_1/1"
   top: "conv2_1/1"
   param {
-    name: "conv2_1/1/bn_scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/1/bn_scale_1"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
@@ -194,7 +182,6 @@ layer {
   bottom: "conv2_1/1"
   top: "conv2_1/2/conv"
   param {
-    name: "conv2_1/2/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -218,17 +205,14 @@ layer {
   bottom: "conv2_1/2/conv"
   top: "conv2_1/2/conv"
   param {
-    name: "conv2_1/2/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/2/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/2/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -260,12 +244,10 @@ layer {
   bottom: "conv2_1/2"
   top: "conv2_1/2"
   param {
-    name: "conv2_1/2/scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/2/scale_1"
     lr_mult: 0.20000000298
     decay_mult: 0.0
   }
@@ -285,7 +267,6 @@ layer {
   bottom: "conv2_1/2"
   top: "conv2_1/3"
   param {
-    name: "conv2_1/3/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -309,17 +290,14 @@ layer {
   bottom: "conv2_1/3"
   top: "conv2_1/3"
   param {
-    name: "conv2_1/3/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/3/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/3/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -333,12 +311,10 @@ layer {
   bottom: "conv2_1/3"
   top: "conv2_1/3"
   param {
-    name: "conv2_1/3/bn_scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/3/bn_scale_1"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
@@ -352,12 +328,10 @@ layer {
   bottom: "pool1"
   top: "conv2_1/proj"
   param {
-    name: "conv2_1/proj_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
   param {
-    name: "conv2_1/proj_1"
     lr_mult: 0.20000000298
     decay_mult: 0.0
   }
@@ -384,17 +358,14 @@ layer {
   bottom: "conv2_1/proj"
   top: "conv2_1/proj"
   param {
-    name: "conv2_1/proj_bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/proj_bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/proj_bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -408,12 +379,10 @@ layer {
   bottom: "conv2_1/proj"
   top: "conv2_1/proj"
   param {
-    name: "conv2_1/proj_bn_scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_1/proj_bn_scale_1"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
@@ -439,7 +408,6 @@ layer {
   bottom: "conv2_1"
   top: "conv2_2/1"
   param {
-    name: "conv2_2/1/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -463,17 +431,14 @@ layer {
   bottom: "conv2_2/1"
   top: "conv2_2/1"
   param {
-    name: "conv2_2/1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -487,12 +452,10 @@ layer {
   bottom: "conv2_2/1"
   top: "conv2_2/1"
   param {
-    name: "conv2_2/1/bn_scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/1/bn_scale_1"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
@@ -512,7 +475,6 @@ layer {
   bottom: "conv2_2/1"
   top: "conv2_2/2/conv"
   param {
-    name: "conv2_2/2/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -536,17 +498,14 @@ layer {
   bottom: "conv2_2/2/conv"
   top: "conv2_2/2/conv"
   param {
-    name: "conv2_2/2/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/2/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/2/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -578,12 +537,10 @@ layer {
   bottom: "conv2_2/2"
   top: "conv2_2/2"
   param {
-    name: "conv2_2/2/scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/2/scale_1"
     lr_mult: 0.20000000298
     decay_mult: 0.0
   }
@@ -603,7 +560,6 @@ layer {
   bottom: "conv2_2/2"
   top: "conv2_2/3"
   param {
-    name: "conv2_2/3/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -627,17 +583,14 @@ layer {
   bottom: "conv2_2/3"
   top: "conv2_2/3"
   param {
-    name: "conv2_2/3/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/3/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/3/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -651,12 +604,10 @@ layer {
   bottom: "conv2_2/3"
   top: "conv2_2/3"
   param {
-    name: "conv2_2/3/bn_scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_2/3/bn_scale_1"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
@@ -693,7 +644,6 @@ layer {
   bottom: "conv2_2"
   top: "conv2_3/1"
   param {
-    name: "conv2_3/1/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -717,17 +667,14 @@ layer {
   bottom: "conv2_3/1"
   top: "conv2_3/1"
   param {
-    name: "conv2_3/1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -741,12 +688,10 @@ layer {
   bottom: "conv2_3/1"
   top: "conv2_3/1"
   param {
-    name: "conv2_3/1/bn_scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/1/bn_scale_1"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
@@ -766,7 +711,6 @@ layer {
   bottom: "conv2_3/1"
   top: "conv2_3/2/conv"
   param {
-    name: "conv2_3/2/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -790,17 +734,14 @@ layer {
   bottom: "conv2_3/2/conv"
   top: "conv2_3/2/conv"
   param {
-    name: "conv2_3/2/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/2/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/2/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -832,12 +773,10 @@ layer {
   bottom: "conv2_3/2"
   top: "conv2_3/2"
   param {
-    name: "conv2_3/2/scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/2/scale_1"
     lr_mult: 0.20000000298
     decay_mult: 0.0
   }
@@ -857,7 +796,6 @@ layer {
   bottom: "conv2_3/2"
   top: "conv2_3/3"
   param {
-    name: "conv2_3/3/conv_0"
     lr_mult: 0.10000000149
     decay_mult: 0.10000000149
   }
@@ -881,17 +819,14 @@ layer {
   bottom: "conv2_3/3"
   top: "conv2_3/3"
   param {
-    name: "conv2_3/3/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/3/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/3/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -905,12 +840,10 @@ layer {
   bottom: "conv2_3/3"
   top: "conv2_3/3"
   param {
-    name: "conv2_3/3/bn_scale_0"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
   param {
-    name: "conv2_3/3/bn_scale_1"
     lr_mult: 0.10000000149
     decay_mult: 0.0
   }
@@ -947,9 +880,8 @@ layer {
   bottom: "conv2_3"
   top: "conv3_1/1"
   param {
-    name: "conv3_1/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -971,17 +903,14 @@ layer {
   bottom: "conv3_1/1"
   top: "conv3_1/1"
   param {
-    name: "conv3_1/1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -995,13 +924,11 @@ layer {
   bottom: "conv3_1/1"
   top: "conv3_1/1"
   param {
-    name: "conv3_1/1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1020,9 +947,8 @@ layer {
   bottom: "conv3_1/1"
   top: "conv3_1/2/conv"
   param {
-    name: "conv3_1/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -1044,17 +970,14 @@ layer {
   bottom: "conv3_1/2/conv"
   top: "conv3_1/2/conv"
   param {
-    name: "conv3_1/2/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/2/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/2/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1086,13 +1009,11 @@ layer {
   bottom: "conv3_1/2"
   top: "conv3_1/2"
   param {
-    name: "conv3_1/2/scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/2/scale_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1111,9 +1032,8 @@ layer {
   bottom: "conv3_1/2"
   top: "conv3_1/3"
   param {
-    name: "conv3_1/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -1135,17 +1055,14 @@ layer {
   bottom: "conv3_1/3"
   top: "conv3_1/3"
   param {
-    name: "conv3_1/3/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/3/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/3/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1159,13 +1076,11 @@ layer {
   bottom: "conv3_1/3"
   top: "conv3_1/3"
   param {
-    name: "conv3_1/3/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/3/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1178,13 +1093,11 @@ layer {
   bottom: "conv2_3"
   top: "conv3_1/proj"
   param {
-    name: "conv3_1/proj_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    name: "conv3_1/proj_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
@@ -1210,17 +1123,14 @@ layer {
   bottom: "conv3_1/proj"
   top: "conv3_1/proj"
   param {
-    name: "conv3_1/proj_bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/proj_bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/proj_bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1234,13 +1144,11 @@ layer {
   bottom: "conv3_1/proj"
   top: "conv3_1/proj"
   param {
-    name: "conv3_1/proj_bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_1/proj_bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1265,9 +1173,8 @@ layer {
   bottom: "conv3_1"
   top: "conv3_2/1"
   param {
-    name: "conv3_2/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -1289,17 +1196,14 @@ layer {
   bottom: "conv3_2/1"
   top: "conv3_2/1"
   param {
-    name: "conv3_2/1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1313,13 +1217,11 @@ layer {
   bottom: "conv3_2/1"
   top: "conv3_2/1"
   param {
-    name: "conv3_2/1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1338,9 +1240,8 @@ layer {
   bottom: "conv3_2/1"
   top: "conv3_2/2/conv"
   param {
-    name: "conv3_2/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -1362,17 +1263,14 @@ layer {
   bottom: "conv3_2/2/conv"
   top: "conv3_2/2/conv"
   param {
-    name: "conv3_2/2/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/2/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/2/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1404,13 +1302,11 @@ layer {
   bottom: "conv3_2/2"
   top: "conv3_2/2"
   param {
-    name: "conv3_2/2/scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/2/scale_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1429,9 +1325,8 @@ layer {
   bottom: "conv3_2/2"
   top: "conv3_2/3"
   param {
-    name: "conv3_2/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -1453,17 +1348,14 @@ layer {
   bottom: "conv3_2/3"
   top: "conv3_2/3"
   param {
-    name: "conv3_2/3/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/3/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/3/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1477,13 +1369,11 @@ layer {
   bottom: "conv3_2/3"
   top: "conv3_2/3"
   param {
-    name: "conv3_2/3/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_2/3/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1519,9 +1409,8 @@ layer {
   bottom: "conv3_2"
   top: "conv3_3/1"
   param {
-    name: "conv3_3/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -1543,17 +1432,14 @@ layer {
   bottom: "conv3_3/1"
   top: "conv3_3/1"
   param {
-    name: "conv3_3/1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1567,13 +1453,11 @@ layer {
   bottom: "conv3_3/1"
   top: "conv3_3/1"
   param {
-    name: "conv3_3/1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1592,9 +1476,8 @@ layer {
   bottom: "conv3_3/1"
   top: "conv3_3/2/conv"
   param {
-    name: "conv3_3/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -1616,17 +1499,14 @@ layer {
   bottom: "conv3_3/2/conv"
   top: "conv3_3/2/conv"
   param {
-    name: "conv3_3/2/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/2/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/2/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1658,13 +1538,11 @@ layer {
   bottom: "conv3_3/2"
   top: "conv3_3/2"
   param {
-    name: "conv3_3/2/scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/2/scale_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1683,9 +1561,8 @@ layer {
   bottom: "conv3_3/2"
   top: "conv3_3/3"
   param {
-    name: "conv3_3/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -1707,17 +1584,14 @@ layer {
   bottom: "conv3_3/3"
   top: "conv3_3/3"
   param {
-    name: "conv3_3/3/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/3/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/3/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1731,13 +1605,11 @@ layer {
   bottom: "conv3_3/3"
   top: "conv3_3/3"
   param {
-    name: "conv3_3/3/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_3/3/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1773,9 +1645,8 @@ layer {
   bottom: "conv3_3"
   top: "conv3_4/1"
   param {
-    name: "conv3_4/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -1797,17 +1668,14 @@ layer {
   bottom: "conv3_4/1"
   top: "conv3_4/1"
   param {
-    name: "conv3_4/1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1821,13 +1689,11 @@ layer {
   bottom: "conv3_4/1"
   top: "conv3_4/1"
   param {
-    name: "conv3_4/1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1846,9 +1712,8 @@ layer {
   bottom: "conv3_4/1"
   top: "conv3_4/2/conv"
   param {
-    name: "conv3_4/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -1870,17 +1735,14 @@ layer {
   bottom: "conv3_4/2/conv"
   top: "conv3_4/2/conv"
   param {
-    name: "conv3_4/2/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/2/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/2/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1912,13 +1774,11 @@ layer {
   bottom: "conv3_4/2"
   top: "conv3_4/2"
   param {
-    name: "conv3_4/2/scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/2/scale_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   scale_param {
@@ -1937,9 +1797,8 @@ layer {
   bottom: "conv3_4/2"
   top: "conv3_4/3"
   param {
-    name: "conv3_4/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -1961,17 +1820,14 @@ layer {
   bottom: "conv3_4/3"
   top: "conv3_4/3"
   param {
-    name: "conv3_4/3/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/3/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/3/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -1985,13 +1841,11 @@ layer {
   bottom: "conv3_4/3"
   top: "conv3_4/3"
   param {
-    name: "conv3_4/3/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv3_4/3/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2027,9 +1881,8 @@ layer {
   bottom: "conv3_4"
   top: "conv4_1/incep/0"
   param {
-    name: "conv4_1/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -2051,17 +1904,14 @@ layer {
   bottom: "conv4_1/incep/0"
   top: "conv4_1/incep/0"
   param {
-    name: "conv4_1/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2075,13 +1925,11 @@ layer {
   bottom: "conv4_1/incep/0"
   top: "conv4_1/incep/0"
   param {
-    name: "conv4_1/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2100,9 +1948,8 @@ layer {
   bottom: "conv3_4"
   top: "conv4_1/incep/1_reduce"
   param {
-    name: "conv4_1/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -2124,17 +1971,14 @@ layer {
   bottom: "conv4_1/incep/1_reduce"
   top: "conv4_1/incep/1_reduce"
   param {
-    name: "conv4_1/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2148,13 +1992,11 @@ layer {
   bottom: "conv4_1/incep/1_reduce"
   top: "conv4_1/incep/1_reduce"
   param {
-    name: "conv4_1/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2173,9 +2015,8 @@ layer {
   bottom: "conv4_1/incep/1_reduce"
   top: "conv4_1/incep/1_0"
   param {
-    name: "conv4_1/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -2197,17 +2038,14 @@ layer {
   bottom: "conv4_1/incep/1_0"
   top: "conv4_1/incep/1_0"
   param {
-    name: "conv4_1/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2221,13 +2059,11 @@ layer {
   bottom: "conv4_1/incep/1_0"
   top: "conv4_1/incep/1_0"
   param {
-    name: "conv4_1/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2246,9 +2082,8 @@ layer {
   bottom: "conv3_4"
   top: "conv4_1/incep/2_reduce"
   param {
-    name: "conv4_1/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -2270,17 +2105,14 @@ layer {
   bottom: "conv4_1/incep/2_reduce"
   top: "conv4_1/incep/2_reduce"
   param {
-    name: "conv4_1/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2294,13 +2126,11 @@ layer {
   bottom: "conv4_1/incep/2_reduce"
   top: "conv4_1/incep/2_reduce"
   param {
-    name: "conv4_1/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2319,9 +2149,8 @@ layer {
   bottom: "conv4_1/incep/2_reduce"
   top: "conv4_1/incep/2_0"
   param {
-    name: "conv4_1/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -2343,17 +2172,14 @@ layer {
   bottom: "conv4_1/incep/2_0"
   top: "conv4_1/incep/2_0"
   param {
-    name: "conv4_1/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2367,13 +2193,11 @@ layer {
   bottom: "conv4_1/incep/2_0"
   top: "conv4_1/incep/2_0"
   param {
-    name: "conv4_1/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2392,9 +2216,8 @@ layer {
   bottom: "conv4_1/incep/2_0"
   top: "conv4_1/incep/2_1"
   param {
-    name: "conv4_1/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -2416,17 +2239,14 @@ layer {
   bottom: "conv4_1/incep/2_1"
   top: "conv4_1/incep/2_1"
   param {
-    name: "conv4_1/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2440,13 +2260,11 @@ layer {
   bottom: "conv4_1/incep/2_1"
   top: "conv4_1/incep/2_1"
   param {
-    name: "conv4_1/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2477,9 +2295,8 @@ layer {
   bottom: "conv4_1/incep/pool"
   top: "conv4_1/incep/poolproj"
   param {
-    name: "conv4_1/incep/poolproj/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -2501,17 +2318,14 @@ layer {
   bottom: "conv4_1/incep/poolproj"
   top: "conv4_1/incep/poolproj"
   param {
-    name: "conv4_1/incep/poolproj/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/poolproj/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/poolproj/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2525,13 +2339,11 @@ layer {
   bottom: "conv4_1/incep/poolproj"
   top: "conv4_1/incep/poolproj"
   param {
-    name: "conv4_1/incep/poolproj/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/poolproj/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2559,9 +2371,8 @@ layer {
   bottom: "conv4_1/incep"
   top: "conv4_1/out"
   param {
-    name: "conv4_1/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -2583,17 +2394,14 @@ layer {
   bottom: "conv4_1/out"
   top: "conv4_1/out"
   param {
-    name: "conv4_1/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2607,13 +2415,11 @@ layer {
   bottom: "conv4_1/out"
   top: "conv4_1/out"
   param {
-    name: "conv4_1/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2626,13 +2432,11 @@ layer {
   bottom: "conv3_4"
   top: "conv4_1/proj"
   param {
-    name: "conv4_1/proj_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    name: "conv4_1/proj_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
@@ -2658,17 +2462,14 @@ layer {
   bottom: "conv4_1/proj"
   top: "conv4_1/proj"
   param {
-    name: "conv4_1/proj_bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/proj_bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/proj_bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2682,13 +2483,11 @@ layer {
   bottom: "conv4_1/proj"
   top: "conv4_1/proj"
   param {
-    name: "conv4_1/proj_bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/proj_bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2713,9 +2512,8 @@ layer {
   bottom: "conv4_1"
   top: "conv4_2/incep/0"
   param {
-    name: "conv4_2/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -2737,17 +2535,14 @@ layer {
   bottom: "conv4_2/incep/0"
   top: "conv4_2/incep/0"
   param {
-    name: "conv4_2/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2761,13 +2556,11 @@ layer {
   bottom: "conv4_2/incep/0"
   top: "conv4_2/incep/0"
   param {
-    name: "conv4_2/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2786,9 +2579,8 @@ layer {
   bottom: "conv4_1"
   top: "conv4_2/incep/1_reduce"
   param {
-    name: "conv4_2/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -2810,17 +2602,14 @@ layer {
   bottom: "conv4_2/incep/1_reduce"
   top: "conv4_2/incep/1_reduce"
   param {
-    name: "conv4_2/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2834,13 +2623,11 @@ layer {
   bottom: "conv4_2/incep/1_reduce"
   top: "conv4_2/incep/1_reduce"
   param {
-    name: "conv4_2/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2859,9 +2646,8 @@ layer {
   bottom: "conv4_2/incep/1_reduce"
   top: "conv4_2/incep/1_0"
   param {
-    name: "conv4_2/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -2883,17 +2669,14 @@ layer {
   bottom: "conv4_2/incep/1_0"
   top: "conv4_2/incep/1_0"
   param {
-    name: "conv4_2/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2907,13 +2690,11 @@ layer {
   bottom: "conv4_2/incep/1_0"
   top: "conv4_2/incep/1_0"
   param {
-    name: "conv4_2/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -2932,9 +2713,8 @@ layer {
   bottom: "conv4_1"
   top: "conv4_2/incep/2_reduce"
   param {
-    name: "conv4_2/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -2956,17 +2736,14 @@ layer {
   bottom: "conv4_2/incep/2_reduce"
   top: "conv4_2/incep/2_reduce"
   param {
-    name: "conv4_2/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -2980,13 +2757,11 @@ layer {
   bottom: "conv4_2/incep/2_reduce"
   top: "conv4_2/incep/2_reduce"
   param {
-    name: "conv4_2/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3005,9 +2780,8 @@ layer {
   bottom: "conv4_2/incep/2_reduce"
   top: "conv4_2/incep/2_0"
   param {
-    name: "conv4_2/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -3029,17 +2803,14 @@ layer {
   bottom: "conv4_2/incep/2_0"
   top: "conv4_2/incep/2_0"
   param {
-    name: "conv4_2/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3053,13 +2824,11 @@ layer {
   bottom: "conv4_2/incep/2_0"
   top: "conv4_2/incep/2_0"
   param {
-    name: "conv4_2/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3078,9 +2847,8 @@ layer {
   bottom: "conv4_2/incep/2_0"
   top: "conv4_2/incep/2_1"
   param {
-    name: "conv4_2/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -3102,17 +2870,14 @@ layer {
   bottom: "conv4_2/incep/2_1"
   top: "conv4_2/incep/2_1"
   param {
-    name: "conv4_2/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3126,13 +2891,11 @@ layer {
   bottom: "conv4_2/incep/2_1"
   top: "conv4_2/incep/2_1"
   param {
-    name: "conv4_2/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3159,9 +2922,8 @@ layer {
   bottom: "conv4_2/incep"
   top: "conv4_2/out"
   param {
-    name: "conv4_2/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -3183,17 +2945,14 @@ layer {
   bottom: "conv4_2/out"
   top: "conv4_2/out"
   param {
-    name: "conv4_2/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3207,13 +2966,11 @@ layer {
   bottom: "conv4_2/out"
   top: "conv4_2/out"
   param {
-    name: "conv4_2/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3249,9 +3006,8 @@ layer {
   bottom: "conv4_2"
   top: "conv4_3/incep/0"
   param {
-    name: "conv4_3/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -3273,17 +3029,14 @@ layer {
   bottom: "conv4_3/incep/0"
   top: "conv4_3/incep/0"
   param {
-    name: "conv4_3/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3297,13 +3050,11 @@ layer {
   bottom: "conv4_3/incep/0"
   top: "conv4_3/incep/0"
   param {
-    name: "conv4_3/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3322,9 +3073,8 @@ layer {
   bottom: "conv4_2"
   top: "conv4_3/incep/1_reduce"
   param {
-    name: "conv4_3/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -3346,17 +3096,14 @@ layer {
   bottom: "conv4_3/incep/1_reduce"
   top: "conv4_3/incep/1_reduce"
   param {
-    name: "conv4_3/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3370,13 +3117,11 @@ layer {
   bottom: "conv4_3/incep/1_reduce"
   top: "conv4_3/incep/1_reduce"
   param {
-    name: "conv4_3/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3395,9 +3140,8 @@ layer {
   bottom: "conv4_3/incep/1_reduce"
   top: "conv4_3/incep/1_0"
   param {
-    name: "conv4_3/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -3419,17 +3163,14 @@ layer {
   bottom: "conv4_3/incep/1_0"
   top: "conv4_3/incep/1_0"
   param {
-    name: "conv4_3/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3443,13 +3184,11 @@ layer {
   bottom: "conv4_3/incep/1_0"
   top: "conv4_3/incep/1_0"
   param {
-    name: "conv4_3/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3468,9 +3207,8 @@ layer {
   bottom: "conv4_2"
   top: "conv4_3/incep/2_reduce"
   param {
-    name: "conv4_3/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -3492,17 +3230,14 @@ layer {
   bottom: "conv4_3/incep/2_reduce"
   top: "conv4_3/incep/2_reduce"
   param {
-    name: "conv4_3/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3516,13 +3251,11 @@ layer {
   bottom: "conv4_3/incep/2_reduce"
   top: "conv4_3/incep/2_reduce"
   param {
-    name: "conv4_3/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3541,9 +3274,8 @@ layer {
   bottom: "conv4_3/incep/2_reduce"
   top: "conv4_3/incep/2_0"
   param {
-    name: "conv4_3/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -3565,17 +3297,14 @@ layer {
   bottom: "conv4_3/incep/2_0"
   top: "conv4_3/incep/2_0"
   param {
-    name: "conv4_3/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3589,13 +3318,11 @@ layer {
   bottom: "conv4_3/incep/2_0"
   top: "conv4_3/incep/2_0"
   param {
-    name: "conv4_3/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3614,9 +3341,8 @@ layer {
   bottom: "conv4_3/incep/2_0"
   top: "conv4_3/incep/2_1"
   param {
-    name: "conv4_3/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -3638,17 +3364,14 @@ layer {
   bottom: "conv4_3/incep/2_1"
   top: "conv4_3/incep/2_1"
   param {
-    name: "conv4_3/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3662,13 +3385,11 @@ layer {
   bottom: "conv4_3/incep/2_1"
   top: "conv4_3/incep/2_1"
   param {
-    name: "conv4_3/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3695,9 +3416,8 @@ layer {
   bottom: "conv4_3/incep"
   top: "conv4_3/out"
   param {
-    name: "conv4_3/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -3719,17 +3439,14 @@ layer {
   bottom: "conv4_3/out"
   top: "conv4_3/out"
   param {
-    name: "conv4_3/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3743,13 +3460,11 @@ layer {
   bottom: "conv4_3/out"
   top: "conv4_3/out"
   param {
-    name: "conv4_3/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3785,9 +3500,8 @@ layer {
   bottom: "conv4_3"
   top: "conv4_4/incep/0"
   param {
-    name: "conv4_4/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -3809,17 +3523,14 @@ layer {
   bottom: "conv4_4/incep/0"
   top: "conv4_4/incep/0"
   param {
-    name: "conv4_4/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3833,13 +3544,11 @@ layer {
   bottom: "conv4_4/incep/0"
   top: "conv4_4/incep/0"
   param {
-    name: "conv4_4/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3858,9 +3567,8 @@ layer {
   bottom: "conv4_3"
   top: "conv4_4/incep/1_reduce"
   param {
-    name: "conv4_4/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -3882,17 +3590,14 @@ layer {
   bottom: "conv4_4/incep/1_reduce"
   top: "conv4_4/incep/1_reduce"
   param {
-    name: "conv4_4/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3906,13 +3611,11 @@ layer {
   bottom: "conv4_4/incep/1_reduce"
   top: "conv4_4/incep/1_reduce"
   param {
-    name: "conv4_4/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -3931,9 +3634,8 @@ layer {
   bottom: "conv4_4/incep/1_reduce"
   top: "conv4_4/incep/1_0"
   param {
-    name: "conv4_4/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -3955,17 +3657,14 @@ layer {
   bottom: "conv4_4/incep/1_0"
   top: "conv4_4/incep/1_0"
   param {
-    name: "conv4_4/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -3979,13 +3678,11 @@ layer {
   bottom: "conv4_4/incep/1_0"
   top: "conv4_4/incep/1_0"
   param {
-    name: "conv4_4/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4004,9 +3701,8 @@ layer {
   bottom: "conv4_3"
   top: "conv4_4/incep/2_reduce"
   param {
-    name: "conv4_4/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -4028,17 +3724,14 @@ layer {
   bottom: "conv4_4/incep/2_reduce"
   top: "conv4_4/incep/2_reduce"
   param {
-    name: "conv4_4/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4052,13 +3745,11 @@ layer {
   bottom: "conv4_4/incep/2_reduce"
   top: "conv4_4/incep/2_reduce"
   param {
-    name: "conv4_4/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4077,9 +3768,8 @@ layer {
   bottom: "conv4_4/incep/2_reduce"
   top: "conv4_4/incep/2_0"
   param {
-    name: "conv4_4/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -4101,17 +3791,14 @@ layer {
   bottom: "conv4_4/incep/2_0"
   top: "conv4_4/incep/2_0"
   param {
-    name: "conv4_4/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4125,13 +3812,11 @@ layer {
   bottom: "conv4_4/incep/2_0"
   top: "conv4_4/incep/2_0"
   param {
-    name: "conv4_4/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4150,9 +3835,8 @@ layer {
   bottom: "conv4_4/incep/2_0"
   top: "conv4_4/incep/2_1"
   param {
-    name: "conv4_4/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -4174,17 +3858,14 @@ layer {
   bottom: "conv4_4/incep/2_1"
   top: "conv4_4/incep/2_1"
   param {
-    name: "conv4_4/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4198,13 +3879,11 @@ layer {
   bottom: "conv4_4/incep/2_1"
   top: "conv4_4/incep/2_1"
   param {
-    name: "conv4_4/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4231,9 +3910,8 @@ layer {
   bottom: "conv4_4/incep"
   top: "conv4_4/out"
   param {
-    name: "conv4_4/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -4255,17 +3933,14 @@ layer {
   bottom: "conv4_4/out"
   top: "conv4_4/out"
   param {
-    name: "conv4_4/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4279,13 +3954,11 @@ layer {
   bottom: "conv4_4/out"
   top: "conv4_4/out"
   param {
-    name: "conv4_4/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4321,9 +3994,8 @@ layer {
   bottom: "conv4_4"
   top: "conv5_1/incep/0"
   param {
-    name: "conv5_1/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -4345,17 +4017,14 @@ layer {
   bottom: "conv5_1/incep/0"
   top: "conv5_1/incep/0"
   param {
-    name: "conv5_1/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4369,13 +4038,11 @@ layer {
   bottom: "conv5_1/incep/0"
   top: "conv5_1/incep/0"
   param {
-    name: "conv5_1/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4394,9 +4061,8 @@ layer {
   bottom: "conv4_4"
   top: "conv5_1/incep/1_reduce"
   param {
-    name: "conv5_1/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -4418,17 +4084,14 @@ layer {
   bottom: "conv5_1/incep/1_reduce"
   top: "conv5_1/incep/1_reduce"
   param {
-    name: "conv5_1/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4442,13 +4105,11 @@ layer {
   bottom: "conv5_1/incep/1_reduce"
   top: "conv5_1/incep/1_reduce"
   param {
-    name: "conv5_1/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4467,9 +4128,8 @@ layer {
   bottom: "conv5_1/incep/1_reduce"
   top: "conv5_1/incep/1_0"
   param {
-    name: "conv5_1/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -4491,17 +4151,14 @@ layer {
   bottom: "conv5_1/incep/1_0"
   top: "conv5_1/incep/1_0"
   param {
-    name: "conv5_1/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4515,13 +4172,11 @@ layer {
   bottom: "conv5_1/incep/1_0"
   top: "conv5_1/incep/1_0"
   param {
-    name: "conv5_1/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4540,9 +4195,8 @@ layer {
   bottom: "conv4_4"
   top: "conv5_1/incep/2_reduce"
   param {
-    name: "conv5_1/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -4564,17 +4218,14 @@ layer {
   bottom: "conv5_1/incep/2_reduce"
   top: "conv5_1/incep/2_reduce"
   param {
-    name: "conv5_1/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4588,13 +4239,11 @@ layer {
   bottom: "conv5_1/incep/2_reduce"
   top: "conv5_1/incep/2_reduce"
   param {
-    name: "conv5_1/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4613,9 +4262,8 @@ layer {
   bottom: "conv5_1/incep/2_reduce"
   top: "conv5_1/incep/2_0"
   param {
-    name: "conv5_1/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -4637,17 +4285,14 @@ layer {
   bottom: "conv5_1/incep/2_0"
   top: "conv5_1/incep/2_0"
   param {
-    name: "conv5_1/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4661,13 +4306,11 @@ layer {
   bottom: "conv5_1/incep/2_0"
   top: "conv5_1/incep/2_0"
   param {
-    name: "conv5_1/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4686,9 +4329,8 @@ layer {
   bottom: "conv5_1/incep/2_0"
   top: "conv5_1/incep/2_1"
   param {
-    name: "conv5_1/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -4710,17 +4352,14 @@ layer {
   bottom: "conv5_1/incep/2_1"
   top: "conv5_1/incep/2_1"
   param {
-    name: "conv5_1/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4734,13 +4373,11 @@ layer {
   bottom: "conv5_1/incep/2_1"
   top: "conv5_1/incep/2_1"
   param {
-    name: "conv5_1/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4771,9 +4408,8 @@ layer {
   bottom: "conv5_1/incep/pool"
   top: "conv5_1/incep/poolproj"
   param {
-    name: "conv5_1/incep/poolproj/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -4795,17 +4431,14 @@ layer {
   bottom: "conv5_1/incep/poolproj"
   top: "conv5_1/incep/poolproj"
   param {
-    name: "conv5_1/incep/poolproj/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/poolproj/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/poolproj/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4819,13 +4452,11 @@ layer {
   bottom: "conv5_1/incep/poolproj"
   top: "conv5_1/incep/poolproj"
   param {
-    name: "conv5_1/incep/poolproj/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/poolproj/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4853,9 +4484,8 @@ layer {
   bottom: "conv5_1/incep"
   top: "conv5_1/out"
   param {
-    name: "conv5_1/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -4877,17 +4507,14 @@ layer {
   bottom: "conv5_1/out"
   top: "conv5_1/out"
   param {
-    name: "conv5_1/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4901,13 +4528,11 @@ layer {
   bottom: "conv5_1/out"
   top: "conv5_1/out"
   param {
-    name: "conv5_1/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -4920,13 +4545,11 @@ layer {
   bottom: "conv4_4"
   top: "conv5_1/proj"
   param {
-    name: "conv5_1/proj_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    name: "conv5_1/proj_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
@@ -4952,17 +4575,14 @@ layer {
   bottom: "conv5_1/proj"
   top: "conv5_1/proj"
   param {
-    name: "conv5_1/proj_bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/proj_bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/proj_bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -4976,13 +4596,11 @@ layer {
   bottom: "conv5_1/proj"
   top: "conv5_1/proj"
   param {
-    name: "conv5_1/proj_bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/proj_bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5007,9 +4625,8 @@ layer {
   bottom: "conv5_1"
   top: "conv5_2/incep/0"
   param {
-    name: "conv5_2/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -5031,17 +4648,14 @@ layer {
   bottom: "conv5_2/incep/0"
   top: "conv5_2/incep/0"
   param {
-    name: "conv5_2/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5055,13 +4669,11 @@ layer {
   bottom: "conv5_2/incep/0"
   top: "conv5_2/incep/0"
   param {
-    name: "conv5_2/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5080,9 +4692,8 @@ layer {
   bottom: "conv5_1"
   top: "conv5_2/incep/1_reduce"
   param {
-    name: "conv5_2/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -5104,17 +4715,14 @@ layer {
   bottom: "conv5_2/incep/1_reduce"
   top: "conv5_2/incep/1_reduce"
   param {
-    name: "conv5_2/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5128,13 +4736,11 @@ layer {
   bottom: "conv5_2/incep/1_reduce"
   top: "conv5_2/incep/1_reduce"
   param {
-    name: "conv5_2/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5153,9 +4759,8 @@ layer {
   bottom: "conv5_2/incep/1_reduce"
   top: "conv5_2/incep/1_0"
   param {
-    name: "conv5_2/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -5177,17 +4782,14 @@ layer {
   bottom: "conv5_2/incep/1_0"
   top: "conv5_2/incep/1_0"
   param {
-    name: "conv5_2/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5201,13 +4803,11 @@ layer {
   bottom: "conv5_2/incep/1_0"
   top: "conv5_2/incep/1_0"
   param {
-    name: "conv5_2/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5226,9 +4826,8 @@ layer {
   bottom: "conv5_1"
   top: "conv5_2/incep/2_reduce"
   param {
-    name: "conv5_2/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -5250,17 +4849,14 @@ layer {
   bottom: "conv5_2/incep/2_reduce"
   top: "conv5_2/incep/2_reduce"
   param {
-    name: "conv5_2/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5274,13 +4870,11 @@ layer {
   bottom: "conv5_2/incep/2_reduce"
   top: "conv5_2/incep/2_reduce"
   param {
-    name: "conv5_2/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5299,9 +4893,8 @@ layer {
   bottom: "conv5_2/incep/2_reduce"
   top: "conv5_2/incep/2_0"
   param {
-    name: "conv5_2/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -5323,17 +4916,14 @@ layer {
   bottom: "conv5_2/incep/2_0"
   top: "conv5_2/incep/2_0"
   param {
-    name: "conv5_2/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5347,13 +4937,11 @@ layer {
   bottom: "conv5_2/incep/2_0"
   top: "conv5_2/incep/2_0"
   param {
-    name: "conv5_2/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5372,9 +4960,8 @@ layer {
   bottom: "conv5_2/incep/2_0"
   top: "conv5_2/incep/2_1"
   param {
-    name: "conv5_2/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -5396,17 +4983,14 @@ layer {
   bottom: "conv5_2/incep/2_1"
   top: "conv5_2/incep/2_1"
   param {
-    name: "conv5_2/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5420,13 +5004,11 @@ layer {
   bottom: "conv5_2/incep/2_1"
   top: "conv5_2/incep/2_1"
   param {
-    name: "conv5_2/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5453,9 +5035,8 @@ layer {
   bottom: "conv5_2/incep"
   top: "conv5_2/out"
   param {
-    name: "conv5_2/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -5477,17 +5058,14 @@ layer {
   bottom: "conv5_2/out"
   top: "conv5_2/out"
   param {
-    name: "conv5_2/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5501,13 +5079,11 @@ layer {
   bottom: "conv5_2/out"
   top: "conv5_2/out"
   param {
-    name: "conv5_2/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5543,9 +5119,8 @@ layer {
   bottom: "conv5_2"
   top: "conv5_3/incep/0"
   param {
-    name: "conv5_3/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -5567,17 +5142,14 @@ layer {
   bottom: "conv5_3/incep/0"
   top: "conv5_3/incep/0"
   param {
-    name: "conv5_3/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5591,13 +5163,11 @@ layer {
   bottom: "conv5_3/incep/0"
   top: "conv5_3/incep/0"
   param {
-    name: "conv5_3/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5616,9 +5186,8 @@ layer {
   bottom: "conv5_2"
   top: "conv5_3/incep/1_reduce"
   param {
-    name: "conv5_3/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -5640,17 +5209,14 @@ layer {
   bottom: "conv5_3/incep/1_reduce"
   top: "conv5_3/incep/1_reduce"
   param {
-    name: "conv5_3/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5664,13 +5230,11 @@ layer {
   bottom: "conv5_3/incep/1_reduce"
   top: "conv5_3/incep/1_reduce"
   param {
-    name: "conv5_3/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5689,9 +5253,8 @@ layer {
   bottom: "conv5_3/incep/1_reduce"
   top: "conv5_3/incep/1_0"
   param {
-    name: "conv5_3/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -5713,17 +5276,14 @@ layer {
   bottom: "conv5_3/incep/1_0"
   top: "conv5_3/incep/1_0"
   param {
-    name: "conv5_3/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5737,13 +5297,11 @@ layer {
   bottom: "conv5_3/incep/1_0"
   top: "conv5_3/incep/1_0"
   param {
-    name: "conv5_3/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5762,9 +5320,8 @@ layer {
   bottom: "conv5_2"
   top: "conv5_3/incep/2_reduce"
   param {
-    name: "conv5_3/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -5786,17 +5343,14 @@ layer {
   bottom: "conv5_3/incep/2_reduce"
   top: "conv5_3/incep/2_reduce"
   param {
-    name: "conv5_3/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5810,13 +5364,11 @@ layer {
   bottom: "conv5_3/incep/2_reduce"
   top: "conv5_3/incep/2_reduce"
   param {
-    name: "conv5_3/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5835,9 +5387,8 @@ layer {
   bottom: "conv5_3/incep/2_reduce"
   top: "conv5_3/incep/2_0"
   param {
-    name: "conv5_3/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -5859,17 +5410,14 @@ layer {
   bottom: "conv5_3/incep/2_0"
   top: "conv5_3/incep/2_0"
   param {
-    name: "conv5_3/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5883,13 +5431,11 @@ layer {
   bottom: "conv5_3/incep/2_0"
   top: "conv5_3/incep/2_0"
   param {
-    name: "conv5_3/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5908,9 +5454,8 @@ layer {
   bottom: "conv5_3/incep/2_0"
   top: "conv5_3/incep/2_1"
   param {
-    name: "conv5_3/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -5932,17 +5477,14 @@ layer {
   bottom: "conv5_3/incep/2_1"
   top: "conv5_3/incep/2_1"
   param {
-    name: "conv5_3/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -5956,13 +5498,11 @@ layer {
   bottom: "conv5_3/incep/2_1"
   top: "conv5_3/incep/2_1"
   param {
-    name: "conv5_3/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -5989,9 +5529,8 @@ layer {
   bottom: "conv5_3/incep"
   top: "conv5_3/out"
   param {
-    name: "conv5_3/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -6013,17 +5552,14 @@ layer {
   bottom: "conv5_3/out"
   top: "conv5_3/out"
   param {
-    name: "conv5_3/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6037,13 +5573,11 @@ layer {
   bottom: "conv5_3/out"
   top: "conv5_3/out"
   param {
-    name: "conv5_3/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6079,9 +5613,8 @@ layer {
   bottom: "conv5_3"
   top: "conv5_4/incep/0"
   param {
-    name: "conv5_4/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -6103,17 +5636,14 @@ layer {
   bottom: "conv5_4/incep/0"
   top: "conv5_4/incep/0"
   param {
-    name: "conv5_4/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6127,13 +5657,11 @@ layer {
   bottom: "conv5_4/incep/0"
   top: "conv5_4/incep/0"
   param {
-    name: "conv5_4/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6152,9 +5680,8 @@ layer {
   bottom: "conv5_3"
   top: "conv5_4/incep/1_reduce"
   param {
-    name: "conv5_4/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -6176,17 +5703,14 @@ layer {
   bottom: "conv5_4/incep/1_reduce"
   top: "conv5_4/incep/1_reduce"
   param {
-    name: "conv5_4/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6200,13 +5724,11 @@ layer {
   bottom: "conv5_4/incep/1_reduce"
   top: "conv5_4/incep/1_reduce"
   param {
-    name: "conv5_4/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6225,9 +5747,8 @@ layer {
   bottom: "conv5_4/incep/1_reduce"
   top: "conv5_4/incep/1_0"
   param {
-    name: "conv5_4/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -6249,17 +5770,14 @@ layer {
   bottom: "conv5_4/incep/1_0"
   top: "conv5_4/incep/1_0"
   param {
-    name: "conv5_4/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6273,13 +5791,11 @@ layer {
   bottom: "conv5_4/incep/1_0"
   top: "conv5_4/incep/1_0"
   param {
-    name: "conv5_4/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6298,9 +5814,8 @@ layer {
   bottom: "conv5_3"
   top: "conv5_4/incep/2_reduce"
   param {
-    name: "conv5_4/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -6322,17 +5837,14 @@ layer {
   bottom: "conv5_4/incep/2_reduce"
   top: "conv5_4/incep/2_reduce"
   param {
-    name: "conv5_4/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6346,13 +5858,11 @@ layer {
   bottom: "conv5_4/incep/2_reduce"
   top: "conv5_4/incep/2_reduce"
   param {
-    name: "conv5_4/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6371,9 +5881,8 @@ layer {
   bottom: "conv5_4/incep/2_reduce"
   top: "conv5_4/incep/2_0"
   param {
-    name: "conv5_4/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -6395,17 +5904,14 @@ layer {
   bottom: "conv5_4/incep/2_0"
   top: "conv5_4/incep/2_0"
   param {
-    name: "conv5_4/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6419,13 +5925,11 @@ layer {
   bottom: "conv5_4/incep/2_0"
   top: "conv5_4/incep/2_0"
   param {
-    name: "conv5_4/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6444,9 +5948,8 @@ layer {
   bottom: "conv5_4/incep/2_0"
   top: "conv5_4/incep/2_1"
   param {
-    name: "conv5_4/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -6468,17 +5971,14 @@ layer {
   bottom: "conv5_4/incep/2_1"
   top: "conv5_4/incep/2_1"
   param {
-    name: "conv5_4/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6492,13 +5992,11 @@ layer {
   bottom: "conv5_4/incep/2_1"
   top: "conv5_4/incep/2_1"
   param {
-    name: "conv5_4/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6525,9 +6023,8 @@ layer {
   bottom: "conv5_4/incep"
   top: "conv5_4/out"
   param {
-    name: "conv5_4/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -6549,17 +6046,14 @@ layer {
   bottom: "conv5_4/out"
   top: "conv5_4/out"
   param {
-    name: "conv5_4/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -6573,13 +6067,11 @@ layer {
   bottom: "conv5_4/out"
   top: "conv5_4/out"
   param {
-    name: "conv5_4/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -6668,12 +6160,10 @@ layer {
   bottom: "concat"
   top: "convf_rpn"
   param {
-    name: "convf_rpn_0"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
-    name: "convf_rpn_1"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -6703,12 +6193,10 @@ layer {
   bottom: "convf_rpn"
   top: "rpn_conv1"
   param {
-    name: "rpn_conv1_0"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
-    name: "rpn_conv1_1"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -6739,12 +6227,10 @@ layer {
   bottom: "rpn_conv1"
   top: "rpn_cls_score"
   param {
-    name: "rpn_cls_score_28_0"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
-    name: "rpn_cls_score_28_1"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -6784,7 +6270,6 @@ layer {
     }
   }
 }
-
 layer {
   name: "rpn_cls_score_reshape"
   type: "Reshape"
@@ -6808,20 +6293,16 @@ layer {
   top: "rpn_cls_prob"
 }
 
-
-
 layer {
   name: "rpn_cls_reg_28"
   type: "Convolution"
   bottom: "rpn_conv1"
   top: "rpn_cls_reg"
   param {
-    name: "rpn_cls_reg_28_0"
     lr_mult: 1.0
     decay_mult: 1.0
   }
   param {
-    name: "rpn_cls_reg_28_1"
     lr_mult: 2.0
     decay_mult: 0.0
   }
@@ -6863,2042 +6344,36 @@ layer {
 }
 
 
-#######################################################
-#              where twice begin
-#######################################################
+
+
+##############################################
+#
+#               twice begin
+#
+##############################################
+
 
 
 layer {
-  name: "data/twice"
+  name: "conv3_4/twice"
   type: "Concat"
-  bottom: "data"
-  bottom: "upsample/rpn_cls_reg"
-  bottom: "upsample/rpn_cls_score"
-  top: "data/twice"
+  bottom: "concat"
+  bottom: "rpn_cls_reg"
+  bottom: "rpn_cls_score"
+  top: "conv3_4/twice"
   concat_param {
     axis: 1
   }
 }
 
 layer {
-  name: "conv1_1/conv/twice"
-  type: "Convolution"
-  bottom: "data/twice"
-  top: "conv1_1/conv/twice"
-  param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 16
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 3
-    pad_w: 3
-    kernel_h: 7
-    kernel_w: 7
-    stride_h: 2
-    stride_w: 2
-  }
-}
-
-layer {
-  name: "conv1_1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv1_1/conv/twice"
-  top: "conv1_1/conv/twice"
-  param {
-    name: "conv1_1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv1_1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv1_1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv1_1/neg/twice"
-  type: "Power"
-  bottom: "conv1_1/conv/twice"
-  top: "conv1_1/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv1_1/concat/twice"
-  type: "Concat"
-  bottom: "conv1_1/conv/twice"
-  bottom: "conv1_1/neg/twice"
-  top: "conv1_1/twice"
-}
-layer {
-  name: "conv1_1/scale/twice"
-  type: "Scale"
-  bottom: "conv1_1/twice"
-  top: "conv1_1/twice"
-  param {
-    name: "conv1_1/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv1_1/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv1_1/relu/twice"
-  type: "ReLU"
-  bottom: "conv1_1/twice"
-  top: "conv1_1/twice"
-}
-layer {
-  name: "pool1/twice"
-  type: "Pooling"
-  bottom: "conv1_1/twice"
-  top: "pool1/twice"
-  pooling_param {
-    pool: MAX
-    kernel_size: 3
-    stride: 2
-    pad: 0
-  }
-}
-
-layer {
-  name: "conv2_1/1/conv/twice"
-  type: "Convolution"
-  bottom: "pool1/twice"
-  top: "conv2_1/1/twice"
-  param {
-    name: "conv2_1/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 24
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_1/1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_1/1/twice"
-  top: "conv2_1/1/twice"
-  param {
-    name: "conv2_1/1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_1/1/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv2_1/1/twice"
-  top: "conv2_1/1/twice"
-  param {
-    name: "conv2_1/1/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/1/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_1/1/relu/twice"
-  type: "ReLU"
-  bottom: "conv2_1/1/twice"
-  top: "conv2_1/1/twice"
-}
-layer {
-  name: "conv2_1/2/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_1/1/twice"
-  top: "conv2_1/2/conv/twice"
-  param {
-    name: "conv2_1/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 24
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 1
-    pad_w: 1
-    kernel_h: 3
-    kernel_w: 3
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_1/2/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_1/2/conv/twice"
-  top: "conv2_1/2/conv/twice"
-  param {
-    name: "conv2_1/2/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/2/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/2/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_1/2/neg/twice"
-  type: "Power"
-  bottom: "conv2_1/2/conv/twice"
-  top: "conv2_1/2/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv2_1/2/concat/twice"
-  type: "Concat"
-  bottom: "conv2_1/2/conv/twice"
-  bottom: "conv2_1/2/neg/twice"
-  top: "conv2_1/2/twice"
-}
-layer {
-  name: "conv2_1/2/scale/twice"
-  type: "Scale"
-  bottom: "conv2_1/2/twice"
-  top: "conv2_1/2/twice"
-  param {
-    name: "conv2_1/2/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/2/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_1/2/relu/twice"
-  type: "ReLU"
-  bottom: "conv2_1/2/twice"
-  top: "conv2_1/2/twice"
-}
-layer {
-  name: "conv2_1/3/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_1/2/twice"
-  top: "conv2_1/3/twice"
-  param {
-    name: "conv2_1/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 64
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_1/3/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_1/3/twice"
-  top: "conv2_1/3/twice"
-  param {
-    name: "conv2_1/3/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/3/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/3/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_1/3/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv2_1/3/twice"
-  top: "conv2_1/3/twice"
-  param {
-    name: "conv2_1/3/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/3/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_1/proj/twice"
-  type: "Convolution"
-  bottom: "pool1/twice"
-  top: "conv2_1/proj/twice"
-  param {
-    name: "conv2_1/proj_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  param {
-    name: "conv2_1/proj_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  convolution_param {
-    num_output: 64
-    weight_filler {
-      type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.10000000149
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_1/proj_bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_1/proj/twice"
-  top: "conv2_1/proj/twice"
-  param {
-    name: "conv2_1/proj_bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/proj_bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/proj_bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_1/proj_bn_scale/twice"
-  type: "Scale"
-  bottom: "conv2_1/proj/twice"
-  top: "conv2_1/proj/twice"
-  param {
-    name: "conv2_1/proj_bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_1/proj_bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_1/twice"
-  type: "Eltwise"
-  bottom: "conv2_1/3/twice"
-  bottom: "conv2_1/proj/twice"
-  top: "conv2_1/twice"
-  eltwise_param {
-    operation: SUM
-    coeff: 1.0
-    coeff: 1.0
-  }
-}
-layer {
-  name: "conv2_2/1/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_1/twice"
-  top: "conv2_2/1/twice"
-  param {
-    name: "conv2_2/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 24
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_2/1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_2/1/twice"
-  top: "conv2_2/1/twice"
-  param {
-    name: "conv2_2/1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_2/1/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv2_2/1/twice"
-  top: "conv2_2/1/twice"
-  param {
-    name: "conv2_2/1/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/1/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_2/1/relu/twice"
-  type: "ReLU"
-  bottom: "conv2_2/1/twice"
-  top: "conv2_2/1/twice"
-}
-layer {
-  name: "conv2_2/2/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_2/1/twice"
-  top: "conv2_2/2/conv/twice"
-  param {
-    name: "conv2_2/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 24
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 1
-    pad_w: 1
-    kernel_h: 3
-    kernel_w: 3
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_2/2/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_2/2/conv/twice"
-  top: "conv2_2/2/conv/twice"
-  param {
-    name: "conv2_2/2/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/2/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/2/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_2/2/neg/twice"
-  type: "Power"
-  bottom: "conv2_2/2/conv/twice"
-  top: "conv2_2/2/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv2_2/2/concat/twice"
-  type: "Concat"
-  bottom: "conv2_2/2/conv/twice"
-  bottom: "conv2_2/2/neg/twice"
-  top: "conv2_2/2/twice"
-}
-layer {
-  name: "conv2_2/2/scale/twice"
-  type: "Scale"
-  bottom: "conv2_2/2/twice"
-  top: "conv2_2/2/twice"
-  param {
-    name: "conv2_2/2/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/2/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_2/2/relu/twice"
-  type: "ReLU"
-  bottom: "conv2_2/2/twice"
-  top: "conv2_2/2/twice"
-}
-layer {
-  name: "conv2_2/3/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_2/2/twice"
-  top: "conv2_2/3/twice"
-  param {
-    name: "conv2_2/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 64
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_2/3/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_2/3/twice"
-  top: "conv2_2/3/twice"
-  param {
-    name: "conv2_2/3/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/3/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/3/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_2/3/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv2_2/3/twice"
-  top: "conv2_2/3/twice"
-  param {
-    name: "conv2_2/3/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_2/3/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_2/input/twice"
-  type: "Power"
-  bottom: "conv2_1/twice"
-  top: "conv2_2/input/twice"
-  power_param {
-    power: 1.0
-    scale: 1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv2_2/twice"
-  type: "Eltwise"
-  bottom: "conv2_2/3/twice"
-  bottom: "conv2_2/input/twice"
-  top: "conv2_2/twice"
-  eltwise_param {
-    operation: SUM
-    coeff: 1.0
-    coeff: 1.0
-  }
-}
-layer {
-  name: "conv2_3/1/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_2/twice"
-  top: "conv2_3/1/twice"
-  param {
-    name: "conv2_3/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 24
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_3/1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_3/1/twice"
-  top: "conv2_3/1/twice"
-  param {
-    name: "conv2_3/1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_3/1/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv2_3/1/twice"
-  top: "conv2_3/1/twice"
-  param {
-    name: "conv2_3/1/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/1/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_3/1/relu/twice"
-  type: "ReLU"
-  bottom: "conv2_3/1/twice"
-  top: "conv2_3/1/twice"
-}
-layer {
-  name: "conv2_3/2/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_3/1/twice"
-  top: "conv2_3/2/conv/twice"
-  param {
-    name: "conv2_3/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 24
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 1
-    pad_w: 1
-    kernel_h: 3
-    kernel_w: 3
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_3/2/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_3/2/conv/twice"
-  top: "conv2_3/2/conv/twice"
-  param {
-    name: "conv2_3/2/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/2/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/2/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_3/2/neg/twice"
-  type: "Power"
-  bottom: "conv2_3/2/conv/twice"
-  top: "conv2_3/2/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv2_3/2/concat/twice"
-  type: "Concat"
-  bottom: "conv2_3/2/conv/twice"
-  bottom: "conv2_3/2/neg/twice"
-  top: "conv2_3/2/twice"
-}
-layer {
-  name: "conv2_3/2/scale/twice"
-  type: "Scale"
-  bottom: "conv2_3/2/twice"
-  top: "conv2_3/2/twice"
-  param {
-    name: "conv2_3/2/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/2/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_3/2/relu/twice"
-  type: "ReLU"
-  bottom: "conv2_3/2/twice"
-  top: "conv2_3/2/twice"
-}
-layer {
-  name: "conv2_3/3/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_3/2/twice"
-  top: "conv2_3/3/twice"
-  param {
-    name: "conv2_3/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 64
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv2_3/3/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv2_3/3/twice"
-  top: "conv2_3/3/twice"
-  param {
-    name: "conv2_3/3/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/3/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/3/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv2_3/3/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv2_3/3/twice"
-  top: "conv2_3/3/twice"
-  param {
-    name: "conv2_3/3/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv2_3/3/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv2_3/input/twice"
-  type: "Power"
-  bottom: "conv2_2/twice"
-  top: "conv2_3/input/twice"
-  power_param {
-    power: 1.0
-    scale: 1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv2_3/twice"
-  type: "Eltwise"
-  bottom: "conv2_3/3/twice"
-  bottom: "conv2_3/input/twice"
-  top: "conv2_3/twice"
-  eltwise_param {
-    operation: SUM
-    coeff: 1.0
-    coeff: 1.0
-  }
-}
-layer {
-  name: "conv3_1/1/conv/twice"
-  type: "Convolution"
-  bottom: "conv2_3/twice"
-  top: "conv3_1/1/twice"
-  param {
-    name: "conv3_1/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 2
-    stride_w: 2
-  }
-}
-layer {
-  name: "conv3_1/1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_1/1/twice"
-  top: "conv3_1/1/twice"
-  param {
-    name: "conv3_1/1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_1/1/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_1/1/twice"
-  top: "conv3_1/1/twice"
-  param {
-    name: "conv3_1/1/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/1/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_1/1/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_1/1/twice"
-  top: "conv3_1/1/twice"
-}
-layer {
-  name: "conv3_1/2/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_1/1/twice"
-  top: "conv3_1/2/conv/twice"
-  param {
-    name: "conv3_1/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 1
-    pad_w: 1
-    kernel_h: 3
-    kernel_w: 3
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_1/2/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_1/2/conv/twice"
-  top: "conv3_1/2/conv/twice"
-  param {
-    name: "conv3_1/2/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/2/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/2/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_1/2/neg/twice"
-  type: "Power"
-  bottom: "conv3_1/2/conv/twice"
-  top: "conv3_1/2/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv3_1/2/concat/twice"
-  type: "Concat"
-  bottom: "conv3_1/2/conv/twice"
-  bottom: "conv3_1/2/neg/twice"
-  top: "conv3_1/2/twice"
-}
-layer {
-  name: "conv3_1/2/scale/twice"
-  type: "Scale"
-  bottom: "conv3_1/2/twice"
-  top: "conv3_1/2/twice"
-  param {
-    name: "conv3_1/2/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/2/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_1/2/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_1/2/twice"
-  top: "conv3_1/2/twice"
-}
-layer {
-  name: "conv3_1/3/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_1/2/twice"
-  top: "conv3_1/3/twice"
-  param {
-    name: "conv3_1/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 128
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_1/3/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_1/3/twice"
-  top: "conv3_1/3/twice"
-  param {
-    name: "conv3_1/3/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/3/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/3/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_1/3/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_1/3/twice"
-  top: "conv3_1/3/twice"
-  param {
-    name: "conv3_1/3/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/3/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_1/proj/twice"
-  type: "Convolution"
-  bottom: "conv2_3/twice"
-  top: "conv3_1/proj/twice"
-  param {
-    name: "conv3_1/proj_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  param {
-    name: "conv3_1/proj_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  convolution_param {
-    num_output: 128
-    weight_filler {
-      type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.10000000149
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 2
-    stride_w: 2
-  }
-}
-layer {
-  name: "conv3_1/proj_bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_1/proj/twice"
-  top: "conv3_1/proj/twice"
-  param {
-    name: "conv3_1/proj_bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/proj_bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/proj_bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_1/proj_bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_1/proj/twice"
-  top: "conv3_1/proj/twice"
-  param {
-    name: "conv3_1/proj_bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_1/proj_bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_1/twice"
-  type: "Eltwise"
-  bottom: "conv3_1/3/twice"
-  bottom: "conv3_1/proj/twice"
-  top: "conv3_1/twice"
-  eltwise_param {
-    operation: SUM
-    coeff: 1.0
-    coeff: 1.0
-  }
-}
-layer {
-  name: "conv3_2/1/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_1/twice"
-  top: "conv3_2/1/twice"
-  param {
-    name: "conv3_2/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_2/1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_2/1/twice"
-  top: "conv3_2/1/twice"
-  param {
-    name: "conv3_2/1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_2/1/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_2/1/twice"
-  top: "conv3_2/1/twice"
-  param {
-    name: "conv3_2/1/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/1/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_2/1/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_2/1/twice"
-  top: "conv3_2/1/twice"
-}
-layer {
-  name: "conv3_2/2/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_2/1/twice"
-  top: "conv3_2/2/conv/twice"
-  param {
-    name: "conv3_2/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 1
-    pad_w: 1
-    kernel_h: 3
-    kernel_w: 3
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_2/2/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_2/2/conv/twice"
-  top: "conv3_2/2/conv/twice"
-  param {
-    name: "conv3_2/2/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/2/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/2/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_2/2/neg/twice"
-  type: "Power"
-  bottom: "conv3_2/2/conv/twice"
-  top: "conv3_2/2/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv3_2/2/concat/twice"
-  type: "Concat"
-  bottom: "conv3_2/2/conv/twice"
-  bottom: "conv3_2/2/neg/twice"
-  top: "conv3_2/2/twice"
-}
-layer {
-  name: "conv3_2/2/scale/twice"
-  type: "Scale"
-  bottom: "conv3_2/2/twice"
-  top: "conv3_2/2/twice"
-  param {
-    name: "conv3_2/2/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/2/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_2/2/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_2/2/twice"
-  top: "conv3_2/2/twice"
-}
-layer {
-  name: "conv3_2/3/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_2/2/twice"
-  top: "conv3_2/3/twice"
-  param {
-    name: "conv3_2/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 128
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_2/3/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_2/3/twice"
-  top: "conv3_2/3/twice"
-  param {
-    name: "conv3_2/3/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/3/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/3/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_2/3/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_2/3/twice"
-  top: "conv3_2/3/twice"
-  param {
-    name: "conv3_2/3/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_2/3/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_2/input/twice"
-  type: "Power"
-  bottom: "conv3_1/twice"
-  top: "conv3_2/input/twice"
-  power_param {
-    power: 1.0
-    scale: 1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv3_2/twice"
-  type: "Eltwise"
-  bottom: "conv3_2/3/twice"
-  bottom: "conv3_2/input/twice"
-  top: "conv3_2/twice"
-  eltwise_param {
-    operation: SUM
-    coeff: 1.0
-    coeff: 1.0
-  }
-}
-layer {
-  name: "conv3_3/1/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_2/twice"
-  top: "conv3_3/1/twice"
-  param {
-    name: "conv3_3/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_3/1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_3/1/twice"
-  top: "conv3_3/1/twice"
-  param {
-    name: "conv3_3/1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_3/1/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_3/1/twice"
-  top: "conv3_3/1/twice"
-  param {
-    name: "conv3_3/1/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/1/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_3/1/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_3/1/twice"
-  top: "conv3_3/1/twice"
-}
-layer {
-  name: "conv3_3/2/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_3/1/twice"
-  top: "conv3_3/2/conv/twice"
-  param {
-    name: "conv3_3/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 1
-    pad_w: 1
-    kernel_h: 3
-    kernel_w: 3
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_3/2/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_3/2/conv/twice"
-  top: "conv3_3/2/conv/twice"
-  param {
-    name: "conv3_3/2/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/2/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/2/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_3/2/neg/twice"
-  type: "Power"
-  bottom: "conv3_3/2/conv/twice"
-  top: "conv3_3/2/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv3_3/2/concat/twice"
-  type: "Concat"
-  bottom: "conv3_3/2/conv/twice"
-  bottom: "conv3_3/2/neg/twice"
-  top: "conv3_3/2/twice"
-}
-layer {
-  name: "conv3_3/2/scale/twice"
-  type: "Scale"
-  bottom: "conv3_3/2/twice"
-  top: "conv3_3/2/twice"
-  param {
-    name: "conv3_3/2/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/2/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_3/2/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_3/2/twice"
-  top: "conv3_3/2/twice"
-}
-layer {
-  name: "conv3_3/3/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_3/2/twice"
-  top: "conv3_3/3/twice"
-  param {
-    name: "conv3_3/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 128
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_3/3/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_3/3/twice"
-  top: "conv3_3/3/twice"
-  param {
-    name: "conv3_3/3/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/3/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/3/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_3/3/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_3/3/twice"
-  top: "conv3_3/3/twice"
-  param {
-    name: "conv3_3/3/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_3/3/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_3/input/twice"
-  type: "Power"
-  bottom: "conv3_2/twice"
-  top: "conv3_3/input/twice"
-  power_param {
-    power: 1.0
-    scale: 1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv3_3/twice"
-  type: "Eltwise"
-  bottom: "conv3_3/3/twice"
-  bottom: "conv3_3/input/twice"
-  top: "conv3_3/twice"
-  eltwise_param {
-    operation: SUM
-    coeff: 1.0
-    coeff: 1.0
-  }
-}
-layer {
-  name: "conv3_4/1/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_3/twice"
-  top: "conv3_4/1/twice"
-  param {
-    name: "conv3_4/1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_4/1/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_4/1/twice"
-  top: "conv3_4/1/twice"
-  param {
-    name: "conv3_4/1/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/1/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/1/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_4/1/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_4/1/twice"
-  top: "conv3_4/1/twice"
-  param {
-    name: "conv3_4/1/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/1/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_4/1/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_4/1/twice"
-  top: "conv3_4/1/twice"
-}
-layer {
-  name: "conv3_4/2/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_4/1/twice"
-  top: "conv3_4/2/conv/twice"
-  param {
-    name: "conv3_4/2/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 48
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 1
-    pad_w: 1
-    kernel_h: 3
-    kernel_w: 3
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_4/2/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_4/2/conv/twice"
-  top: "conv3_4/2/conv/twice"
-  param {
-    name: "conv3_4/2/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/2/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/2/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_4/2/neg/twice"
-  type: "Power"
-  bottom: "conv3_4/2/conv/twice"
-  top: "conv3_4/2/neg/twice"
-  power_param {
-    power: 1.0
-    scale: -1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv3_4/2/concat/twice"
-  type: "Concat"
-  bottom: "conv3_4/2/conv/twice"
-  bottom: "conv3_4/2/neg/twice"
-  top: "conv3_4/2/twice"
-}
-layer {
-  name: "conv3_4/2/scale/twice"
-  type: "Scale"
-  bottom: "conv3_4/2/twice"
-  top: "conv3_4/2/twice"
-  param {
-    name: "conv3_4/2/scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/2/scale_1"
-    lr_mult: 0.20000000298
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_4/2/relu/twice"
-  type: "ReLU"
-  bottom: "conv3_4/2/twice"
-  top: "conv3_4/2/twice"
-}
-layer {
-  name: "conv3_4/3/conv/twice"
-  type: "Convolution"
-  bottom: "conv3_4/2/twice"
-  top: "conv3_4/3/twice"
-  param {
-    name: "conv3_4/3/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
-  }
-  convolution_param {
-    num_output: 128
-    bias_term: false
-    weight_filler {
-      type: "xavier"
-    }
-    pad_h: 0
-    pad_w: 0
-    kernel_h: 1
-    kernel_w: 1
-    stride_h: 1
-    stride_w: 1
-  }
-}
-layer {
-  name: "conv3_4/3/bn/twice"
-  type: "BatchNorm"
-  bottom: "conv3_4/3/twice"
-  top: "conv3_4/3/twice"
-  param {
-    name: "conv3_4/3/bn_0"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/3/bn_1"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/3/bn_2"
-    lr_mult: 0.0
-    decay_mult: 0.0
-  }
-  batch_norm_param {
-    use_global_stats: true
-  }
-}
-layer {
-  name: "conv3_4/3/bn_scale/twice"
-  type: "Scale"
-  bottom: "conv3_4/3/twice"
-  top: "conv3_4/3/twice"
-  param {
-    name: "conv3_4/3/bn_scale_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  param {
-    name: "conv3_4/3/bn_scale_1"
-    lr_mult: 0.10000000149
-    decay_mult: 0.0
-  }
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
-  name: "conv3_4/input/twice"
-  type: "Power"
-  bottom: "conv3_3/twice"
-  top: "conv3_4/input/twice"
-  power_param {
-    power: 1.0
-    scale: 1.0
-    shift: 0.0
-  }
-}
-layer {
-  name: "conv3_4/twice"
-  type: "Eltwise"
-  bottom: "conv3_4/3/twice"
-  bottom: "conv3_4/input/twice"
-  top: "conv3_4/twice"
-  eltwise_param {
-    operation: SUM
-    coeff: 1.0
-    coeff: 1.0
-  }
-}
-layer {
   name: "conv4_1/incep/0/conv/twice"
   type: "Convolution"
   bottom: "conv3_4/twice"
   top: "conv4_1/incep/0/twice"
   param {
-    name: "conv4_1/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -8920,17 +6395,14 @@ layer {
   bottom: "conv4_1/incep/0/twice"
   top: "conv4_1/incep/0/twice"
   param {
-    name: "conv4_1/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -8944,13 +6416,11 @@ layer {
   bottom: "conv4_1/incep/0/twice"
   top: "conv4_1/incep/0/twice"
   param {
-    name: "conv4_1/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -8969,9 +6439,8 @@ layer {
   bottom: "conv3_4/twice"
   top: "conv4_1/incep/1_reduce/twice"
   param {
-    name: "conv4_1/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -8993,17 +6462,14 @@ layer {
   bottom: "conv4_1/incep/1_reduce/twice"
   top: "conv4_1/incep/1_reduce/twice"
   param {
-    name: "conv4_1/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9017,13 +6483,11 @@ layer {
   bottom: "conv4_1/incep/1_reduce/twice"
   top: "conv4_1/incep/1_reduce/twice"
   param {
-    name: "conv4_1/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9042,9 +6506,8 @@ layer {
   bottom: "conv4_1/incep/1_reduce/twice"
   top: "conv4_1/incep/1_0/twice"
   param {
-    name: "conv4_1/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -9066,17 +6529,14 @@ layer {
   bottom: "conv4_1/incep/1_0/twice"
   top: "conv4_1/incep/1_0/twice"
   param {
-    name: "conv4_1/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9090,13 +6550,11 @@ layer {
   bottom: "conv4_1/incep/1_0/twice"
   top: "conv4_1/incep/1_0/twice"
   param {
-    name: "conv4_1/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9115,9 +6573,8 @@ layer {
   bottom: "conv3_4/twice"
   top: "conv4_1/incep/2_reduce/twice"
   param {
-    name: "conv4_1/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -9139,17 +6596,14 @@ layer {
   bottom: "conv4_1/incep/2_reduce/twice"
   top: "conv4_1/incep/2_reduce/twice"
   param {
-    name: "conv4_1/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9163,13 +6617,11 @@ layer {
   bottom: "conv4_1/incep/2_reduce/twice"
   top: "conv4_1/incep/2_reduce/twice"
   param {
-    name: "conv4_1/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9188,9 +6640,8 @@ layer {
   bottom: "conv4_1/incep/2_reduce/twice"
   top: "conv4_1/incep/2_0/twice"
   param {
-    name: "conv4_1/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -9212,17 +6663,14 @@ layer {
   bottom: "conv4_1/incep/2_0/twice"
   top: "conv4_1/incep/2_0/twice"
   param {
-    name: "conv4_1/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9236,13 +6684,11 @@ layer {
   bottom: "conv4_1/incep/2_0/twice"
   top: "conv4_1/incep/2_0/twice"
   param {
-    name: "conv4_1/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9261,9 +6707,8 @@ layer {
   bottom: "conv4_1/incep/2_0/twice"
   top: "conv4_1/incep/2_1/twice"
   param {
-    name: "conv4_1/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -9285,17 +6730,14 @@ layer {
   bottom: "conv4_1/incep/2_1/twice"
   top: "conv4_1/incep/2_1/twice"
   param {
-    name: "conv4_1/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9309,13 +6751,11 @@ layer {
   bottom: "conv4_1/incep/2_1/twice"
   top: "conv4_1/incep/2_1/twice"
   param {
-    name: "conv4_1/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9346,9 +6786,8 @@ layer {
   bottom: "conv4_1/incep/pool/twice"
   top: "conv4_1/incep/poolproj/twice"
   param {
-    name: "conv4_1/incep/poolproj/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -9370,17 +6809,14 @@ layer {
   bottom: "conv4_1/incep/poolproj/twice"
   top: "conv4_1/incep/poolproj/twice"
   param {
-    name: "conv4_1/incep/poolproj/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/poolproj/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/poolproj/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9394,13 +6830,11 @@ layer {
   bottom: "conv4_1/incep/poolproj/twice"
   top: "conv4_1/incep/poolproj/twice"
   param {
-    name: "conv4_1/incep/poolproj/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/incep/poolproj/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9428,9 +6862,8 @@ layer {
   bottom: "conv4_1/incep/twice"
   top: "conv4_1/out/twice"
   param {
-    name: "conv4_1/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -9452,17 +6885,14 @@ layer {
   bottom: "conv4_1/out/twice"
   top: "conv4_1/out/twice"
   param {
-    name: "conv4_1/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9476,13 +6906,11 @@ layer {
   bottom: "conv4_1/out/twice"
   top: "conv4_1/out/twice"
   param {
-    name: "conv4_1/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9495,13 +6923,11 @@ layer {
   bottom: "conv3_4/twice"
   top: "conv4_1/proj/twice"
   param {
-    name: "conv4_1/proj_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    name: "conv4_1/proj_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
@@ -9527,17 +6953,14 @@ layer {
   bottom: "conv4_1/proj/twice"
   top: "conv4_1/proj/twice"
   param {
-    name: "conv4_1/proj_bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/proj_bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/proj_bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9551,13 +6974,11 @@ layer {
   bottom: "conv4_1/proj/twice"
   top: "conv4_1/proj/twice"
   param {
-    name: "conv4_1/proj_bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_1/proj_bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9582,9 +7003,8 @@ layer {
   bottom: "conv4_1/twice"
   top: "conv4_2/incep/0/twice"
   param {
-    name: "conv4_2/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -9606,17 +7026,14 @@ layer {
   bottom: "conv4_2/incep/0/twice"
   top: "conv4_2/incep/0/twice"
   param {
-    name: "conv4_2/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9630,13 +7047,11 @@ layer {
   bottom: "conv4_2/incep/0/twice"
   top: "conv4_2/incep/0/twice"
   param {
-    name: "conv4_2/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9655,9 +7070,8 @@ layer {
   bottom: "conv4_1/twice"
   top: "conv4_2/incep/1_reduce/twice"
   param {
-    name: "conv4_2/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -9679,17 +7093,14 @@ layer {
   bottom: "conv4_2/incep/1_reduce/twice"
   top: "conv4_2/incep/1_reduce/twice"
   param {
-    name: "conv4_2/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9703,13 +7114,11 @@ layer {
   bottom: "conv4_2/incep/1_reduce/twice"
   top: "conv4_2/incep/1_reduce/twice"
   param {
-    name: "conv4_2/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9728,9 +7137,8 @@ layer {
   bottom: "conv4_2/incep/1_reduce/twice"
   top: "conv4_2/incep/1_0/twice"
   param {
-    name: "conv4_2/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -9752,17 +7160,14 @@ layer {
   bottom: "conv4_2/incep/1_0/twice"
   top: "conv4_2/incep/1_0/twice"
   param {
-    name: "conv4_2/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9776,13 +7181,11 @@ layer {
   bottom: "conv4_2/incep/1_0/twice"
   top: "conv4_2/incep/1_0/twice"
   param {
-    name: "conv4_2/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9801,9 +7204,8 @@ layer {
   bottom: "conv4_1/twice"
   top: "conv4_2/incep/2_reduce/twice"
   param {
-    name: "conv4_2/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -9825,17 +7227,14 @@ layer {
   bottom: "conv4_2/incep/2_reduce/twice"
   top: "conv4_2/incep/2_reduce/twice"
   param {
-    name: "conv4_2/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9849,13 +7248,11 @@ layer {
   bottom: "conv4_2/incep/2_reduce/twice"
   top: "conv4_2/incep/2_reduce/twice"
   param {
-    name: "conv4_2/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9874,9 +7271,8 @@ layer {
   bottom: "conv4_2/incep/2_reduce/twice"
   top: "conv4_2/incep/2_0/twice"
   param {
-    name: "conv4_2/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -9898,17 +7294,14 @@ layer {
   bottom: "conv4_2/incep/2_0/twice"
   top: "conv4_2/incep/2_0/twice"
   param {
-    name: "conv4_2/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9922,13 +7315,11 @@ layer {
   bottom: "conv4_2/incep/2_0/twice"
   top: "conv4_2/incep/2_0/twice"
   param {
-    name: "conv4_2/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -9947,9 +7338,8 @@ layer {
   bottom: "conv4_2/incep/2_0/twice"
   top: "conv4_2/incep/2_1/twice"
   param {
-    name: "conv4_2/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -9971,17 +7361,14 @@ layer {
   bottom: "conv4_2/incep/2_1/twice"
   top: "conv4_2/incep/2_1/twice"
   param {
-    name: "conv4_2/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -9995,13 +7382,11 @@ layer {
   bottom: "conv4_2/incep/2_1/twice"
   top: "conv4_2/incep/2_1/twice"
   param {
-    name: "conv4_2/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10028,9 +7413,8 @@ layer {
   bottom: "conv4_2/incep/twice"
   top: "conv4_2/out/twice"
   param {
-    name: "conv4_2/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -10052,17 +7436,14 @@ layer {
   bottom: "conv4_2/out/twice"
   top: "conv4_2/out/twice"
   param {
-    name: "conv4_2/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10076,13 +7457,11 @@ layer {
   bottom: "conv4_2/out/twice"
   top: "conv4_2/out/twice"
   param {
-    name: "conv4_2/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_2/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10118,9 +7497,8 @@ layer {
   bottom: "conv4_2/twice"
   top: "conv4_3/incep/0/twice"
   param {
-    name: "conv4_3/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -10142,17 +7520,14 @@ layer {
   bottom: "conv4_3/incep/0/twice"
   top: "conv4_3/incep/0/twice"
   param {
-    name: "conv4_3/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10166,13 +7541,11 @@ layer {
   bottom: "conv4_3/incep/0/twice"
   top: "conv4_3/incep/0/twice"
   param {
-    name: "conv4_3/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10191,9 +7564,8 @@ layer {
   bottom: "conv4_2/twice"
   top: "conv4_3/incep/1_reduce/twice"
   param {
-    name: "conv4_3/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -10215,17 +7587,14 @@ layer {
   bottom: "conv4_3/incep/1_reduce/twice"
   top: "conv4_3/incep/1_reduce/twice"
   param {
-    name: "conv4_3/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10239,13 +7608,11 @@ layer {
   bottom: "conv4_3/incep/1_reduce/twice"
   top: "conv4_3/incep/1_reduce/twice"
   param {
-    name: "conv4_3/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10264,9 +7631,8 @@ layer {
   bottom: "conv4_3/incep/1_reduce/twice"
   top: "conv4_3/incep/1_0/twice"
   param {
-    name: "conv4_3/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -10288,17 +7654,14 @@ layer {
   bottom: "conv4_3/incep/1_0/twice"
   top: "conv4_3/incep/1_0/twice"
   param {
-    name: "conv4_3/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10312,13 +7675,11 @@ layer {
   bottom: "conv4_3/incep/1_0/twice"
   top: "conv4_3/incep/1_0/twice"
   param {
-    name: "conv4_3/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10337,9 +7698,8 @@ layer {
   bottom: "conv4_2/twice"
   top: "conv4_3/incep/2_reduce/twice"
   param {
-    name: "conv4_3/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -10361,17 +7721,14 @@ layer {
   bottom: "conv4_3/incep/2_reduce/twice"
   top: "conv4_3/incep/2_reduce/twice"
   param {
-    name: "conv4_3/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10385,13 +7742,11 @@ layer {
   bottom: "conv4_3/incep/2_reduce/twice"
   top: "conv4_3/incep/2_reduce/twice"
   param {
-    name: "conv4_3/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10410,9 +7765,8 @@ layer {
   bottom: "conv4_3/incep/2_reduce/twice"
   top: "conv4_3/incep/2_0/twice"
   param {
-    name: "conv4_3/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -10434,17 +7788,14 @@ layer {
   bottom: "conv4_3/incep/2_0/twice"
   top: "conv4_3/incep/2_0/twice"
   param {
-    name: "conv4_3/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10458,13 +7809,11 @@ layer {
   bottom: "conv4_3/incep/2_0/twice"
   top: "conv4_3/incep/2_0/twice"
   param {
-    name: "conv4_3/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10483,9 +7832,8 @@ layer {
   bottom: "conv4_3/incep/2_0/twice"
   top: "conv4_3/incep/2_1/twice"
   param {
-    name: "conv4_3/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -10507,17 +7855,14 @@ layer {
   bottom: "conv4_3/incep/2_1/twice"
   top: "conv4_3/incep/2_1/twice"
   param {
-    name: "conv4_3/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10531,13 +7876,11 @@ layer {
   bottom: "conv4_3/incep/2_1/twice"
   top: "conv4_3/incep/2_1/twice"
   param {
-    name: "conv4_3/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10564,9 +7907,8 @@ layer {
   bottom: "conv4_3/incep/twice"
   top: "conv4_3/out/twice"
   param {
-    name: "conv4_3/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -10588,17 +7930,14 @@ layer {
   bottom: "conv4_3/out/twice"
   top: "conv4_3/out/twice"
   param {
-    name: "conv4_3/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10612,13 +7951,11 @@ layer {
   bottom: "conv4_3/out/twice"
   top: "conv4_3/out/twice"
   param {
-    name: "conv4_3/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_3/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10654,9 +7991,8 @@ layer {
   bottom: "conv4_3/twice"
   top: "conv4_4/incep/0/twice"
   param {
-    name: "conv4_4/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -10678,17 +8014,14 @@ layer {
   bottom: "conv4_4/incep/0/twice"
   top: "conv4_4/incep/0/twice"
   param {
-    name: "conv4_4/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10702,13 +8035,11 @@ layer {
   bottom: "conv4_4/incep/0/twice"
   top: "conv4_4/incep/0/twice"
   param {
-    name: "conv4_4/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10727,9 +8058,8 @@ layer {
   bottom: "conv4_3/twice"
   top: "conv4_4/incep/1_reduce/twice"
   param {
-    name: "conv4_4/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -10751,17 +8081,14 @@ layer {
   bottom: "conv4_4/incep/1_reduce/twice"
   top: "conv4_4/incep/1_reduce/twice"
   param {
-    name: "conv4_4/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10775,13 +8102,11 @@ layer {
   bottom: "conv4_4/incep/1_reduce/twice"
   top: "conv4_4/incep/1_reduce/twice"
   param {
-    name: "conv4_4/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10800,9 +8125,8 @@ layer {
   bottom: "conv4_4/incep/1_reduce/twice"
   top: "conv4_4/incep/1_0/twice"
   param {
-    name: "conv4_4/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -10824,17 +8148,14 @@ layer {
   bottom: "conv4_4/incep/1_0/twice"
   top: "conv4_4/incep/1_0/twice"
   param {
-    name: "conv4_4/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10848,13 +8169,11 @@ layer {
   bottom: "conv4_4/incep/1_0/twice"
   top: "conv4_4/incep/1_0/twice"
   param {
-    name: "conv4_4/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10873,9 +8192,8 @@ layer {
   bottom: "conv4_3/twice"
   top: "conv4_4/incep/2_reduce/twice"
   param {
-    name: "conv4_4/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 24
@@ -10897,17 +8215,14 @@ layer {
   bottom: "conv4_4/incep/2_reduce/twice"
   top: "conv4_4/incep/2_reduce/twice"
   param {
-    name: "conv4_4/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10921,13 +8236,11 @@ layer {
   bottom: "conv4_4/incep/2_reduce/twice"
   top: "conv4_4/incep/2_reduce/twice"
   param {
-    name: "conv4_4/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -10946,9 +8259,8 @@ layer {
   bottom: "conv4_4/incep/2_reduce/twice"
   top: "conv4_4/incep/2_0/twice"
   param {
-    name: "conv4_4/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -10970,17 +8282,14 @@ layer {
   bottom: "conv4_4/incep/2_0/twice"
   top: "conv4_4/incep/2_0/twice"
   param {
-    name: "conv4_4/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -10994,13 +8303,11 @@ layer {
   bottom: "conv4_4/incep/2_0/twice"
   top: "conv4_4/incep/2_0/twice"
   param {
-    name: "conv4_4/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11019,9 +8326,8 @@ layer {
   bottom: "conv4_4/incep/2_0/twice"
   top: "conv4_4/incep/2_1/twice"
   param {
-    name: "conv4_4/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 48
@@ -11043,17 +8349,14 @@ layer {
   bottom: "conv4_4/incep/2_1/twice"
   top: "conv4_4/incep/2_1/twice"
   param {
-    name: "conv4_4/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11067,13 +8370,11 @@ layer {
   bottom: "conv4_4/incep/2_1/twice"
   top: "conv4_4/incep/2_1/twice"
   param {
-    name: "conv4_4/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11100,9 +8401,8 @@ layer {
   bottom: "conv4_4/incep/twice"
   top: "conv4_4/out/twice"
   param {
-    name: "conv4_4/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 256
@@ -11124,17 +8424,14 @@ layer {
   bottom: "conv4_4/out/twice"
   top: "conv4_4/out/twice"
   param {
-    name: "conv4_4/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11148,13 +8445,11 @@ layer {
   bottom: "conv4_4/out/twice"
   top: "conv4_4/out/twice"
   param {
-    name: "conv4_4/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv4_4/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11190,9 +8485,8 @@ layer {
   bottom: "conv4_4/twice"
   top: "conv5_1/incep/0/twice"
   param {
-    name: "conv5_1/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -11214,17 +8508,14 @@ layer {
   bottom: "conv5_1/incep/0/twice"
   top: "conv5_1/incep/0/twice"
   param {
-    name: "conv5_1/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11238,13 +8529,11 @@ layer {
   bottom: "conv5_1/incep/0/twice"
   top: "conv5_1/incep/0/twice"
   param {
-    name: "conv5_1/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11263,9 +8552,8 @@ layer {
   bottom: "conv4_4/twice"
   top: "conv5_1/incep/1_reduce/twice"
   param {
-    name: "conv5_1/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -11287,17 +8575,14 @@ layer {
   bottom: "conv5_1/incep/1_reduce/twice"
   top: "conv5_1/incep/1_reduce/twice"
   param {
-    name: "conv5_1/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11311,13 +8596,11 @@ layer {
   bottom: "conv5_1/incep/1_reduce/twice"
   top: "conv5_1/incep/1_reduce/twice"
   param {
-    name: "conv5_1/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11336,9 +8619,8 @@ layer {
   bottom: "conv5_1/incep/1_reduce/twice"
   top: "conv5_1/incep/1_0/twice"
   param {
-    name: "conv5_1/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -11360,17 +8642,14 @@ layer {
   bottom: "conv5_1/incep/1_0/twice"
   top: "conv5_1/incep/1_0/twice"
   param {
-    name: "conv5_1/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11384,13 +8663,11 @@ layer {
   bottom: "conv5_1/incep/1_0/twice"
   top: "conv5_1/incep/1_0/twice"
   param {
-    name: "conv5_1/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11409,9 +8686,8 @@ layer {
   bottom: "conv4_4/twice"
   top: "conv5_1/incep/2_reduce/twice"
   param {
-    name: "conv5_1/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -11433,17 +8709,14 @@ layer {
   bottom: "conv5_1/incep/2_reduce/twice"
   top: "conv5_1/incep/2_reduce/twice"
   param {
-    name: "conv5_1/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11457,13 +8730,11 @@ layer {
   bottom: "conv5_1/incep/2_reduce/twice"
   top: "conv5_1/incep/2_reduce/twice"
   param {
-    name: "conv5_1/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11482,9 +8753,8 @@ layer {
   bottom: "conv5_1/incep/2_reduce/twice"
   top: "conv5_1/incep/2_0/twice"
   param {
-    name: "conv5_1/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -11506,17 +8776,14 @@ layer {
   bottom: "conv5_1/incep/2_0/twice"
   top: "conv5_1/incep/2_0/twice"
   param {
-    name: "conv5_1/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11530,13 +8797,11 @@ layer {
   bottom: "conv5_1/incep/2_0/twice"
   top: "conv5_1/incep/2_0/twice"
   param {
-    name: "conv5_1/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11555,9 +8820,8 @@ layer {
   bottom: "conv5_1/incep/2_0/twice"
   top: "conv5_1/incep/2_1/twice"
   param {
-    name: "conv5_1/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -11579,17 +8843,14 @@ layer {
   bottom: "conv5_1/incep/2_1/twice"
   top: "conv5_1/incep/2_1/twice"
   param {
-    name: "conv5_1/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11603,13 +8864,11 @@ layer {
   bottom: "conv5_1/incep/2_1/twice"
   top: "conv5_1/incep/2_1/twice"
   param {
-    name: "conv5_1/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11640,9 +8899,8 @@ layer {
   bottom: "conv5_1/incep/pool/twice"
   top: "conv5_1/incep/poolproj/twice"
   param {
-    name: "conv5_1/incep/poolproj/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 128
@@ -11664,17 +8922,14 @@ layer {
   bottom: "conv5_1/incep/poolproj/twice"
   top: "conv5_1/incep/poolproj/twice"
   param {
-    name: "conv5_1/incep/poolproj/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/poolproj/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/poolproj/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11688,13 +8943,11 @@ layer {
   bottom: "conv5_1/incep/poolproj/twice"
   top: "conv5_1/incep/poolproj/twice"
   param {
-    name: "conv5_1/incep/poolproj/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/incep/poolproj/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11722,9 +8975,8 @@ layer {
   bottom: "conv5_1/incep/twice"
   top: "conv5_1/out/twice"
   param {
-    name: "conv5_1/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -11746,17 +8998,14 @@ layer {
   bottom: "conv5_1/out/twice"
   top: "conv5_1/out/twice"
   param {
-    name: "conv5_1/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11770,13 +9019,11 @@ layer {
   bottom: "conv5_1/out/twice"
   top: "conv5_1/out/twice"
   param {
-    name: "conv5_1/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11789,13 +9036,11 @@ layer {
   bottom: "conv4_4/twice"
   top: "conv5_1/proj/twice"
   param {
-    name: "conv5_1/proj_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    name: "conv5_1/proj_1"
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
@@ -11821,17 +9066,14 @@ layer {
   bottom: "conv5_1/proj/twice"
   top: "conv5_1/proj/twice"
   param {
-    name: "conv5_1/proj_bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/proj_bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/proj_bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11845,13 +9087,11 @@ layer {
   bottom: "conv5_1/proj/twice"
   top: "conv5_1/proj/twice"
   param {
-    name: "conv5_1/proj_bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_1/proj_bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11876,9 +9116,8 @@ layer {
   bottom: "conv5_1/twice"
   top: "conv5_2/incep/0/twice"
   param {
-    name: "conv5_2/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -11900,17 +9139,14 @@ layer {
   bottom: "conv5_2/incep/0/twice"
   top: "conv5_2/incep/0/twice"
   param {
-    name: "conv5_2/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11924,13 +9160,11 @@ layer {
   bottom: "conv5_2/incep/0/twice"
   top: "conv5_2/incep/0/twice"
   param {
-    name: "conv5_2/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -11949,9 +9183,8 @@ layer {
   bottom: "conv5_1/twice"
   top: "conv5_2/incep/1_reduce/twice"
   param {
-    name: "conv5_2/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -11973,17 +9206,14 @@ layer {
   bottom: "conv5_2/incep/1_reduce/twice"
   top: "conv5_2/incep/1_reduce/twice"
   param {
-    name: "conv5_2/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -11997,13 +9227,11 @@ layer {
   bottom: "conv5_2/incep/1_reduce/twice"
   top: "conv5_2/incep/1_reduce/twice"
   param {
-    name: "conv5_2/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12022,9 +9250,8 @@ layer {
   bottom: "conv5_2/incep/1_reduce/twice"
   top: "conv5_2/incep/1_0/twice"
   param {
-    name: "conv5_2/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -12046,17 +9273,14 @@ layer {
   bottom: "conv5_2/incep/1_0/twice"
   top: "conv5_2/incep/1_0/twice"
   param {
-    name: "conv5_2/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12070,13 +9294,11 @@ layer {
   bottom: "conv5_2/incep/1_0/twice"
   top: "conv5_2/incep/1_0/twice"
   param {
-    name: "conv5_2/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12095,9 +9317,8 @@ layer {
   bottom: "conv5_1/twice"
   top: "conv5_2/incep/2_reduce/twice"
   param {
-    name: "conv5_2/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -12119,17 +9340,14 @@ layer {
   bottom: "conv5_2/incep/2_reduce/twice"
   top: "conv5_2/incep/2_reduce/twice"
   param {
-    name: "conv5_2/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12143,13 +9361,11 @@ layer {
   bottom: "conv5_2/incep/2_reduce/twice"
   top: "conv5_2/incep/2_reduce/twice"
   param {
-    name: "conv5_2/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12168,9 +9384,8 @@ layer {
   bottom: "conv5_2/incep/2_reduce/twice"
   top: "conv5_2/incep/2_0/twice"
   param {
-    name: "conv5_2/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -12192,17 +9407,14 @@ layer {
   bottom: "conv5_2/incep/2_0/twice"
   top: "conv5_2/incep/2_0/twice"
   param {
-    name: "conv5_2/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12216,13 +9428,11 @@ layer {
   bottom: "conv5_2/incep/2_0/twice"
   top: "conv5_2/incep/2_0/twice"
   param {
-    name: "conv5_2/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12241,9 +9451,8 @@ layer {
   bottom: "conv5_2/incep/2_0/twice"
   top: "conv5_2/incep/2_1/twice"
   param {
-    name: "conv5_2/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -12265,17 +9474,14 @@ layer {
   bottom: "conv5_2/incep/2_1/twice"
   top: "conv5_2/incep/2_1/twice"
   param {
-    name: "conv5_2/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12289,13 +9495,11 @@ layer {
   bottom: "conv5_2/incep/2_1/twice"
   top: "conv5_2/incep/2_1/twice"
   param {
-    name: "conv5_2/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12322,9 +9526,8 @@ layer {
   bottom: "conv5_2/incep/twice"
   top: "conv5_2/out/twice"
   param {
-    name: "conv5_2/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -12346,17 +9549,14 @@ layer {
   bottom: "conv5_2/out/twice"
   top: "conv5_2/out/twice"
   param {
-    name: "conv5_2/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12370,13 +9570,11 @@ layer {
   bottom: "conv5_2/out/twice"
   top: "conv5_2/out/twice"
   param {
-    name: "conv5_2/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_2/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12412,9 +9610,8 @@ layer {
   bottom: "conv5_2/twice"
   top: "conv5_3/incep/0/twice"
   param {
-    name: "conv5_3/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -12436,17 +9633,14 @@ layer {
   bottom: "conv5_3/incep/0/twice"
   top: "conv5_3/incep/0/twice"
   param {
-    name: "conv5_3/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12460,13 +9654,11 @@ layer {
   bottom: "conv5_3/incep/0/twice"
   top: "conv5_3/incep/0/twice"
   param {
-    name: "conv5_3/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12485,9 +9677,8 @@ layer {
   bottom: "conv5_2/twice"
   top: "conv5_3/incep/1_reduce/twice"
   param {
-    name: "conv5_3/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -12509,17 +9700,14 @@ layer {
   bottom: "conv5_3/incep/1_reduce/twice"
   top: "conv5_3/incep/1_reduce/twice"
   param {
-    name: "conv5_3/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12533,13 +9721,11 @@ layer {
   bottom: "conv5_3/incep/1_reduce/twice"
   top: "conv5_3/incep/1_reduce/twice"
   param {
-    name: "conv5_3/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12558,9 +9744,8 @@ layer {
   bottom: "conv5_3/incep/1_reduce/twice"
   top: "conv5_3/incep/1_0/twice"
   param {
-    name: "conv5_3/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -12582,17 +9767,14 @@ layer {
   bottom: "conv5_3/incep/1_0/twice"
   top: "conv5_3/incep/1_0/twice"
   param {
-    name: "conv5_3/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12606,13 +9788,11 @@ layer {
   bottom: "conv5_3/incep/1_0/twice"
   top: "conv5_3/incep/1_0/twice"
   param {
-    name: "conv5_3/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12631,9 +9811,8 @@ layer {
   bottom: "conv5_2/twice"
   top: "conv5_3/incep/2_reduce/twice"
   param {
-    name: "conv5_3/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -12655,17 +9834,14 @@ layer {
   bottom: "conv5_3/incep/2_reduce/twice"
   top: "conv5_3/incep/2_reduce/twice"
   param {
-    name: "conv5_3/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12679,13 +9855,11 @@ layer {
   bottom: "conv5_3/incep/2_reduce/twice"
   top: "conv5_3/incep/2_reduce/twice"
   param {
-    name: "conv5_3/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12704,9 +9878,8 @@ layer {
   bottom: "conv5_3/incep/2_reduce/twice"
   top: "conv5_3/incep/2_0/twice"
   param {
-    name: "conv5_3/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -12728,17 +9901,14 @@ layer {
   bottom: "conv5_3/incep/2_0/twice"
   top: "conv5_3/incep/2_0/twice"
   param {
-    name: "conv5_3/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12752,13 +9922,11 @@ layer {
   bottom: "conv5_3/incep/2_0/twice"
   top: "conv5_3/incep/2_0/twice"
   param {
-    name: "conv5_3/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12777,9 +9945,8 @@ layer {
   bottom: "conv5_3/incep/2_0/twice"
   top: "conv5_3/incep/2_1/twice"
   param {
-    name: "conv5_3/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -12801,17 +9968,14 @@ layer {
   bottom: "conv5_3/incep/2_1/twice"
   top: "conv5_3/incep/2_1/twice"
   param {
-    name: "conv5_3/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12825,13 +9989,11 @@ layer {
   bottom: "conv5_3/incep/2_1/twice"
   top: "conv5_3/incep/2_1/twice"
   param {
-    name: "conv5_3/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12858,9 +10020,8 @@ layer {
   bottom: "conv5_3/incep/twice"
   top: "conv5_3/out/twice"
   param {
-    name: "conv5_3/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -12882,17 +10043,14 @@ layer {
   bottom: "conv5_3/out/twice"
   top: "conv5_3/out/twice"
   param {
-    name: "conv5_3/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12906,13 +10064,11 @@ layer {
   bottom: "conv5_3/out/twice"
   top: "conv5_3/out/twice"
   param {
-    name: "conv5_3/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_3/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -12948,9 +10104,8 @@ layer {
   bottom: "conv5_3/twice"
   top: "conv5_4/incep/0/twice"
   param {
-    name: "conv5_4/incep/0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -12972,17 +10127,14 @@ layer {
   bottom: "conv5_4/incep/0/twice"
   top: "conv5_4/incep/0/twice"
   param {
-    name: "conv5_4/incep/0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -12996,13 +10148,11 @@ layer {
   bottom: "conv5_4/incep/0/twice"
   top: "conv5_4/incep/0/twice"
   param {
-    name: "conv5_4/incep/0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -13021,9 +10171,8 @@ layer {
   bottom: "conv5_3/twice"
   top: "conv5_4/incep/1_reduce/twice"
   param {
-    name: "conv5_4/incep/1_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 96
@@ -13045,17 +10194,14 @@ layer {
   bottom: "conv5_4/incep/1_reduce/twice"
   top: "conv5_4/incep/1_reduce/twice"
   param {
-    name: "conv5_4/incep/1_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -13069,13 +10215,11 @@ layer {
   bottom: "conv5_4/incep/1_reduce/twice"
   top: "conv5_4/incep/1_reduce/twice"
   param {
-    name: "conv5_4/incep/1_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -13094,9 +10238,8 @@ layer {
   bottom: "conv5_4/incep/1_reduce/twice"
   top: "conv5_4/incep/1_0/twice"
   param {
-    name: "conv5_4/incep/1_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 192
@@ -13118,17 +10261,14 @@ layer {
   bottom: "conv5_4/incep/1_0/twice"
   top: "conv5_4/incep/1_0/twice"
   param {
-    name: "conv5_4/incep/1_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -13142,13 +10282,11 @@ layer {
   bottom: "conv5_4/incep/1_0/twice"
   top: "conv5_4/incep/1_0/twice"
   param {
-    name: "conv5_4/incep/1_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/1_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -13167,9 +10305,8 @@ layer {
   bottom: "conv5_3/twice"
   top: "conv5_4/incep/2_reduce/twice"
   param {
-    name: "conv5_4/incep/2_reduce/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 32
@@ -13191,17 +10328,14 @@ layer {
   bottom: "conv5_4/incep/2_reduce/twice"
   top: "conv5_4/incep/2_reduce/twice"
   param {
-    name: "conv5_4/incep/2_reduce/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_reduce/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_reduce/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -13215,13 +10349,11 @@ layer {
   bottom: "conv5_4/incep/2_reduce/twice"
   top: "conv5_4/incep/2_reduce/twice"
   param {
-    name: "conv5_4/incep/2_reduce/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_reduce/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -13240,9 +10372,8 @@ layer {
   bottom: "conv5_4/incep/2_reduce/twice"
   top: "conv5_4/incep/2_0/twice"
   param {
-    name: "conv5_4/incep/2_0/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -13264,17 +10395,14 @@ layer {
   bottom: "conv5_4/incep/2_0/twice"
   top: "conv5_4/incep/2_0/twice"
   param {
-    name: "conv5_4/incep/2_0/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_0/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_0/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -13288,13 +10416,11 @@ layer {
   bottom: "conv5_4/incep/2_0/twice"
   top: "conv5_4/incep/2_0/twice"
   param {
-    name: "conv5_4/incep/2_0/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_0/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -13313,9 +10439,8 @@ layer {
   bottom: "conv5_4/incep/2_0/twice"
   top: "conv5_4/incep/2_1/twice"
   param {
-    name: "conv5_4/incep/2_1/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 64
@@ -13337,17 +10462,14 @@ layer {
   bottom: "conv5_4/incep/2_1/twice"
   top: "conv5_4/incep/2_1/twice"
   param {
-    name: "conv5_4/incep/2_1/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_1/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_1/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -13361,13 +10483,11 @@ layer {
   bottom: "conv5_4/incep/2_1/twice"
   top: "conv5_4/incep/2_1/twice"
   param {
-    name: "conv5_4/incep/2_1/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/incep/2_1/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -13394,9 +10514,8 @@ layer {
   bottom: "conv5_4/incep/twice"
   top: "conv5_4/out/twice"
   param {
-    name: "conv5_4/out/conv_0"
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   convolution_param {
     num_output: 384
@@ -13418,17 +10537,14 @@ layer {
   bottom: "conv5_4/out/twice"
   top: "conv5_4/out/twice"
   param {
-    name: "conv5_4/out/bn_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/out/bn_1"
     lr_mult: 0.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/out/bn_2"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -13442,13 +10558,11 @@ layer {
   bottom: "conv5_4/out/twice"
   top: "conv5_4/out/twice"
   param {
-    name: "conv5_4/out/bn_scale_0"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   param {
-    name: "conv5_4/out/bn_scale_1"
-    lr_mult: 0.10000000149
+    lr_mult: 1.0
     decay_mult: 0.0
   }
   scale_param {
@@ -13484,7 +10598,6 @@ layer {
   bottom: "conv4_4/twice"
   top: "upsample/conv4_4/twice"
   param {
-    name: "upsample/conv4_4_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
@@ -13506,7 +10619,6 @@ layer {
   bottom: "conv5_4/twice"
   top: "upsample/conv5_4/twice"
   param {
-    name: "upsample/conv5_4_0"
     lr_mult: 0.0
     decay_mult: 0.0
   }
