@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import matplotlib 
+matplotlib.use('Agg')
 import tools._init_paths
 import cPickle
 import os
@@ -7,7 +9,6 @@ from fast_rcnn.config import cfg
 import numpy as np
 from datasets.factory import get_imdb
 import matplotlib.pyplot as plt
-import matplotlib
 import cv2
 import random
 
@@ -27,6 +28,7 @@ def showImage(im, boxes, cls):
     for i in xrange(boxes.shape[0]):
             bbox = boxes[i]
             if cls[i] != 1:
+               # pass
                 continue
             ax.add_patch(
                     plt.Rectangle((bbox[0], bbox[1]),
@@ -54,6 +56,7 @@ def tattooShowBox(image_set):
             im_name = imdb.image_path_at(i)
 
             print(im_name.strip().split('/')[-1])
+            exit(0)
 
             im = cv2.imread(im_name)
             
@@ -74,7 +77,7 @@ def tattooShowBox(image_set):
             print(i)
 
             showImage(im, bbox, cls)
-            plt.savefig( im_name.split('/')[-1] + 'Train.png',
+            plt.savefig( im_name.split('/')[-1], 
                     bbox_inches='tight', pad_inches=0)
 
 

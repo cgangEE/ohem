@@ -79,7 +79,7 @@ def tattooShowBox(image_set):
     num_images = len(imdb.image_index)
     gt_roidb = imdb.roidb
 
-    kpType = 1
+    kpType = 2
 
     for i in xrange(num_images):
 #        if i % 1000 == 0:
@@ -96,7 +96,7 @@ def tattooShowBox(image_set):
 
             showImage(im, bbox, keypoints, kpType)
 
-            plt.savefig(str(i) + 'GT_kpType' +str(kpType), 
+            plt.savefig(str(i) + 'GT', 
                     bbox_inches='tight', pad_inches=0)
             if i == 10:
                 exit(0)

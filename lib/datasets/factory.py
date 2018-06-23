@@ -15,6 +15,8 @@ from datasets.cox_reid import cox_reid
 from datasets.psdb import psdb
 from datasets.psdbHead import psdbHead
 from datasets.psdbFourParts import psdbFourParts
+from datasets.douyin import douyin 
+
 from datasets.psdbUpperBody import psdbUpperBody
 from datasets.psdbCrop import psdbCrop
 
@@ -212,6 +214,13 @@ for year in ['2015']:
     for split in ['train', 'val', 'trainval', 'test']:
         name = 'psdbFourParts_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: psdbFourParts(split, year))
+
+
+# Set up douyin_<year>_<split> using selective search "fast" mode
+for year in ['2015']:
+    for split in ['train', 'val', 'trainval', 'test']:
+        name = 'douyin_{}_{}'.format(year, split)
+        __sets[name] = (lambda split=split, year=year: douyin(split, year))
 
 # Set up psdbUpperBody_<year>_<split> using selective search "fast" mode
 for year in ['2015']:

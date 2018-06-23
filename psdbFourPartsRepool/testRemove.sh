@@ -1,8 +1,6 @@
 for i in {10..10}
 do
-
 	echo 'Testing'  $i &>> log_psdbFourParts_Ohem_DRoiAlignX_RepoolRemove_test_${i}
-
 	tools/test_net_four_parts_repoolRemove.py \
 	    --gpu 0 \
 	    --def models/full1_DRoiAlignX_FourParts_Ohem_RepoolRemove/test_inference.prototxt \
